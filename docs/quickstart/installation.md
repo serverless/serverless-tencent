@@ -10,7 +10,7 @@ layout: Doc
 
 通过 [NPM 安装](#npm) 或 [二进制安装](#binary) 方式，来安装 Serverless CLI 并开始 Serverless 开发。
 
-### 通过 npm 安装 & 升级
+## 通过 npm 安装 & 升级
 
 npm 是 Node.js 的包管理工具, 安装前需要确定您的环境中已安装好了 Node.js (版本 > 10)，更多请查看 [Node.js 安装指南](https://nodejs.org/zh-cn/download/) 。
 
@@ -26,15 +26,13 @@ $ cnpm install -g serverless
 $ npm update -g serverless
 ```
 
-> 如 MacOS 提示无权限，则通过添加 `sudo` 运行相关命令，如：`sudo npm install -g serverless` 进行安装。
+> 如 MacOS 提示无权限，可以通过 `sudo npm install -g serverless` 进行安装。
 
-<span id="binary"></span>
-
-### 通过安装包安装 & 升级
+## 通过安装包安装 & 升级
 
 如果您的本地环境没有安装 Node.js，您可以直接使用安装包进行安装：
 
-#### MacOS/Linux 系统
+### MacOS/Linux 系统
 
 打开命令行，输入以下命令：
 
@@ -46,7 +44,7 @@ $ curl -o- -L https://slss.io/install | bash
 $ serverless upgrade
 ```
 
-#### Windows 系统
+### Windows 系统
 
 对于 Windows 用户建议通过 [chocolatey](https://chocolatey.org/) 进行安装。
 
@@ -76,7 +74,8 @@ SDK: 4.2.2
 Components: 3.8.2
 ```
 
-**下一步：开始开发**
+**下一步：开始 Serverless 开发**
 
-- [开发函数应用](./function-dev)
-- [开发组件应用](./components-dev)
+- [查看 CLI 命令](./commands)
+- [开始云函数开发](./function-dev)
+- [开始应用开发](./components-dev)

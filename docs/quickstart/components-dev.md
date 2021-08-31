@@ -1,16 +1,25 @@
 ---
-title: "组件应用开发"
-menuText: "组件应用开发"
+title: "框架应用开发"
+menuText: "框架应用开发"
 layout: Doc
 ---
 
-# 组件应用开发
+# 框架应用开发
 
-Serverless Components 是 Serverless Framework 的一部分，通过定制的运行环境带来了更多的对传统框架应用的支持，让传统框架应用也可以获得 serverless 的优势，同时不需要花费时间来配置传统框架应用的运行时。
+Serverless 除了对云函数功能的支持外，也支持框架应用的开发，开发者可以使用熟悉的框架并将应用部署为 serverless 实例以获取 serverless 的独特优势，目前支持的框架有：
 
-> 本教程以开发一个 Express API 的案例说明如何通过 Serverless Components 来使用腾讯 SCF 和网关构建一个后端 API 应用，并获得 serverless 的自动扩容并按量付费能力。
+- [x] Express
+- [x] Koa
+- [x] egg
+- [x] Next.js
+- [x] NuxtJS
+- [x] NestJS
+- [x] Flask
+- [x] django
+- [x] Laravel
+- [x] ThinkPHP
 
-## 初始化组件应用
+## 初始化框架应用
 
 在**空目录**下，执行初始化命令：
 
@@ -23,15 +32,14 @@ $ serverless
 
 ```sh
 Serverless: 当前未检测到 Serverless 项目，是否希望新建一个项目？ Yes
-Serverless: 请选择您希望创建的 Serverless 应用 express-starter
-
-  eggjs-starter - 快速部署一个Egg.js 基础应用
-❯ express-starter - 快速部署一个 Express.js 基础应用
-  flask-starter - 快速部署一个 Flask 基础应用
-  fullstack - 快速部署一个 Full Stack 应用, vuejs + express + postgres
-  koa-starter - 快速部署一个 Koa.js 基础应用
-  laravel-starter - 快速部署一个 Laravel 基础应用
+Serverless: 请选择你希望创建的 Serverless 应用
   nextjs-starter - 快速部署一个 nextjs 应用
+  nuxtjs-starter - 快速部署一个 Nuxt.js 基础应用
+❯ express-starter - 快速部署一个 Express.js 基础应用
+  koa-starter - 快速部署一个 Koa.js 基础应用
+  eggjs-starter - 快速部署一个Egg.js 基础应用
+  flask-starter - 快速部署一个 Flask 基础应用
+  restful-api - 快速部署一个 REST API 使用 python + API gateway
 
 Serverless: 请输入项目名称 my-sls-express
 Serverless: 正在安装 express-starter 应用...
@@ -44,7 +52,7 @@ express-starter › 创建成功
 
 应用创建完成之后，如果想要部署，可以选择【立即部署】并将已经初始化好的项目快速部署腾讯云平台：
 
-> 如果不想部署可以不立即部署到云端，并在稍后通过`serverless deploy`进行手动部署。  
+> 如果不想部署可以不立即部署到云端，并在稍后通过`serverless deploy`进行部署。  
 > 如果想要修改应用名称，或者进行其他调整请参考[YAML 配置](../basic/yaml)中的说明进行调整。
 
 ```sh
@@ -203,4 +211,9 @@ apigw:
 express-starter › 信息成功加载
 ```
 
-**下一步：[了解组件开发(component)指南](../components/README)**
+**下一步：开始 Serverless 开发**
+
+- [框架应用开发指南](../components/README)
+- [查看 Express 全栈应用示例](../tutorials/node-fullstack)
+- [开始云函数开发](./function-dev)
+- [查看 CLI 命令](./commands)

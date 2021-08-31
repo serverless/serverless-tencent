@@ -1,239 +1,214 @@
 ---
-title: "Node.js 全栈应用"
-menuText: "Node.js 全栈应用"
+title: "Express 全栈应用"
+menuText: "Express 全栈应用"
 layout: Doc
 ---
 
-# Node.js 全栈应用
+# Express 全栈应用
 
-该模板可以快速部署一个基于 Vue + Express + PostgreSQL 的全栈 Serverless 应用。主要包含以下组件：
+本示例使用 fullstack 模板来快速配置并部署一个基于 Vue + Express + PostgreSQL 的全栈 Serverless 应用。此模板包含：
 
-- Serverless RESTful API：通过**云函数**和 **API 网关**构建的 Express 框架实现
-  RESTful API。
-- Serverless 静态网站：前端通过托管 Vue.js 静态页面到 **COS 对象存储**中。
-- PostgreSQL Serverless：通过创建 **PostgreSQL DB** 为全栈网站提供数据库服务。
-- VPC：通过创建 **VPC** 和 **子网**，提供 SCF 云函数和数据库的网络打通和使用。
+- RESTful API：通过**云函数**和 **API 网关**构建一个基于 Express 框架的 RESTful API。
+- 静态网站：在**COS 对象存储**的部署的由 Vue.js 构建的静态页面。
+- PostgreSQL：基于 **PostgreSQL DB** 创建的应用数据库。
+- VPC：通过 **VPC** 服务，将应用后台与数据库连接在一个私有网络中。
 
-## 前提条件
+## 步骤 1: 安装 Serverless Framework
 
-- 已安装 [Node.js](https://nodejs.org/en/)（**2020 年 9 月 1 日起，Serverless 组件不再支持 Node.js10.0 以下版本，请注意升级**）
-- 账号已经配置 **QcloudPostgreSQLFullAccess** 策略，配置方法详见 [账号和权限配置](https://cloud.tencent.com/document/product/1154/43006)
+执行以下命令安装 Serverless Framework
 
-## 操作步骤
-
-### 安装
-
-通过 npm 全局安装 [Serverless Framework](https://github.com/serverless/serverless)：
-
-```shell
-npm install -g serverless
+```bash
+$ npm install serverless -g
 ```
 
 如果之前您已经安装过 Serverless Framework，可以通过下列命令升级到最新版：
 
-```shell
-npm update -g serverless
+```bash
+$ npm update serverless -g
 ```
 
-安装完毕后，通过运行 serverless -v 命令，查看 Serverless Framework 的版本信息，确保版本信息不低于以下版本。返回结果如下所示：
+此命令会安装最新的 Serverless Framework 到你的计算机，安装成功后可以通过 `serverless` 或者 `sls` 开始使用 Serverless Framework。
 
-```shell
-$ serverless –v
-Framework Core: 1.74.1 (standalone)
-Plugin: 3.6.14
-SDK: 2.3.1
-Components: 2.31.6
-```
-
-### 配置
-
-1.新建一个本地文件夹，使用`serverless init`命令，下载相关 template。
-
-```console
-serverless init fullstack
-```
-
-2.在项目模板中找到.env.example 文件，修改名称为.env，并在其中配置对应的腾讯云 SecretId、SecretKey、地域和可用区信息。
-
-```text
-# .env
-TENCENT_SECRET_ID=xxx  // 您账号的 SecretId
-TENCENT_SECRET_KEY=xxx // 您账号的 SecretKey
-
-# 地域可用区配置
-REGION=ap-guangzhou //资源部署区，该项目中指云函数与静态页面部署区
-ZONE=ap-guangzhou-2 //资源部署可用区 ，该项目中指 DB 部署所在的可用区
-```
-
-> ?
->
-> - 如果没有腾讯云账号，请先 [注册新账号](https://cloud.tencent.com/register)。
-> - 如果已有腾讯云账号，请保证您的账号已经授权了 AdministratorAccess 权限。 您可以
->   在 [API 密钥管理](https://console.cloud.tencent.com/cam/capi) 中获取 SecretId 和 SecretKey。
-> - ZONE 目前只支持 ap-beijing-3 、ap-guangzhou-2、ap-shanghai-2。
-
-3.通过执行以下命令，安装所需依赖：
+## 步骤 2: 通过模板初始化全站应用
 
 ```bash
-npm run bootstrap
+$ sls init fullstack --name sls-fullstack-demo
 ```
 
-### 部署
-
-1.执行 sls deploy --all 命令进行部署。返回信息如下所示：
-
-```console
-$ sls deploy --all
-
-serverless ⚡ framework
-
-serverlessVpc:
-  region:     ap-guangzhou
-  zone:       ap-guangzhou-2
-  vpcId:      vpc-xxx
-  vpcName:    serverless
-  subnetId:   subnet-xxx
-  subnetName: serverless
-
-fullstackDB:
-  region:         ap-guangzhou
-  zone:           ap-guangzhou-2
-  vpcConfig:
-    subnetId: subnet-100000
-    vpcId:    vpc-1000000
-  dBInstanceName: fullstackDB
-  dBInstanceId:   postgres-100000
-  private:
-    connectionString: postgresql://tencentdb_100000xxxxxxxxxxxxx@172.16.250.15:5432/tencentdb_1000000
-    host:             172.16.250.15
-    port:             5432
-    user:             tencentdb_100000
-    password:         xxxxxxxx
-    dbname:           tencentdb_100000
-
-fullstack-api:
-  region: ap-guangzhou
-  apigw:
-    serviceId:   service-100000
-    subDomain:   service-100000-123456789.gz.apigw.tencentcs.com
-    environment: release
-    url:         https://service-100000-123456789.gz.apigw.tencentcs.com/release/
-  scf:
-    functionName: fullstack-api
-    runtime:      Nodejs10.15
-    namespace:    default
-
-fullstack-frontend:
-  website: https://fullstack-serverless-db-123456789.cos-website.ap-guangzhou.myqcloud.com
-
-50s › tencent-fullstack › Success
-```
-
-部署成功后，您可以使用浏览器访问项目产生的 website 链接，即可看到生成的网站。
-
-> ?本项目云函数因 VPC，导致无法直接访问外网，如需访问外网请参考 [云函数网络配置](https://cloud.tencent.com/document/product/583/38202)。
-
-2.执行 npm run info 查看部署信息，该项目部署的信息：vpc、db、api、frontend（前端网站）。返回信息如下所示：
+此命令会使用应用模板 `fullstack` 初始化名为 `sls-fullstack-demo` 的应用目录。初始化成功后该目录结构为
 
 ```bash
-$ npm run info
-> tencent-fullstack@1.1.0 info /root/tencent-fullstack
-> npm run info:vpc && npm run info:db && npm run info:api && npm run info:frontend
+.
+├── README.md
+├── README_EN.md
+├── api # Express 开发的应用后台 REATful API 服务。
+│   ├── controller
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── serverless.yml # 应用后台服务的 serverless 配置文件。
+│   └── sls.js
+├── db
+│   └── serverless.yml # 数据库的 serverless 配置文件。
+├── frontend
+│   ├── README.md
+│   ├── babel.config.js
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── public
+│   ├── serverless.yml # 静态页面的 serverless 配置文件。
+│   ├── src
+│   └── vue.config.js
+├── package-lock.json
+├── package.json
+├── scripts
+│   └── bootstrap.js # 应用依赖安装脚本。
+├── serverless.yml # Serverless 配置文件，配置应用名称和stage信息，会覆盖子目录的配置文件中的名称和stage。
+├── tests
+│   ├── integration.test.js
+│   └── utils.js
+└── vpc
+    └── serverless.yml # 私有网络的 serverless 配置文件。
+```
 
-> tencent-fullstack@1.1.0 info:vpc /Users/yugasun/Desktop/Develop/@yugasun/tencent-fullstack
-> sls info --target=./vpc
+## 步骤 3: 安装并部署
 
+1. 执行自定义命令 bootstrap 命令来安装各个子目录的所有依赖。
 
-serverless ⚡ framework
+```bash
+$ npm run bootstrap
+```
 
-Status:       active
-Last Action:  deploy (5 minutes ago)
-Deployments:  1
+2. 执行自定义命令 `sls deploy` 部署代码到腾讯云
 
+```bash
+$ sls deploy
+```
+
+以下是返回结果：
+
+```console
+serverless ⚡components
+
+fullstack-vpc 部署成功:
+---------------------------------------------
 region:     ap-guangzhou
 zone:       ap-guangzhou-2
-vpcId:      vpc-xxx
+vpcId:      vpc-lzd2bc3n
 vpcName:    serverless
-subnetId:   subnet-xxx
+subnetId:   subnet-ktdy49n4
 subnetName: serverless
 
-serverlessVpc › Info successfully loaded
-
-
-> tencent-fullstack@1.1.0 info:db /root/tencent-fullstack
-> sls info --target=./db
-
-
-serverless ⚡ framework
-
-Status:       active
-Last Action:  deploy (3 minutes ago)
-Deployments:  18
-
+fullstack-db 部署成功:
+---------------------------------------------
 region:         ap-guangzhou
 zone:           ap-guangzhou-2
 vpcConfig:
-  subnetId: subnet-100000
-  vpcId:    vpc-1000000
-dBInstanceName: fullstackDB
-dBInstanceId:   postgres-100000
+  subnetId: subnet-ktdy49n4
+  vpcId:    vpc-lzd2bc3n
+dBInstanceName: fullstack-db
+dBInstanceId:   postgres-xxxxxxxx
 private:
-  connectionString: postgresql://tencentdb_100000xxxxxxxxxxxxxxxxxxx@172.16.250.15:5432/tencentdb_100000
-  host:             172.16.250.15
+  connectionString: postgresql://tencentdb_xxxxxxxx:XeHFS)97UZ%244Q-0@10.0.0.9:5432/tencentdb_xxxxxxxx
+  host:             10.0.0.9
   port:             5432
-  user:             tencentdb_1000000
-  password:         xxxxxxxxx
-  dbname:           tencentdb_1000000
+  user:             tencentdb_xxxxxxxx
+  password:         XeHFS)97UZ$4Q-0
+  dbname:           tencentdb_xxxxxxxx
 
-fullstackDB › Info successfully loaded
-
-
-> tencent-fullstack@1.1.0 info:api /root/tencent-fullstack
-> sls info --target=./api
-
-
-serverless ⚡ framework
-
-Status:       active
-Last Action:  deploy (2 minutes ago)
-Deployments:  10
-
+fullstack-api 部署成功:
+---------------------------------------------
 region: ap-guangzhou
-apigw:
-  serviceId:   service-1000000
-  subDomain:   service-1000000-123456789.gz.apigw.tencentcs.com
-  environment: release
-  url:         https://service-1000000-123456789.gz.apigw.tencentcs.com/release/
 scf:
   functionName: fullstack-api
   runtime:      Nodejs10.15
   namespace:    default
+  lastVersion:  $LATEST
+  traffic:      1
+apigw:
+  serviceId:   service-keltclza
+  subDomain:   service-keltclza-xxxxxxxxxx.gz.apigw.tencentcs.com
+  environment: release
+  url:         https://service-keltclza-xxxxxxxxxx.gz.apigw.tencentcs.com/release/
 
-fullstack-api › Info successfully loaded
+fullstack-frontend 部署成功:
+---------------------------------------------
+region:  ap-guangzhou
+website: https://fullstack-serverless-frontend-xxxxxxxxxx.cos-website.ap-guangzhou.myqcloud.com
 
-
-> tencent-fullstack@1.1.0 info:frontend /root/tencent-fullstack
-> sls info --target=./frontend
-
-
-serverless ⚡ framework
-
-Status:       active
-Last Action:  deploy (2 minutes ago)
-Deployments:  9
-
-website: https://fullstack-serverless-db-123456789.cos-website.ap-guangzhou.myqcloud.com
-
-fullstack-frontend › Info successfully loaded
-
+66s › my-fullstack-demo › 已成功部署组件4个
 ```
 
-3.执行 `sls remove --all`，可移除项目。返回信息如下所示：
+部署成功后，通过前端 `fullstack-frontend` 返回的静态页面地址就可以查看您的应用了。
+
+3. 执行 `sls info` 查看部署信息。返回信息如下所示：
 
 ```bash
-$  sls remove --all
+serverless ⚡components
+Action: "info" - Stage: "dev" - App: "my-fullstack-demo-8ccd1c4a" - Name: "my-fullstack-demo"
 
-serverless ⚡ framework
+fullstack-api
+  最后操作:  deploy (a day ago)
+  部署次数:  active
+  应用状态:  1
+  输出:
+    region: ap-guangzhou
+    scf:
+      functionName: fullstack-api
+      runtime:      Nodejs10.15
+      namespace:    default
+      lastVersion:  $LATEST
+      traffic:      1
+    apigw:
+      serviceId:   service-keltclza
+      subDomain:   service-keltclza-xxxxxxxxxx.gz.apigw.tencentcs.com
+      environment: release
+      url:         https://service-keltclza-xxxxxxxxxx.gz.apigw.tencentcs.com/release/
 
-38s › tencent-fullstack › Success
+fullstack-db
+  最后操作:  deploy (a day ago)
+  部署次数:  active
+  应用状态:  1
+  输出:
+    region:         ap-guangzhou
+    zone:           ap-guangzhou-2
+    vpcConfig:
+      subnetId: subnet-ktdy49n4
+      vpcId:    vpc-lzd2bc3n
+    dBInstanceName: fullstack-db
+    dBInstanceId:   postgres-xxxxxxxx
+    private:
+      connectionString: postgresql://tencentdb_xxxxxxxx:XeHFS)97UZ%244Q-0@10.0.0.9:5432/tencentdb_xxxxxxxx
+      host:             10.0.0.9
+      port:             5432
+      user:             tencentdb_xxxxxxxx
+      password:         XeHFS)97UZ$4Q-0
+      dbname:           tencentdb_xxxxxxxx
+
+fullstack-frontend
+  最后操作:  deploy (a day ago)
+  部署次数:  active
+  应用状态:  1
+  输出:
+    region:  ap-guangzhou
+    website: https://fullstack-serverless-frontend-xxxxxxxxxx.cos-website.ap-guangzhou.myqcloud.com
+
+fullstack-vpc
+  最后操作:  deploy (a day ago)
+  部署次数:  active
+  应用状态:  1
+  输出:
+    region:     ap-guangzhou
+    zone:       ap-guangzhou-2
+    vpcId:      vpc-lzd2bc3n
+    vpcName:    serverless
+    subnetId:   subnet-ktdy49n4
+    subnetName: serverless
+
+前往控制台查看应用详细信息: https://serverless.cloud.tencent.com/?q=my-fullstack-demo-8ccd1c4a
+
+my-fullstack-demo › 信息成功加载
 ```
+
+## 总结
+
+开发者可以通过这个 Express 全栈应用了解如何使用 serverless 进行全栈开发，或者也可以进一步改造模板中的内容按照自己的需要进行开发部署。

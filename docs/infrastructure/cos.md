@@ -92,11 +92,14 @@ Action: "remove" - Stage: "dev" - App: "appDemo" - Instance: "cosDemo"
 ```
 
 <span id="1"></span>
-##  全量配置
+
+## 全量配置
+
 - [全量 yml](#1-1)
 - [主要参数说明](#1-2)
 
 <span id="1-1"></span>
+
 ```yml
 # serverless.yml
 
@@ -132,38 +135,40 @@ inputs:
       allowedMethods:
         - GET
       allowedOrigins:
-        - '*'
+        - "*"
       allowedHeaders:
-        - '*'
+        - "*"
       exposeHeaders:
-        - ''
+        - ""
   tags:
     - key: abc
       value: xyz
   policy:
     - Principal:
         qcs:
-          - 'qcs::cam::anyone:anyone'
-      Effect: 'Allow'
+          - "qcs::cam::anyone:anyone"
+      Effect: "Allow"
       Action:
-        - 'name/cos:HeadBucket'
-        - 'name/cos:ListMultipartUploads'
-        - 'name/cos:ListParts'
-        - 'name/cos:GetObject'
-        - 'name/cos:HeadObject'
-        - 'name/cos:OptionsObject'
+        - "name/cos:HeadBucket"
+        - "name/cos:ListMultipartUploads"
+        - "name/cos:ListParts"
+        - "name/cos:GetObject"
+        - "name/cos:HeadObject"
+        - "name/cos:OptionsObject"
       Resource:
         - qcs::cos:ap-guangzhou:uid/123456789:my-bucket-123456789/*
     - Principal:
         qcs:
-          - 'qcs::cam::uin/10023456789:uin/10023456789'
-      Effect: 'Deny'
+          - "qcs::cam::uin/10023456789:uin/10023456789"
+      Effect: "Deny"
       Action:
-        - 'name/cos:*'
+        - "name/cos:*"
       Resource:
         - qcs::cos:ap-guangzhou:uid/123456789:my-bucket-123456789/*
 ```
+
 <span id="1-2"></span>
+
 ### 主要参数说明
 
 | 参数          | 必选 |              类型               | 默认值  | 描述                                                                         |
@@ -219,15 +224,14 @@ inputs:
 静态网站相关配置
 
 | 参数               | 必选 |  类型   | 描述         |
-| ------------------ | :--: | :-----: | :----------- |
-| index              |  否  | string  | `index.html` | 网站 index 页面 |
-| error              |  否  | string  | `error.html` | 网站 error 页面 |
+| ------------------ | :--: | :-----: | :----------- | ------------------------------------------------------------------------ |
+| index              |  否  | string  | `index.html` | 网站 index 页面                                                          |
+| error              |  否  | string  | `error.html` | 网站 error 页面                                                          |
 | disableErrorStatus |  否  | boolean | `false`      | 是否禁用错误码，默认 false，不存在文件会返回 404；如果禁用，就会返回 200 |
-| ignoreHtmlExt      |  否  | boolean | `false`      | 是否忽略 html 扩展名，默认 false |
+| ignoreHtmlExt      |  否  | boolean | `false`      | 是否忽略 html 扩展名，默认 false                                         |
 
 <!-- links -->
 
 [acl]: https://cloud.tencent.com/document/product/436/30752
 [policy-use]: https://cloud.tencent.com/document/product/436/31923
 [policy-introduction]: https://cloud.tencent.com/document/product/436/18023
-

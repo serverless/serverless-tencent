@@ -1,48 +1,42 @@
 ---
-title: "组件开发"
-menuText: "组件开发"
+title: "框架应用开发"
+menuText: "框架应用开发"
 layout: Doc
 ---
 
-## 组件开发
+## 框架应用开发
 
-Serverless 组件(components)使开发人员能够更轻松地部署 Serverless 应用程序和用例，同时通过组件自定义的环境可以将传统应用(Express, Next.js, Laraval)使用 Serverless Framewok 部署并获得 Serverless 的所有优势。
+通过 Serverless 可以快速进行框架应用开发， 开发者可以使用 Serverless 进行框架应用（如：Express，Next.js, Flask, Laraval 等）的开发，Serverless 可以轻松配置云函数所依赖的其他云设施，并且还支持本地和远程调试，日志查看以及一键部署。
 
-- 轻松上手：通过组件部署整个无服务器应用程序/用例，而无需成为云专家。
-- 即时部署：组件部署在约 8 秒钟内完成，从而可以在云上进行快速开发。
-- 流式日志：组件可以实时将应用日志从输出到控制台，以进行快速调试。
-- 自动统计：许多组件在部署时会自动设置度量标准，方便统计分析。
-- 自定义组件：你可以轻松构建自己组件。
-- 注册中心：通过 Serverless 注册中心，你可以与你的团队和整个世界共享你的组件。
+> 目前框架应用开发支持框架有：Express, Koa, egg, Next.js, Nuxt.js, nest, Flask, Django, Laravel, ThinkPHP。更多的运行时会在未来逐步添加。
 
-> 关于组件更详细的说明请查看[Serverless 组件说明文档](https://github.com/serverless/components/blob/master/README.cn.md)。
+## 静态站点与服务端应用
 
-## 官方组件模板
+Serverless 同腾讯云一起提供了 `website`组件和 `http` 组件供开发者进行静态网站部署及框架应用开发。
 
-目前 Serverless 腾讯提供了以下官方组件模板供广大开发者使用：
+- `website` 组件可以将框架开发的静态网站部署到腾讯云的 COS 并使用 CDN 进行加速，同时也可以轻松配置 SSL 证书。
+- `http` 组件可以通过很少的改动，将框架应用部署为 Serverless 应用，目前支持的开发框架有
+  - [x] `express` : 查看[腾讯 Express 框架应用示例](https://github.com/serverless-components/tencent-http/tree/master/examples/express)
+  - [x] `koa` : 查看[腾讯 Koa 框架应用示例](https://github.com/serverless-components/tencent-http/tree/master/examples/koa)
+  - [x] `egg` : 查看[腾讯 egg 框架应用示例](https://github.com/serverless-components/tencent-http/tree/master/examples/egg)
+  - [x] `nextjs` : 查看[腾讯 Next.js 框架应用示例](https://github.com/serverless-components/tencent-http/tree/master/examples/nextjs)
+  - [x] `nuxtjs` : 查看[腾讯 Nuxt.js 框架应用示例](https://github.com/serverless-components/tencent-http/tree/master/examples/nuxtjs)
+  - [x] `nestjs` : 查看[腾讯 nest 框架应用示例](https://github.com/serverless-components/tencent-http/tree/master/examples/nestjs)
+  - [x] `flask` : 查看[腾讯 Flask 框架应用示例](https://github.com/serverless-components/tencent-http/tree/master/examples/flask)
+  - [x] `django` : 查看[腾讯 Django 框架应用示例](https://github.com/serverless-components/tencent-http/tree/master/examples/django)
+  - [x] `laravel` : 查看[腾讯 Laravel 框架应用示例](https://github.com/serverless-components/tencent-http/tree/master/examples/laravel)
+  - [x] `thinkphp` : 查看[腾讯 ThinkPHP 框架应用示例](https://github.com/serverless-components/tencent-http/tree/master/examples/thinkphp)
 
-- 静态网站([static-website](https://github.com/serverless-components/tencent-examples/tree/master/website-starter)): 静态 HTML 网站项目                    -- [配置说明](https://github.com/serverless-components/tencent-website/blob/master/docs/configure.md)
-- React 站点([react-starter](https://github.com/serverless-components/tencent-examples/tree/master/react-starter)): React + Parcel 静态页面模板       -- [配置说明](https://github.com/serverless-components/tencent-website/blob/master/docs/configure.md)
-- Vue 站点([vue-starter](https://github.com/serverless-components/tencent-examples/tree/master/vue-starter)): @vue/cli 初始化的静态页面模板         -- [配置说明](https://github.com/serverless-components/tencent-website/blob/master/docs/configure.md)
-- Next.js 站点([nextjs-starter](https://github.com/serverless-components/tencent-examples/tree/master/nextjs-starter)): Next.js 开发模板                        -- [配置说明](https://github.com/serverless-components/tencent-nextjs/blob/master/docs/configure.md)
-- Nuxt.js 站点([nuxtjs-starter](https://github.com/serverless-components/tencent-examples/tree/master/nuxtjs-starter)): Nuxt.js 开发模板                        -- [配置说明](https://github.com/serverless-components/tencent-nuxtjs/blob/master/docs/configure.md)
-- Express 应用([express-starter](https://github.com/serverless-components/tencent-examples/tree/master/express-starter)): Express 框架模板(Node.js)   -- [配置说明](https://github.com/serverless-components/tencent-express/blob/master/docs/configure.md)
-- Koa 应用([koa-starter](https://github.com/serverless-components/tencent-examples/tree/master/koa-starter)): Koa 框架模板(Node.js)                       -- [配置说明](https://github.com/serverless-components/tencent-koa/blob/master/docs/configure.md)
-- Egg.js 应用([eggjs-starter](https://github.com/serverless-components/tencent-examples/tree/master/eggjs-starter)): Eggjs 框架模板(Node.js)              -- [配置说明](https://github.com/serverless-components/tencent-egg/blob/master/docs/configure.md)
-- Restful API 应用([restful-api](https://github.com/serverless-components/tencent-examples/tree/master/restful-api)): Python + API gateway 模板     -- [配置说明](https://github.com/serverless-components/tencent-scf/blob/master/docs/configure.md)
-- Flask 应用([flask-starter](https://github.com/serverless-components/tencent-examples/tree/master/flask-starter)): Flask 框架模板(Python)                  -- [配置说明](https://github.com/serverless-components/tencent-flask/blob/master/docs/configure.md)
-- Laravel 应用([laravel-starter](https://github.com/serverless-components/tencent-examples/tree/master/laravel-starter)): Laravle 框架模板(PHP)             -- [配置说明](https://github.com/serverless-components/tencent-laravel/blob/master/docs/configure.md)
-- 全栈应用([fullstack](https://github.com/serverless-components/tencent-examples/tree/master/fullstack)): vue.js + express + postgres 应用模板
-  - [Website 配置说明](https://github.com/serverless-components/tencent-website/blob/master/docs/configure.md)，[Express 配置说明](https://github.com/serverless-components/tencent-express/blob/master/docs/configure.md)，[PostgreSQL 配置说明](https://github.com/serverless-components/tencent-postgresql/blob/master/docs/configure.md)，[VPC 配置说明](https://github.com/serverless-components/tencent-vpc/blob/master/docs/configure.md)
+## SaaS 应用开发
 
-> 不同的组件的配置方式不完全相同，使用前请查看组件的配置实例进行确认。
->
-> 组件模板是创建项目的模板，每个模板包含一个或多个Serverless 组件以及默认配置。
+Serverless 同腾讯云一起提供了众多 SaaS 应用组件，可以快速部署一个开源软件服务进行使用，目前可以部署的 SaaS 软件有
+
+- [x] `Wordpress` : 查看[腾讯 Wordpress 应用示例](https://github.com/serverless-components/tencent-wordpress/tree/master/example) 或 [腾讯 Wordpress 全量配置](https://github.com/serverless-components/tencent-wordpress/blob/master/docs/configure.md)
+- [x] `Discuz-Q` : 查看[腾讯 Discuz-Q 框架应用示例](https://github.com/serverless-components/tencent-discuzq/tree/main/example) 或 [腾讯 Discuz-Q 全量配置](https://github.com/serverless-components/tencent-discuzq/blob/main/docs/configure.md)
 
 **下一步：开始组件开发**
 
-- [组件 CLI 命令](./components-commands)
-- [前端组件应用开发](./frontend)
-- [后端组件应用开发](./backend)
-- [全栈应用开发](./fullstack)
-- [其他应用开发](./other)
+- [静态网站开发](./website)
+- [框架应用开发](./http)
+- [SaaS 应用部署](./saas)
+- [Serverless CLI 命令](../quickstart/commands)

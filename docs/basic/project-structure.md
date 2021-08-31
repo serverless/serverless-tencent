@@ -1,6 +1,6 @@
 ---
-title: "项目结构"
-menuText: "项目结构"
+title: "Serverless 项目结构"
+menuText: "Serverless 项目结构"
 layout: Doc
 ---
 

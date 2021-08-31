@@ -98,11 +98,14 @@ TENCENT_SECRET_KEY=123
 > - 如果已有腾讯云账号，可以在 [API 密钥管理](https://console.cloud.tencent.com/cam/capi) 中获取 SecretId 和 SecretKey。
 
 <span id="1"></span>
+
 ## 全量配置
+
 - [全量 yml](#1-1)
 - [主要参数说明](#1-2)
 
 <span id="1-1"></span>
+
 ```yml
 # serverless.yml
 
@@ -149,11 +152,11 @@ inputs:
     # 前端类型: WEBSOCKET, 后端类型: HTTP
     - path: /ws
       protocol: WEBSOCKET
-      apiName: 'test-ws'
+      apiName: "test-ws"
       method: GET
       serviceType: WEBSOCKET
       serviceConfig:
-        url: 'ws://www.test.com'
+        url: "ws://www.test.com"
         path: /
         method: GET
     # 前端类型: HTTP, 后端类型: SCF
@@ -176,13 +179,13 @@ inputs:
       param:
         - name: abc
           position: PATH
-          required: 'TRUE'
+          required: "TRUE"
           type: string
           defaultValue: abc
           desc: mytest
         - name: cde
           position: PATH
-          required: 'TRUE'
+          required: "TRUE"
           type: string
           defaultValue: abc
           desc: mytest
@@ -204,51 +207,52 @@ inputs:
     - path: /mo
       protocol: HTTP
       method: GET
-      apiName: 'mock-api'
+      apiName: "mock-api"
       serviceType: MOCK
-      serviceMockReturnMessage: 'mock response content'
+      serviceMockReturnMessage: "mock response content"
     # 前端类型: HTTP, 后端类型: HTTP
     - path: /rest
       protocol: HTTP
-      apiName: 'test-http'
+      apiName: "test-http"
       method: GET
       serviceType: HTTP
       serviceConfig:
-        url: 'http://www.test.com'
+        url: "http://www.test.com"
         path: /test
         method: GET
     # 下面两个为互相关联的 oauth2.0 接口示例
     # 参考文档 https://cloud.tencent.com/document/product/628/38393
-    - path: '/oauth'
-      protocol: 'HTTP'
-      method: 'GET'
-      apiName: 'oauthapi'
-      authType: 'OAUTH'
-      businessType: 'OAUTH'
-      serviceType: 'HTTP'
+    - path: "/oauth"
+      protocol: "HTTP"
+      method: "GET"
+      apiName: "oauthapi"
+      authType: "OAUTH"
+      businessType: "OAUTH"
+      serviceType: "HTTP"
       serviceConfig:
-        method: 'GET'
-        path: '/check'
-        url: 'http://10.64.47.103:9090'
+        method: "GET"
+        path: "/check"
+        url: "http://10.64.47.103:9090"
       oauthConfig:
-        loginRedirectUrl: 'http://10.64.47.103:9090/code'
+        loginRedirectUrl: "http://10.64.47.103:9090/code"
         publicKey: '{"e":"AQAB","kty":"RSA","n":"dkdd"}'
-        tokenLocation: 'method.req.header.authorization'
+        tokenLocation: "method.req.header.authorization"
         # // tokenLocation: 'method.req.header.cookie',
-    - path: '/oauthwork'
-      protocol: 'HTTP'
-      method: 'GET'
-      apiName: 'business'
-      authType: 'OAUTH'
-      businessType: 'NORMAL'
+    - path: "/oauthwork"
+      protocol: "HTTP"
+      method: "GET"
+      apiName: "business"
+      authType: "OAUTH"
+      businessType: "NORMAL"
       authRelationApi:
-        path: '/oauth'
-        method: 'GET'
-      serviceType: 'MOCK'
-      serviceMockReturnMessage: 'helloworld'
+        path: "/oauth"
+        method: "GET"
+      serviceType: "MOCK"
+      serviceMockReturnMessage: "helloworld"
 ```
 
 <span id="1-2"></span>
+
 ### 主要参数说明
 
 | 参数          | 必选 |            参数类型             |     默认值     | 描述                                                                       |

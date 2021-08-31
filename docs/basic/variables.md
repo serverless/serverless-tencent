@@ -6,67 +6,85 @@ layout: Doc
 
 # Serverless 变量
 
-Serverless Framework 支持在项目部署过程中，直接引用其它项目输出的变量信息或者环境变量信息，简化开发步骤，方便应用组织编排。
+Serverless 支持在项目配置文件中复用配置文件中的**配置变量**，使用**环境变量**，引用其他组件部署后的**输出的变量（output）**来更灵活的进行配置。
 
-### 顶级参数引用
-  在 `inputs` 字段里，支持直接引用顶级配置信息，引用语法如下：
-  ```
-  ${stage}
-  ${app}
-  ```
+## 配置变量
 
-### 环境变量引用
-   当您需要使用一些全局变量配置，或想要把机密信息和项目本身区分时，您可以在**项目根目录下**创建 .env 文件，并在里面配置通用环境变量，再在 yml 里直接引用即可，示例如下：
-
-   1. 项目目录下新建 .env 文件
-   ```
-   .
-   ├── serverless.yml  # 配置文件
-   ├── src
-   │   ├── package.json # 依赖项文件
-   │   └── index.js # 入口函数
-   └── .env # 环境变量文件
-   ```
-
-   2. 在 .env 文件中，配置您的环境变量信息
-   ```txt
-   TENCENT_APP_ID=xxxxxx     #授权账号的 AppId
-   TENCENT_SECRET_ID=xxxxxx  #授权账号的 SecretId
-   TENCENT_SECRET_KEY=xxxxxx #授权账号的 SecretKey
-   REGION=ap-guangzhou #部署地域
-   ```
-
-   3. 在配置文件 `serverless.yml` 中，直接通过 `${env:Key}` 的方式，直接引用环境变量配置
-
-    例如，通过`${env:REGION}`，引用环境变量 REGION
-
-### 输出变量引用
-在进行多组件资源编排是，您可以直接引用其他组件实例的输出信息，来实现确定部署顺序的目的，引用语法如下：
-
-```
-${output:[app]:[stage]:[instance name].[output]}
-```
-
-### 示例：
+在 serverless 应用配置中，可以通过 `${变量名称}` 来引用当前配置文件中已有的变量，如：
 
 ```yml
-app: demo
+app: my-serverless-app
 component: scf
-name: rest-api
 stage: dev
+name: my-scf-sls-instance-name # 实例名称
 
 inputs:
-  name: ${stage}-${app}-${name} # 命名最终为 "dev-demo-rest-api"
-  region: ${env:REGION} # 环境变量中指定的 REGION=xxx 信息
-  vpcName: ${output:prod:my-app:vpc.name} # 获取其他组件中的输出信息
-  vpcName: ${output:${stage}:${app}:vpc.name} # 上述方式也可以组合使用
+  name: ${name} # 腾讯云 SCF 实例名称
+  ...
 ```
 
-### Output 参数参考
+> 这里复用 serverless 配置变量，会使用实例名称 `my-scf-sls-instance-name` 作为腾讯云部署的 SCF 实例名称。
 
-| 组件名称      | 输出变量参考                                                                                                           |
-| ------------- | ------------------------------------------------------------------------------------------------------------------ |
-| Express 组件  | [输出变量参考](https://github.com/serverless-components/tencent-express/blob/master/docs/output.md)  |
-| Koa 组件      | [输出变量参考](https://github.com/serverless-components/tencent-koa/blob/master/docs/output.md)      |
-| Egg 组件      | [输出变量参考](https://github.com/serverless-components/tencent-egg/blob/master/docs/output.md)      |
-| CynosDB 数据库组件    | [输出变量参考](https://github.com/serverless-components/tencent-cynosdb/blob/master/docs/output.md)    |
+### 环境变量
+
+在 serverless 应用配置中，可以通过 `${env:变量名称}` 来使用环境变量，环境变量会在部署时加载并替换配置文件中的变量。如：
+
+```yml
+app: my-serverless-app
+component: scf
+stage: dev
+name: my-scf-sls-instance-name # 实例名称
+
+inputs:
+  name: ${env:NAME} # 腾讯云 SCF 实例名称
+  ...
+```
+
+> 这里使用环境变量 `STAGE` 作为 serverless stage 的配置值。
+
+要使用环境变量，可以在部署时传递，如：
+
+```sh
+NAME=scf-instance-name sls deploy
+```
+
+或将环境变量保存在 `.env` 文件中，如：
+
+```
+NAME=scf-instance-name
+```
+
+### stage 环境变量
+
+除了使用 `.env` 来存储环境变量信息，可以使用 `.env.${stage}` 来根据指定 stage 加载不同的环境变量。
+
+要使用 stage 环境变量进行部署 可以使用命令 `sls deploy --stage {stage名称}`
+
+以下是执行 `sls deploy`是 环境变量文件的加载顺序如下：
+
+1. `./.env.${stage}`
+2. `./.env`
+3. `../.env.${stage}`
+4. `../.env`
+5. `../../.env.${stage}`
+6. `../../.env`
+
+> 为了方便进行多组件应用开发（详见[Serverless 项目结果](./project-structure)），可以将环境变量文件存储到一级或二级父目录中。
+
+## 输出变量
+
+在进行多组件应用开发时，您可以直接引用其他组件实例的输出信息，Serverless 会自动按照引用依赖顺序进行部署，如：
+
+```yml
+app: my-serverless-app
+component: scf
+stage: dev
+name: my-scf-sls-instance-name # 实例名称
+
+inputs:
+  vpcName: ${output:prod:my-app:vpc.name} # 获取vpc组件中的输出信息
+  vpcName: ${output:${stage}:${app}:vpc.name} # 上述方式也可以组合使用
+  ...
+```
+
+> 可以通过 `sls info` 查看组件的输出变量信息，也可以在应用控制台查看组件的输出变量信息。

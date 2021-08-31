@@ -71,7 +71,6 @@ subnetName: serverless
 
 如您的账号未 [登录](https://cloud.tencent.com/login) 或 [注册](https://cloud.tencent.com/register) 腾讯云，您可以直接通过**微信**扫描命令行中的二维码进行授权登录和注册。
 
-
 ### 查看信息
 
 运行 `sls info` 进行查看部署成功的信息：
@@ -109,11 +108,14 @@ Action: "remove" - Stage: "dev" - App: "appDemo" - Instance: "vpcDemo"
 ```
 
 <span id="1"></span>
-##  全量配置
+
+## 全量配置
+
 - [全量 yml](#1-1)
 - [主要参数说明](#1-2)
 
 <span id="1-1"></span>
+
 ```yml
 # serverless.yml
 
@@ -129,8 +131,8 @@ inputs:
   vpcName: serverless
   subnetName: serverless
   cidrBlock: 10.0.0.0/16
-  enableMulticast: 'FALSE'
-  enableSubnetBroadcast: 'FALSE'
+  enableMulticast: "FALSE"
+  enableSubnetBroadcast: "FALSE"
   dnsServers:
     - 127.0.0.1
   domainName: demo
@@ -143,6 +145,7 @@ inputs:
 ```
 
 <span id="1-2"></span>
+
 ### 主要参数说明
 
 | 参数                  | 必填/可选 | 类型   | 默认值        | 描述                                                                          |

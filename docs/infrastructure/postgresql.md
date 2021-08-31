@@ -109,11 +109,14 @@ $ sls remove
 ```
 
 <span id="1"></span>
-##  全量配置
+
+## 全量配置
+
 - [全量 yml](#1-1)
 - [主要参数说明](#1-2)
 
 <span id="1-1"></span>
+
 ```yml
 # serverless.yml
 component: postgresql # (必填) 组件名称，此处为 postgresql
@@ -134,7 +137,9 @@ inputs:
     subnetId: subnet-123
   extranetAccess: false
 ```
+
 <span id="1-1"></span>
+
 ### 主要参数说明
 
 | 参数               | 必填/可选 | 类型    | 默认值  | 描述                               |

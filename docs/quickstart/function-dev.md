@@ -1,14 +1,18 @@
 ---
-title: "函数应用开发"
-menuText: "函数应用开发"
+title: "云函数开发"
+menuText: "云函数开发"
 layout: Doc
 ---
 
-# 函数应用开发
+# 云函数开发
 
-通过 Serverless CLI 的交互命令可以快速创建一个 Serverless 项目，函数项目请选择 `scf-starter`。
+Serverless 为腾讯云函数开发提供了完善的支持和扩展，使用 serverless 开发云函数，开发者可以：
 
-> 与国际版本不同，Serverless 中国通过 SCF 组件实现了国际版的函数开发功能。同时用户可以使方便的整合更多的腾讯云基础设施。详细说明请查看[函数开发(function)指南](../function/README)。
+- 在本地进行云函数代码的开发，调试。
+- 编排基础设施资源，一键轻松部署。
+- 支持多函数开发，适用更多场景。（云函数实例只能暴露单个函数作为执行方法）
+- 通过 CLI 进行函数调试，日志查看，远程开发。
+- 除事件触发外，也支持 HTTP 请求出发函数。
 
 ## 初始化函数应用
 
@@ -24,14 +28,13 @@ $ serverless
 ```sh
 Serverless: 当前未检测到 Serverless 项目，是否希望新建一个项目？ Yes
 Serverless: 请选择你希望创建的 Serverless 应用
-
-  react-starter - 快速部署一个 React.js 应用
-  restful-api - 快速部署一个 REST API 使用 python + API gateway
+  multi-scf-starter - 快速部署多个云函数
 ❯ scf-starter - 快速部署一个云函数
-  vue-starter - 快速部署一个 Vue.js 基础应用
   website-starter - 快速部署一个静态网站
-  eggjs-starter - 快速部署一个Egg.js 基础应用
-  express-starter - 快速部署一个 Express.js 基础应用
+  react-starter - 快速部署一个 React.js 应用
+  vue-starter - 快速部署一个 Vue.js 基础应用
+  nextjs-starter - 快速部署一个 nextjs 应用
+  nuxtjs-starter - 快速部署一个 Nuxt.js 基础应用
 
 Serverless: 请选择应用的运行时
   scf-golang - 快速部署一个 golang 云函数
@@ -220,4 +223,11 @@ triggers:
 scf-nodejs › 信息成功加载
 ```
 
-**下一步：[了解函数开发(function)指南](../functions/README)**
+> SCF 应用一个实例只能定义并暴露一个函数，如果需要开发多个函数的 SCF 应用，请参考[SCF 多函数应用](../tutorials/multi-scf-todo) 示例。
+
+**下一步：开始 Serverless 开发**
+
+- [云函数开发指南](../function/README)
+- [查看 SCF 多函数示例](../tutorials/multi-scf-todo)
+- [开始框架应用开发](./components-dev)
+- [查看 CLI 命令](./commands)

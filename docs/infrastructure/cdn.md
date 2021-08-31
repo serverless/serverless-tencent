@@ -95,7 +95,9 @@ sls remove
 ```
 
 <span id="1"></span>
-##  全量配置
+
+## 全量配置
+
 - [全量 yml](#1-1)
 - [主要参数说明](#1-2)
 
@@ -125,7 +127,7 @@ inputs:
     switch: on
     http2: on
     certInfo:
-      certId: 'abc'
+      certId: "abc"
   refreshCdn:
     urls:
       - https://abc.com
@@ -138,7 +140,7 @@ inputs:
       cacheRules:
         - cacheType: all
           cacheContents:
-            - '*'
+            - "*"
           cacheTime: 1000
   cacheKey:
     fullUrlCache: on
@@ -147,18 +149,18 @@ inputs:
     refererRules:
       - ruleType: all
         rulePaths:
-          - '*'
+          - "*"
         refererType: blacklist
         allowEmpty: true
         referers:
-          - 'qq.baidu.com'
-          - '*.baidu.com'
+          - "qq.baidu.com"
+          - "*.baidu.com"
   ipFilter:
     switch: on
     filterType: blacklist
     filters:
-      - '1.2.3.4'
-      - '2.3.4.5'
+      - "1.2.3.4"
+      - "2.3.4.5"
   forceRedirect:
     switch: on
     redirectType: https
@@ -166,12 +168,13 @@ inputs:
 ```
 
 <span id="1-2"></span>
+
 ### 主要参数说明
 
 | 参数名称    | 是否必选 | 默认       | 描述                                                                                                                                         |
-| ----------- | -------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| ----------- | -------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------- | --- |
 | domain      | 是       |            | CDN 域名。                                                                                                                                   |
-| origin      | 是       |            | 源站配置，参考 [origin](#origin)                                                                                                             |  |
+| origin      | 是       |            | 源站配置，参考 [origin](#origin)                                                                                                             |     |
 | area        | 否       | `mainland` | 域名加速区域，mainland：中国境内加速，overseas：中国境外加速，global：全球加速，（使用中国境外加速、全球加速时，需要先开通中国境外加速服务） |
 | serviceType | 否       | `web`      | 加速域名业务类型。web：静态加速，download：下载加速，media：流媒体点播加速                                                                   |
 | async       | 否       | `false`    | 是否为异步操作，如果为 true，则不会等待 CDN 创建或更新成功再返回。                                                                           |

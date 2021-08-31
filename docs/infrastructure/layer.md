@@ -75,11 +75,14 @@ sls remove
 ```
 
 <span id="1"></span>
-##  全量配置
+
+## 全量配置
+
 - [全量 yml](#1-1)
 - [配置描述](#1-2)
 
 <span id="1-1"></span>
+
 ```yml
 # serverless.yml
 
@@ -111,6 +114,7 @@ inputs:
 ```
 
 <span id="1-2"></span>
+
 ### 配置描述
 
 | 参数名称    | 是否必填 | 参数类型 | 默认值 | 描述                                                           |

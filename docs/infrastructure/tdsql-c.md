@@ -62,7 +62,7 @@ inputs:
 ```bash
 $ sls deploy
 ```
->
+
 > 部署完成后，可以在命令行看到创建的数据库实例信息：
 > <img src="https://main.qcloudimg.com/raw/66e70fa9bf9147ff55790db19767dc78.png" width="70%">
 
@@ -112,7 +112,9 @@ $ sls info
 ```
 
 <span id="1"></span>
-##  全量配置
+
+## 全量配置
+
 - [全量 yml](#1-1)
 - [主要参数说明](#1-2)
 
@@ -167,4 +169,3 @@ NORMAL     - 正常版本
 0         - 按量计费
 1         - 包年包月，目前只支持购买一个月
 ```
-

@@ -6,6 +6,8 @@ layout: Doc
 
 # 常见问题 Q&A
 
+> 关于 Serverless Framework 的任何使用问题、建议或者经验分享欢迎到 [Serverless 中文讨论社区](https://github.com/serverless/serverless-tencent/discussions) 分享讨论。同时使用中遇到的 bug 也欢迎通过 [BUG 反馈](https://github.com/serverless/serverless-tencent/issues/new/choose) 提交并追踪。
+
 ### 项目安装常见问题
 
 1. [安装过于缓慢怎么办？](#install-1)
