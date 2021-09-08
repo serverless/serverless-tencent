@@ -88,3 +88,35 @@ inputs:
 ```
 
 > 可以通过 `sls info` 查看组件的输出变量信息，也可以在应用控制台查看组件的输出变量信息。
+
+## 执行环境变量
+
+当 serverless 应用执行时，有时需要动态加载环境变量信息，比如当应用需要连接数据库时，会通过执行时的环境变量信息加载配置信息：
+
+```js
+// 在代码中动态加载环境信息。
+const client = new Client({
+  connectionString: process.env.PG_CONNECT_STRING,
+});
+```
+
+这是可以使用 serverless 的执行环境变量来进行配置，仅需要在 `serverless.yml` 中配置 `envoironments` 信息，之后应用执行时就可以加载对应的环境变量信息，配置示例:
+
+```yml
+app: my-app-demo
+component: multi-scf
+name: sls-demo-msn
+
+inputs:
+  ...
+  environments:
+    - key: PG_CONNECT_STRING_STRING # 使用固定的链接字符串
+      value: postgresql://admin:secret@my_pg_host
+    - key: PG_CONNECT_STRING_ENV # 使用部署时环境变量传递的链接字符串
+      value: ${env:MY_PG_CONNECT_STRING}
+    - key: PG_CONNECT_STRING_OUTPUT # 使用实例 sls-demo-msn-DB 部署结果生成的链接字符串
+      value: ${output:${stage}:${app}:sls-demo-msn-DB.private.connectionString}
+  ...
+```
+
+> 在 serverless.yml 的环境变量信息中可以使用固定值，环境变量赋值或其他组件 output 结果赋值方式进行赋值。

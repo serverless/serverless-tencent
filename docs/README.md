@@ -1,10 +1,10 @@
 ---
-title: "Serverless Framework 介绍"
-menuText: "Serverless Framework 介绍"
+title: "Tencent Serverless 简介"
+menuText: "Tencent Serverless 简介"
 layout: Doc
 ---
 
-# ⚡️ Serverless 简介
+# ⚡️ Tencent Serverless 简介
 
 ## 关于 Serverless
 
@@ -14,13 +14,13 @@ Serverless 是一种由开发人员和企业共同推动的运动，他们意识
 
 归根结底，Serverless 是关于将开发人员的精力集中在为用户提供价值的方面（而不是在其他任何事情上浪费时间）。升级 Linux 发行版不会为用户提供价值，管理 Kubernetes 集群不会为用户提供价值，只有提供解决问题的产品才会为用户提供价值。
 
-## Serverless Tencent
+## Tencent Serverless
 
 Serverless Framework 是业界非常受欢迎的无服务器应用框架，通过与众多一流云供应商如腾讯云，AWS 等的紧密合作，为广大开发者提供无需关心底层基础设施，即可编写和部署代码的无服务开发体验。
 
-Serverless Framework 同时提供资源管理、自动伸缩、统计分析等能力，让广大开发者可以节省运维成本，真正做到“按量付费”的同时，也无需花费精力处理日志收集、异常统计等任务。
+Serverless Framework 同时提供资源管理、弹性伸缩、统计分析等能力，让广大开发者可以节省运维成本，真正做到“按量付费”的同时，也无需花费精力处理日志收集、异常统计等任务。
 
-Serverless Tencent (以下简称 Serverless) 是 Serverless Framework 与腾讯云合作，基于组件（serverless components）为中国用户定制的 serverlss 开发完整解决方案。覆盖了开发编码、测试、部署等全生命周期，在保留 Serverless Framework 的特点和优势的同时更加切合中国用户的使用场景和习惯。
+Tencent Serverless (以下简称 Serverless) 是 Serverless Framework 与腾讯云合作，基于组件（serverless components）为中国用户定制的 serverlss 开发完整解决方案。覆盖了开发编码、测试、部署等全生命周期，在保留 Serverless Framework 的特点和优势的同时更加切合中国用户的使用场景和习惯。
 
 ## Serverless 优势
 
@@ -40,13 +40,13 @@ Serverless Tencent (以下简称 Serverless) 是 Serverless Framework 与腾讯�
 
 - Serverless 提供了更强大的日志收集，统计分析，异常报警服务。开发者无需任何配置即可直接使用。
 
-### 高可用、低成本、弹性扩容
+### 高可用、低成本、弹性伸缩
 
 - Serverless 部署的应用可靠性可以达到 99.5% 的可靠性，同时支持灰度发布及版本快速切换。
 
 - Serverless 采用按量计费，在闲置时间不收取任何费用，相比传统付费方式可节省 80% 以上的使用成本。
 
-- Serverless 可以自动进行弹性伸缩，进一步保证了应用的可用性并降低了使用维护成本。
+- Serverless 可以进行弹性伸缩，进一步保证了应用的可用性并降低了使用维护成本。
 
 ## 开始开发
 
