@@ -1,6 +1,6 @@
 ---
-title: "函数 CLI 命令"
-menuText: "函数 CLI 命令"
+title: "Serverless CLI 命令"
+menuText: "Serverless CLI 命令"
 layout: Doc
 ---
 

@@ -12,7 +12,7 @@
 
 ## 其他名词翻译
 
-- auto-scalling: 自动扩容
+- auto-scalling: 弹性伸缩
 - commands: 命令
 - components: 组件
 - dev-mode: 远程开发模式
