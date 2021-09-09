@@ -1,6 +1,8 @@
 ---
-title: "Serverless 项目结构"
+title: "Tencent Serverless - 项目结构"
 menuText: "Serverless 项目结构"
+menuOrder: 2
+description: Serverless 项目结构
 layout: Doc
 ---
 

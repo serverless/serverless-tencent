@@ -1,10 +1,14 @@
 ---
-title: "多函数应用开发"
+title: "Tencent Serverless - 多函数应用开发"
 menuText: "多函数应用开发"
+menuOrder: 2
+description: 多函数应用开发
 layout: Doc
 ---
 
 # 多函数应用开发
+
+对于需要开发多个函数应用的情况（如使用 serverless 实现资源的 CURD），可以使用多函数组件 `multi-scf` 来进行相关功能开发，部署后应用的每一个函数都会部署为一个云函数 SCF 实例。
 
 ## 初始化多函数应用
 
@@ -349,8 +353,3 @@ END RequestId:73837518616af99bbeace99522926399
 Report RequestId:73837518616af99bbeace99522926399 Duration:1ms Memory:128MB MemUsage:48.542969MB
 
 ```
-
-**下一步**
-
-- [查看 SCF 多函数示例](../tutorials/multi-scf-todo)
-- [Serverless CLI 命令](../quickstart/commands)

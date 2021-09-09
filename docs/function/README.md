@@ -1,6 +1,8 @@
 ---
-title: "云函数开发"
+title: "Tencent Serverless - 云函数开发"
 menuText: "云函数开发"
+menuOrder: 5
+description: Serverless 云函数开发
 layout: Doc
 ---
 
@@ -51,19 +53,3 @@ app.listen(port, () => {
 ```
 
 > WEB 函数需要监听固定的`9000` 端口。
-
-## Docker 镜像
-
-此外也支持用户部署 docker 镜像到云函数。
-
-## 基础设施管理
-
-## 函数开发调试
-
-**下一步：开始函数开发**
-
-- [Node.js 函数应用开发](./nodejs)
-- [Python 函数应用开发](./python)
-- [Golang 函数应用开发](./golang)
-- [PHP 函数应用站点](./php)
-- [Serverless CLI 命令](../quickstart/commands)

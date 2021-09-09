@@ -1,6 +1,8 @@
 ---
-title: "Serverless 变量"
-menuText: "Serverless 变量"
+title: "Tencent Serverless - 变量"
+menuText: "变量&执行环境变量"
+menuOrder: 3
+description: Serverless 变量与执行环境变量
 layout: Doc
 ---
 

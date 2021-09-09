@@ -1,6 +1,8 @@
 ---
-title: "API 网关组件"
+title: "Tencent Serverless - API 网关组件"
 menuText: "API 网关组件"
+menuOrder: 1
+description: API 网关组件
 layout: Doc
 ---
 

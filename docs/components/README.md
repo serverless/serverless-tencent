@@ -1,8 +1,12 @@
 ---
-title: "框架和SaaS应用开发"
-menuText: "框架和SaaS应用开发"
+title: "Tencent Serverless - 组件应用开发"
+menuText: "组件应用开发"
+menuOrder: 6
+description: Serverless 组件应用开发
 layout: Doc
 ---
+
+# 组件应用开发
 
 ## 框架应用开发
 

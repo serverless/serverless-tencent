@@ -1,10 +1,14 @@
 ---
-title: "单函数应用开发"
+title: "Tencent Serverless - 单函数应用开发"
 menuText: "单函数应用开发"
+menuOrder: 1
+description: 单函数应用开发
 layout: Doc
 ---
 
 # 单函数应用开发
+
+对于开发当个函数应用的情况，可以使用单函数组件 `scf` 来进行相关功能开发，部署后应用会部署为一个云函数 SCF 实例。
 
 ## 初始化单函数应用
 
@@ -273,8 +277,3 @@ Response RequestId:aa7b70e6-ab76-40d7-a2cb-76bb9f5a30a3 RetMsg:{"foo":"bar"}
 END RequestId:aa7b70e6-ab76-40d7-a2cb-76bb9f5a30a3
 Report RequestId:aa7b70e6-ab76-40d7-a2cb-76bb9f5a30a3 Duration:1ms Memory:128MB MemUsage:53.476562MB
 ```
-
-**下一步**
-
-- [多函数应用开发](./multi-scf)
-- [Serverless CLI 命令](../quickstart/commands)

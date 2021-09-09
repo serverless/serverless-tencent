@@ -1,6 +1,8 @@
 ---
-title: "CDN 内容分发"
+title: "Tencent Serverless - CDN 内容分发"
 menuText: "CDN 内容分发"
+menuOrder: 3
+description: CDN 内容分发
 layout: Doc
 ---
 

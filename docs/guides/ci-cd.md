@@ -1,6 +1,8 @@
 ---
-title: "自动集成"
+title: "Tencent Serverless - 自动集成"
 menuText: "自动集成"
+menuOrder: 4
+description: Serverless 触发器
 layout: Doc
 ---
 
@@ -19,7 +21,6 @@ layout: Doc
 ### 部署场景
 
 针对常用框架组件，Serverless Framework 提供了[应用控制台](https://console.cloud.tencent.com/ssr)开发部署方案，帮助用户通过控制台实现完整的应用开发部署流程。
-
 
 ### 当前支持框架
 
@@ -119,8 +120,9 @@ Serverless 控制台支持您通过**代码托管导入**和**文件夹上传**�
 1. 选取一个您需要执行自动化部署的分支（本示例选择 dev 分支）。
 2. 在该分支下创建您的 action。
    ![](https://main.qcloudimg.com/raw/6863deb3acfb9a8de75d8a0447ec4d20.png)
-   
+
    > !GitHub 规定如果事件发生在特定仓库分支上，则工作流程文件必须存在于该分支的仓库中 。
+
 3. 配置腾讯云密钥。
    ![](https://main.qcloudimg.com/raw/e67ecc4fd932124db5d6bfa54b3ebb73.png)
 4. 配置 action 部署步骤。
@@ -217,7 +219,7 @@ jobs:
           stage('部署') {
             steps {
               echo '部署中...'
-      
+
               withCredentials([
                 cloudApi(
                   credentialsId: "${env.TENCENT_CLOUD_API_CRED}",
@@ -225,7 +227,7 @@ jobs:
                   secretKeyVariable: 'TENCENT_SECRET_KEY'
                 ),
               ]) {
-      
+
                    // 生成凭据文件
                    sh 'echo "TENCENT_SECRET_ID=${TENCENT_SECRET_ID}\nTENCENT_SECRET_KEY=${TENCENT_SECRET_KEY}" > .env'
                    // 部署
@@ -233,7 +235,7 @@ jobs:
                    // 移除凭据
                    sh 'rm .env
               }
-      
+
               echo '部署完成'
             }
           }

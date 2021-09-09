@@ -1,6 +1,8 @@
 ---
-title: "TDSQL-C 数据库"
+title: "Tencent Serverless - TDSQL-C 数据库"
 menuText: "TDSQL-C 数据库"
+menuOrder: 7
+description: TDSQL-C 数据库
 layout: Doc
 ---
 

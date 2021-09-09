@@ -1,6 +1,8 @@
 ---
-title: "COS 对象存储"
+title: "Tencent Serverless - COS 对象存储"
 menuText: "COS 对象存储"
+menuOrder: 2
+description: COS 对象存储
 layout: Doc
 ---
 

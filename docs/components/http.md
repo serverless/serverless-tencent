@@ -1,6 +1,8 @@
 ---
-title: "框架应用开发"
+title: "Tencent Serverless - 框架应用开发"
 menuText: "框架应用开发"
+menuOrder: 2
+description: 框架应用开发
 layout: Doc
 ---
 
@@ -149,6 +151,42 @@ inputs:
 - `faas.runtime`: 是要使用的运行时。
 - `faas.framework`: 是要使用的框架名称
 
+## 远程开发模式
+
+Serverless Framework 提供了快速灵活的调试模式来替代云平台的复杂费时的调试方式。使用 `serverless dev` 就可以快速开启远程开发模式。
+
+```sh
+# 进入 serverless 远程开发模式
+$ serverless dev
+
+serverless ⚡components
+Dev Mode - 项目监控中，任何变更都会通过日志输出
+
+远程调试链接：ws://127.0.0.1:9222
+更多信息请参考：https://nodejs.org/en/docs/inspector
+请打开 Chrome 浏览器，地址栏访问 chrome://inspect, 点击 [Open dedicated DevTools for Node] 开始调试代码
+--------------------- 实时日志 ---------------------
+6:35:52 PM - express-starter - deployment
+region: ap-guangzhou
+scf:
+  functionName: express_component_bv2n5cc
+  runtime:      Nodejs10.15
+  namespace:    default
+  lastVersion:  $LATEST
+  traffic:      1
+apigw:
+  serviceId:   service-mt1d84ea
+  subDomain:   service-mt1d84ea-xxxxxxxxxx.gz.apigw.tencentcs.com
+  environment: release
+  url:         https://service-mt1d84ea-xxxxxxxxxx.gz.apigw.tencentcs.com/release/
+
+express-starter › 监听中 ...
+```
+
+加下来修改代码保存后都会立即部署到腾讯云上，并可以立即开始测试。更多关于远程开发模式的使用方法请参考[远程开发模式](../basic/dev-mode)
+
+> 远程开发模式不建议频繁保存代码，每次代码保存都会触发部署，过于频繁保存可能导致远程开发模式出现异常。
+
 ## 部署应用
 
 使用 `sls deploy` 可以快速部署应用到腾讯云，部署成功或可以看到如下信息：
@@ -185,8 +223,3 @@ region: ap-guangzhou
 ```
 
 部署完成后通过访问 API 网关的地址就可以访问部署后的应用了。
-
-**下一步**
-
-- [静态网站开发](./website)
-- [Serverless CLI 命令](../quickstart/commands)

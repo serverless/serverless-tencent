@@ -1,12 +1,14 @@
 ---
-title: "安装 Serverless CLI"
-menuText: "安装 Serverless CLI"
+title: "Tencent Serverless - CLI 概述"
+menuText: "概述"
+menuOrder: 4
+description: Serverless CLI 功能概述
 layout: Doc
 ---
 
-# 安装 Serverless CLI
+# Serverless CLI 命令
 
-您可以通过 Serverless CLI 命令行工具来 创建，开发，调试，部署，管理，删除你的 Serverless 应用。
+Serverless CLI 为 serverlss 开发提供了完善的功能支持，使得开发者无需登录控制台，在本地就可以创建、开发、调试、管理您的 serverless 应用。
 
 通过 [NPM 安装](#npm) 或 [二进制安装](#binary) 方式，来安装 Serverless CLI 并开始 Serverless 开发。
 
@@ -74,8 +76,5 @@ SDK: 4.2.2
 Components: 3.8.2
 ```
 
-**下一步：开始 Serverless 开发**
-
-- [查看 CLI 命令](./commands)
-- [开始云函数开发](./function-dev)
-- [开始应用开发](./components-dev)
+- 可以通过 `“serverless --help` 或 `sls [command] --help`，查看帮助指令说明。
+- 请及时更新 CLI 客户端到最新版本，以便获得 CLI 的最新完整功能。
