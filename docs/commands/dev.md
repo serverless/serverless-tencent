@@ -1,8 +1,8 @@
 ---
-title: "Tencent Serverless - Dev 模式"
-menuText: "Dev 模式"
+title: "Tencent Serverless - Dev 远程开发"
+menuText: "Dev 远程开发"
 menuOrder: 4
-description: 查看应用信息
+description: Serverless 远程开发模式
 layout: Doc
 ---
 

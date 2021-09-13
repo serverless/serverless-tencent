@@ -1,7 +1,7 @@
 ---
 title: "Tencent Serverless - Layer 组件"
 menuText: "Layer 组件"
-menuOrder: 6
+menuOrder: 5
 description: Layer 组件
 layout: Doc
 ---

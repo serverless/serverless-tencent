@@ -1,7 +1,7 @@
 ---
 title: "Tencent Serverless - PostgreSQL 数据库"
 menuText: "PostgreSQL 数据库"
-menuOrder: 4
+menuOrder: 6
 description: PostgreSQL 数据库
 layout: Doc
 ---

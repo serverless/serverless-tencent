@@ -1,8 +1,8 @@
 ---
-title: "Tencent Serverless - CLI 概述"
-menuText: "概述"
+title: "Tencent Serverless - CLI 命令"
+menuText: "CLI 命令概述"
 menuOrder: 4
-description: Serverless CLI 功能概述
+description: Serverless CLI 命令概述
 layout: Doc
 ---
 
