@@ -1,6 +1,8 @@
 ---
-title: "腾讯云账号"
-menuText: "腾讯云账号"
+title: "Tencent Serverless - 账号和授权"
+menuText: "账号和授权"
+menuOrder: 1
+description: Serverless 账号和授权
 layout: Doc
 ---
 

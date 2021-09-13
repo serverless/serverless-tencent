@@ -1,7 +1,16 @@
 ---
-title: "Tencent Serverless 简介"
-menuText: "Tencent Serverless 简介"
+title: "Tencent Serverless - 文档"
+menuText: "Tencent Serverless 文档"
+menuOrder: 1
+description: Tencent Serverless 说明文档。
 layout: Doc
+menuItems:
+  - menuText: 示例代码
+    menuOrder: 9
+    path: https://cn.serverless.com/examples/
+  - menuText: 教程&指南
+    menuOrder: 10
+    path: https://cn.serverless.com/category/guides-and-tutorials
 ---
 
 # ⚡️ Tencent Serverless 简介
@@ -65,9 +74,3 @@ Serverless 为框架应用(如：Nextjs, Express, Django, SrpintBoot 等)提供�
 ### SaaS 应用托管
 
 Serverless 为提供了许多 SaaS 应用(如：Wordpress, DiscuzQ 等)的封装，通过 serverless 简单配置就可以部署并在 serverless 上使用这些应用，在获得 serverless 优势的同时也无需担心应用的后续维护和升级。
-
-**下一步：开始 Serverless 开发**
-
-- [安装 Serverless CLI](./quickstart/installation)
-- [开始云函数开发](./quickstart/function-dev)
-- [开始应用开发](./quickstart/components-dev)

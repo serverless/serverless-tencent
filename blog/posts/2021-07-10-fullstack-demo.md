@@ -1,7 +1,13 @@
 ---
-title: "Express 全栈应用"
-menuText: "Express 全栈应用"
-layout: Doc
+title: Express 全栈应用示例
+description: "本示例使用 Serverless Framework 的多个组件开发一个Vue + Express + PostgreSQL 的全栈 Serverless 应用。"
+date: 2021-07-10
+layout: Post
+thumbnail: https://sp-assets-1300963013.file.myqcloud.com/blog/thumbnails/logo-sf-side-dark.png
+authors:
+  - OliverWang
+category:
+  - guides-and-tutorials
 ---
 
 # Express 全栈应用

@@ -1,6 +1,8 @@
 ---
-title: "事件函数开发"
+title: "Tencent Serverless - 事件函数开发"
 menuText: "事件函数开发"
+menuOrder: 3
+description: 事件函数开发
 layout: Doc
 ---
 
@@ -194,10 +196,3 @@ def main_handler(event, context):
 #### 使用内建依赖库
 
 目前包含的库请参考[腾讯 Python 内建依赖说明文档](https://cloud.tencent.com/document/product/583/55592#.E5.86.85.E7.BD.AE.E7.9A.84.E5.BA.93.E5.88.97.E8.A1.A8)
-
-**下一步：**
-
-- [腾讯 PHP 事件函数说明](https://cloud.tencent.com/document/product/583/56826)
-- [腾讯 Golang 事件函数说明](https://cloud.tencent.com/document/product/583/18032)
-- [腾讯 Java 事件函数说明](https://cloud.tencent.com/document/product/583/12214)
-- [腾讯 Golang 事件函数说明](https://cloud.tencent.com/document/product/583/47610)

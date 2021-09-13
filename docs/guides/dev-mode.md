@@ -1,6 +1,8 @@
 ---
-title: "远程开发模式"
+title: "Tencent Serverless - 远程开发模式"
 menuText: "远程开发模式"
+menuOrder: 5
+description: Serverless 远程开发模式
 layout: Doc
 ---
 

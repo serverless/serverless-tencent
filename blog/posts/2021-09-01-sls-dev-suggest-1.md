@@ -7,7 +7,7 @@ thumbnail: https://sp-assets-1300963013.file.myqcloud.com/blog/thumbnails/2021-0
 authors:
   - YugaSun
 category:
-  - guides
+  - guides-and-tutorials
 ---
 
 > by yugasun from https://yugasun.com/post/serverless-advise.html
