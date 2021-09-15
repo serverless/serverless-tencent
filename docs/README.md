@@ -68,6 +68,6 @@ Serverless 为提供了许多 SaaS 应用(如：Wordpress, DiscuzQ 等)的封装
 
 **下一步：开始 Serverless 开发**
 
-- [安装 Serverless CLI](docs/quickstart/installation)
+- [安装 Serverless CLI](/docs/quickstart/installation)
 - [开始云函数开发](./quickstart/function-dev)
 - [开始应用开发](./quickstart/components-dev)
