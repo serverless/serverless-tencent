@@ -569,7 +569,7 @@ SCF DB SDK for MySQL 具备以下特点：
 
 **1. Node.js SDK**
 
-```JavaScript
+```js
 'use strict';
 const database = require('scf-nodejs-serverlessdb-sdk').database;
 
