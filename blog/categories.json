@@ -1,7 +1,7 @@
 {
-  "tutorials": "教程",
-  "guides": "开发指南",
+  "guides-and-tutorials": "教程&指南",
+  "user-stories": "用户故事",
   "news": "新闻",
-  "practices": "实践案例",
-  "engineering": "工程文化"
+  "engineering-culture": "工程文化",
+  "operations-and-observability": "运维&监控"
 }

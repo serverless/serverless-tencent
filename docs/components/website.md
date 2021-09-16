@@ -1,10 +1,14 @@
 ---
-title: "静态网站开发"
+title: "Tencent Serverless - 静态网站开发"
 menuText: "静态网站开发"
+menuOrder: 1
+description: 静态网站开发
 layout: Doc
 ---
 
 # 静态站点开发
+
+当要部署一个纯静态网站时，可以使用静态网站组件 `website` 来进行相关功能开发，部署后静态网站回部署到腾讯云 COS 中。
 
 ## 初始化静态站点应用
 
@@ -109,8 +113,3 @@ website: https://my-website-starter-xxxxxxxxxx.cos-website.ap-guangzhou.myqcloud
 ```
 
 部署成功后通过返回的地址就可以访问网站。
-
-**下一步**
-
-- [框架应用站开发](./http)
-- [Serverless CLI 命令](../quickstart/commands)

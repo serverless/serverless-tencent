@@ -7,7 +7,7 @@ thumbnail: https://sp-assets-1300963013.file.myqcloud.com/blog/thumbnails/logo-s
 authors:
   - OliverWang
 category:
-  - tutorials
+  - guides-and-tutorials
 ---
 
 # 什么是 Serverless

@@ -1,6 +1,8 @@
 ---
-title: "域名和 HTTPS"
+title: "Tencent Serverless - 域名和 HTTPS"
 menuText: "域名和 HTTPS"
+menuOrder: 6
+description: Serverless 域名和 HTTPS证书
 layout: Doc
 ---
 
@@ -61,7 +63,6 @@ inputs:
 
 如您的账号未 [登录](https://cloud.tencent.com/login) 或 [注册](https://cloud.tencent.com/register) 腾讯云，您可以直接通过**微信**扫描命令行中的二维码进行授权登录和注册。
 
-
 ```bash
 $ sls deploy
 
@@ -72,7 +73,6 @@ $ sls deploy
       - https://www.example.com (CNAME: www.example.com.cdn.dnsv1.com）
   17s › myWebsite › done
 ```
-
 
 ### 添加 CNAME
 

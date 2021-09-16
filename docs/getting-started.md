@@ -1,12 +1,32 @@
 ---
-title: "快速开始"
-menuText: "快速开始"
+title: "Tencent Serverless - 开始使用"
+menuText: "开始使用 Serverless"
+menuOrder: 2
+description: 安装 Serverless CLI 工具并开始使用。
 layout: Doc
 ---
 
-# 快速开始
+# 开始使用 Serverless
 
 通过 Serverless CLI 命令就可以轻松的完成 Serverless 应用的创建，调试，部署，查看，移除。
+
+## 安装/升级 Serverless CLI
+
+使用前请安装最新版本的 Serverless CLI 工具，您可以再命令行通过以下命令安装/更新：
+
+```sh
+# 使用 npm 全局安装 serverless 命令行工具
+$ npm install -g serverless
+
+# 升级 serverless 命令行到最新版本
+$ npm update -g serverless
+
+# 使用 bash 安装 serverless 工具
+curl -o- -L https://slss.io/install | bash
+
+# 使用 choco 安装 serverless 工具
+choco install serverless
+```
 
 ## 创建应用
 
@@ -14,11 +34,13 @@ layout: Doc
 
 ```sh
 # 交互式创建 serverless 应用
-$ serverless # 也可以使用缩写 sls 代替 serverless 命令
+$ serverless
 
 # 使用模板创建 serverless 应用并指定名称
 $ serverless init express-starter --name my-sls-express
 ```
+
+> 安装完成后可以使用 `sls` 代替 `serverless` 来执行 CLI 命令
 
 ## Serverless 应用配置
 
@@ -52,7 +74,7 @@ inputs: # 组件部署所需的参数
     environment: release # 网关发布环境。[test, prepub，release]
 ```
 
-> 使用不同组件的配置不完全一样，更详细的组件配置说明和使用介绍请查看[组件说明及示例](../components/README)。
+> 使用不同组件的配置不完全一样，更详细的组件配置说明和使用介绍请查看[组件说明及示例](./components/README)。
 
 ## 管理应用
 
@@ -72,12 +94,4 @@ $ serverless dev
 $ serverless remove
 ```
 
-> 更多的命令和使用说明请查看 [CLI 命令](./commands)。
-
-**下一步：开始 Serverless 开发**
-
-- [安装 Serverless CLI](./installation)
-- [Serverless 开发流程](./workflow)
-- [Serverless CLI 命令](./commands)
-- [开始云函数开发](./function-dev)
-- [开始应用开发](./components-dev)
+> 更多的命令和使用说明请查看 [CLI 命令](./commands/README)。

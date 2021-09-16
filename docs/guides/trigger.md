@@ -1,6 +1,8 @@
 ---
-title: "触发器"
+title: "Tencent Serverless - 触发器"
 menuText: "触发器"
+menuOrder: 7
+description: Serverless 触发器
 layout: Doc
 ---
 

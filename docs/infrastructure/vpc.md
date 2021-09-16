@@ -1,6 +1,8 @@
 ---
-title: "VPC 私有网络"
+title: "Tencent Serverless - VPC 私有网络"
 menuText: "VPC 私有网络"
+menuOrder: 4
+description: VPC 私有网络
 layout: Doc
 ---
 

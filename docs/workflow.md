@@ -1,6 +1,8 @@
 ---
-title: "Serverless开发流程"
+title: "Tencent Serverless - Serverless开发流程"
 menuText: "Serverless开发流程"
+menuOrder: 3
+description: serverless 开发流程
 layout: Doc
 ---
 
@@ -69,10 +71,3 @@ Serverless 部署时使用腾讯云账号，分为几种情况：
 
 - `sls info`: 查看部署应用的详情和 component output 信息。
 - `sls remove`: 删除已部署的 serverless 应用。
-
-**下一步：开始 Serverless 开发**
-
-- [安装 Serverless CLI](./installation)
-- [Serverless CLI 命令](./commands)
-- [开始云函数开发](./function-dev)
-- [开始应用开发](./components-dev)

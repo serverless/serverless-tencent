@@ -1,6 +1,8 @@
 ---
-title: "基础组件说明"
+title: "Tencent Serverless - 基础组件说明"
 menuText: "基础组件说明"
+menuOrder: 7
+description: Serverless 基础组件说明
 layout: Doc
 ---
 
