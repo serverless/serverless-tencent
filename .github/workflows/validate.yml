@@ -5,8 +5,9 @@ name: Validate
 on:
   pull_request:
     paths:
-      - "serverless-tencent-plugin/**"
-    branches: [master]
+      - 'src/**'
+      - 'package.json'
+    branches: [master, canary]
 
 jobs:
   lintAndFormatting:
@@ -46,16 +47,14 @@ jobs:
       - name: Install dependencies
         if: steps.cacheNpm.outputs.cache-hit != 'true'
         run: |
-          cd serverless-tencent-plugin
           npm update --no-save
           npm update --save-dev --no-save
       - name: Validate Formatting
-        run: cd serverless-tencent-plugin && npm run prettier-check:updated
+        run: npm run prettier-check:updated
       - name: Validate Lint rules
-        run: cd serverless-tencent-plugin && npm run lint:updated
+        run: npm run lint:updated
       - name: Validate changelog (if new version)
         run: |
-          cd serverless-tencent-plugin
           NEW_VERSION=`git diff -U0 master package.json | grep '"version": "' | tail -n 1 | grep -oE "[0-9]+\.[0-9]+\.[0-9]+"` || :
           if [ -n "$NEW_VERSION" ];
           then
