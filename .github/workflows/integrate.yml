@@ -5,8 +5,9 @@ name: Integrate
 on:
   push:
     paths:
-      - "serverless-tencent-plugin/**"
-    branches: [master]
+      - 'src/**'
+      - 'package.json'
+    branches: [master, canary]
 
 jobs:
   publishCanaaryAndTagIfNewVersion:
@@ -42,7 +43,6 @@ jobs:
       - name: Publish canary
         run: |
           ./.github/prepare-canary.js
-          cd serverless-tencent-plugin
           npm publish --tag canary
           git checkout .
 
@@ -53,7 +53,6 @@ jobs:
 
       - name: Tag if new version
         run: |
-          cd serverless-tencent-plugin
           LAST_VALIDATED_COMMIT_HASH=`cat /home/runner/last-validated-commit-hash` || :
           if [ -n "$LAST_VALIDATED_COMMIT_HASH" ];
           then
