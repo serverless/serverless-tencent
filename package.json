@@ -1,0 +1,77 @@
+{
+  "name": "@serverless/serverless-tencent-plugin",
+  "version": "0.0.1",
+  "description": "Serverless Tencent plugin",
+  "main": "./dist/index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:updated": "pipe-git-updated --ext=js -- eslint",
+    "prettify": "prettier --write --ignore-path .gitignore \"**/*.{css,html,js,json,md,yaml,yml}\"",
+    "prettier-check:updated": "pipe-git-updated --ext=css --ext=html --ext=js --ext=json --ext=md --ext=yaml --ext=yml -- prettier -c",
+    "prebuild": "rm -fr dist",
+    "build": "webpack"
+  },
+  "eslintConfig": {
+    "extends": "@serverless/eslint-config/node",
+    "root": true,
+    "rules": {
+      "no-console": "off",
+      "no-underscore-dangle": "off"
+    }
+  },
+  "eslintIgnore": [
+    "!/.github",
+    "webpack.config.js",
+    "docs/**"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@serverless/platform-client-china": "^2.2.0",
+    "@serverless/utils": "^4.0.0",
+    "adm-zip": "^0.5.4",
+    "ansi-escapes": "^4.3.1",
+    "chalk": "^4.1.0",
+    "child-process-ext": "^2.1.1",
+    "chokidar": "^3.5.1",
+    "ci-info": "^3.2.0",
+    "dayjs": "^1.10.4",
+    "dotenv": "^8.2.0",
+    "fastest-levenshtein": "^1.0.12",
+    "figures": "^3.2.0",
+    "fs-extra": "^9.1.0",
+    "got": "^11.8.2",
+    "graphlib": "^2.1.8",
+    "https-proxy-agent": "^5.0.0",
+    "inquirer-autocomplete-prompt": "^1.3.0",
+    "js-yaml": "^3.14.1",
+    "memoizee": "^0.4.14",
+    "minimist": "^1.2.5",
+    "prettyoutput": "^1.2.0",
+    "ramda": "^0.27.1",
+    "semver": "^7.3.4",
+    "strip-ansi": "^6.0.0",
+    "tencent-serverless-http": "^1.3.1",
+    "traverse": "^0.6.6",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@serverless/eslint-config": "^3.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint": "^7.32.0",
+    "git-list-updated": "^1.2.1",
+    "github-release-from-cc-changelog": "^2.2.0",
+    "prettier": "^2.4.1",
+    "webpack": "^5.52.1",
+    "webpack-cli": "^4.8.0",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "peerDependencies": {
+    "serverless": "2.x"
+  },
+  "engines": {
+    "node": ">=10.0"
+  },
+  "license": "MIT"
+}

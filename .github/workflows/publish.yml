@@ -39,13 +39,12 @@ jobs:
       - name: Install dependencies
         if: steps.cacheNpm.outputs.cache-hit != 'true'
         run: |
-          cd serverless-tencent-plugin
           npm update --no-save
           npm update --save-dev --no-save
 
       - name: Publish new version
         run: |
-          cd serverless-tencent-plugin
+          npm run build
           npm publish
 
         # Note: Setting NODE_AUTH_TOKEN as job|workspace wide env var won't work
@@ -55,7 +54,6 @@ jobs:
 
       - name: Publish release notes
         run: |
-          cd serverless-tencent-plugin
           TEMP_ARRAY=($(echo $GITHUB_REF | tr "/" "\n"))
           TAG=${TEMP_ARRAY[@]: -1}
           npx github-release-from-cc-changelog $TAG

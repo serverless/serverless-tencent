@@ -1,0 +1,5 @@
+docs
+blog
+/.github
+src
+!dist/*
