@@ -68,3 +68,16 @@ jobs:
         #       as it appears actions/setup-node sets own value
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # 01dd......71cc
+
+      - name: Tag if new version
+        run: |
+          LAST_VALIDATED_COMMIT_HASH=`cat /home/runner/last-validated-commit-hash` || :
+          if [ -n "$LAST_VALIDATED_COMMIT_HASH" ];
+          then
+            NEW_VERSION=`git diff -U0 $LAST_VALIDATED_COMMIT_HASH package.json | grep '"version": "' | tail -n 1 | grep -oE "[0-9]+\.[0-9]+\.[0-9]+"` || :
+            if [ -n "$NEW_VERSION" ];
+            then
+              git tag v$NEW_VERSION
+              git push --tags
+            fi
+          fi
