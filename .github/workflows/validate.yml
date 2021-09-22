@@ -1,0 +1,63 @@
+# PR's only for sereverless-tencent-plugin
+
+name: Validate
+
+on:
+  pull_request:
+    paths:
+      - "serverless-tencent-plugin/**"
+    branches: [master]
+
+jobs:
+  lintAndFormatting:
+    name: Lint & Formatting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          # Ensure connection with 'master' branch
+          fetch-depth: 2
+
+      - name: Retrieve last master commit (for `git diff` purposes)
+        run: |
+          git checkout -b pr
+          git fetch --prune --depth=20 origin +refs/heads/master:refs/remotes/origin/master
+          git checkout master
+          git checkout pr
+
+      - name: Retrieve dependencies from cache
+        id: cacheNpm
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: npm-v14-${{ runner.os }}-${{ github.ref }}-${{ hashFiles('package.json') }}
+          restore-keys: |
+            npm-v14-${{ runner.os }}-${{ github.ref }}-
+            npm-v14-${{ runner.os }}-refs/heads/master-
+
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Install dependencies
+        if: steps.cacheNpm.outputs.cache-hit != 'true'
+        run: |
+          cd serverless-tencent-plugin
+          npm update --no-save
+          npm update --save-dev --no-save
+      - name: Validate Formatting
+        run: cd serverless-tencent-plugin && npm run prettier-check:updated
+      - name: Validate Lint rules
+        run: cd serverless-tencent-plugin && npm run lint:updated
+      - name: Validate changelog (if new version)
+        run: |
+          cd serverless-tencent-plugin
+          NEW_VERSION=`git diff -U0 master package.json | grep '"version": "' | tail -n 1 | grep -oE "[0-9]+\.[0-9]+\.[0-9]+"` || :
+          if [ -n "$NEW_VERSION" ];
+          then
+            npx dump-release-notes-from-cc-changelog $NEW_VERSION
+          fi

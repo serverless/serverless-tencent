@@ -223,7 +223,6 @@ express@0.0.4 › Published
 
 Serverless Components 主要支持 Serverless 化的云服务，为了提供更好的产品体验，Serverless 化的云产品支持用户按需付费，无需付费即可享受到最好的服务。
 
-
 <br/>
 
 # 概述
@@ -884,7 +883,10 @@ console.log(`Files unzipped into ${sourceDirectory}...`);
 
 // add sdk to the source directory, add original handler
 console.log(`Installing Serverless Framework SDK...`);
-instance.state.handler = await instance.addSDK(sourceDirectory, '_express/handler.handler');
+instance.state.handler = await instance.addSDK(
+  sourceDirectory,
+  '_express/handler.handler',
+);
 
 // zip the source directory with the shim and the sdk
 console.log(`Zipping files...`);
@@ -1073,9 +1075,25 @@ src: # 描述项目中的哪些文件需要作为模板发布
 
 查看当前使用的 `serverless-tencent-plugin` 的版本
 
+#### `serverless credentials`
+
+设置 腾讯云全局认证信息
+
+##### `serverless credentials set`
+
+认证信息设置
+
+##### `serverless credentials remove`
+
+认证信息删除
+
+##### `serverless credentilas list`
+
+列出当前已设置的认证信息
+
 #### `serverless help`, `serverless xxxx --help`
 
-输出帮助信息，以及具体某一命令的具体参数和帮助信息
+输出全局帮助信息，以及具体某一命令的具体参数和帮助信息
 
 #### `serverless <command> --inputs key=value foo=bar`
 
