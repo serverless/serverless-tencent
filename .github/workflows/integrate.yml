@@ -42,6 +42,7 @@ jobs:
 
       - name: Publish canary
         run: |
+          chmod +x ./.github/prepare-canary.js
           ./.github/prepare-canary.js
           npm publish --tag canary
           git checkout .
