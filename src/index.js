@@ -8,8 +8,8 @@ const { loadTencentGlobalConfig } = require('./utils');
 const commandList = [
   'init',
   'deploy',
-  'remove',
   'logs',
+  'remove',
   'dev',
   'info',
   'registry',
