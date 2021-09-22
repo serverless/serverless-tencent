@@ -1,6 +1,6 @@
 {
   "name": "@serverless/serverless-tencent-plugin",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "Serverless Tencent plugin",
   "main": "./dist/index.js",
   "scripts": {
@@ -8,6 +8,7 @@
     "lint:updated": "pipe-git-updated --ext=js -- eslint",
     "prettify": "prettier --write --ignore-path .gitignore \"**/*.{css,html,js,json,md,yaml,yml}\"",
     "prettier-check:updated": "pipe-git-updated --ext=css --ext=html --ext=js --ext=json --ext=md --ext=yaml --ext=yml -- prettier -c",
+    "prebuild": "rm -fr dist",
     "build": "webpack"
   },
   "eslintConfig": {
@@ -23,6 +24,9 @@
     "webpack.config.js",
     "docs/**"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@serverless/platform-client-china": "^2.2.0",
     "@serverless/utils": "^4.0.0",

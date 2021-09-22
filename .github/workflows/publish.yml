@@ -3,9 +3,7 @@
 name: Publish
 
 on:
-  push:
-    tags:
-      - v[0-9]+.[0-9]+.[0-9]+
+  workflow_dispatch:
 
 jobs:
   publish:
@@ -44,6 +42,7 @@ jobs:
 
       - name: Publish new version
         run: |
+          npm run build
           npm publish
 
         # Note: Setting NODE_AUTH_TOKEN as job|workspace wide env var won't work
