@@ -16,7 +16,26 @@
 
 ### 部署应用
 
-`cd example && serverless deploy`
+#### 进入项目目录
+
+`cd example`
+
+#### 安装插件
+
+`npm install @serverless/serverless-tencent-plugin`
+
+#### 配置插件
+
+`serverless.yml` 添加 **plugins** 字段
+
+```yaml=
+plugins:
+  - "@serverless/serverless-tencent-plugin"
+```
+
+#### 部署
+
+`serverless deploy`
 
 如果没有配置全局认证信息，需要用户进行扫码登陆验证
 
