@@ -2,7 +2,7 @@
 
 const { v4: uuidv4 } = require('uuid');
 const { ServerlessSDK } = require('@serverless/platform-client-china');
-const { getTemplate, getTemplateDashboardUrl } = require('./utils');
+const { getTemplate, getTemplateDashboardUrl } = require('../libs/utils');
 const chalk = require('chalk');
 const dayjs = require('dayjs');
 const relativeTime = require('dayjs/plugin/relativeTime');

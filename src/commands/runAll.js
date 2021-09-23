@@ -10,20 +10,18 @@ const {
   createGraph,
   executeGraph,
   writeJsonToCredentials,
-} = require('../utils');
-const {
   writeClientUid,
   login,
   loadInstanceCredentials,
   getTemplate,
   handleDebugLogMessage,
   clientUidDefaultPath,
-} = require('./utils');
-const { generatePayload, storeLocally, send: sendTelemtry } = require('./telemtry');
-const generateNotificationsPayload = require('../notifications/generate-payload');
+} = require('../libs/utils');
+const { generatePayload, storeLocally, send: sendTelemtry } = require('../libs/telemtry');
+const generateNotificationsPayload = require('../libs/notifications/generate-payload');
 const { v4: uuidv4 } = require('uuid');
-const requestNotification = require('../notifications/request');
-const printNotification = require('../notifications/print-notification');
+const requestNotification = require('../libs/notifications/request');
+const printNotification = require('../libs/notifications/print-notification');
 
 function translateCommand(command) {
   const translateCommandMap = new Map([

@@ -1,9 +1,8 @@
 'use strict';
 
 /*
- * Serverless Components: Utilities
+ * serverless-tencent: Utilities for this plugin commands
  */
-
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
@@ -18,7 +17,7 @@ const {
   resolveVariables,
   parseCliInputs,
   fileExists,
-} = require('../utils');
+} = require('./basic');
 const { mergeDeepRight } = require('ramda');
 const YAML = require('js-yaml');
 const fse = require('fs-extra');
@@ -542,7 +541,7 @@ const writeClientUid = async (p = clientUidDefaultPath, options = {}) => {
       writeJsonToCredentials(p, {
         client_uid: res,
       });
-      const { sendToMetrics } = require('./telemtry/index');
+      const { sendToMetrics } = require('../telemtry/index');
 
       await sendToMetrics(res, {}, { initClientUid: true });
     } else {
@@ -554,7 +553,6 @@ const writeClientUid = async (p = clientUidDefaultPath, options = {}) => {
 };
 
 module.exports = {
-  loadInstanceConfig: loadTencentInstanceConfig,
   loadInstanceCredentials,
   login,
   getDefaultOrgName,
@@ -569,4 +567,5 @@ module.exports = {
   checkBasicConfigValidation,
   writeClientUid,
   clientUidDefaultPath,
+  loadTencentInstanceConfig,
 };

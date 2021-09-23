@@ -1,5 +1,5 @@
 /**
- * Metrics for components cli
+ * Metrics for serverless-tencnet
  * Author: Meng Zong <meng.zong@serverless.com>
  * Doc: https://hackmd.io/_xwPrkdET2aKKr1VWcaWjQ?view
  */

@@ -1,12 +1,15 @@
 'use strict';
 
+/*
+ * serverless-tencnet: Command: INVOKE LOCAL
+ */
+
 const path = require('path');
-const utils = require('../../utils');
-const { readAndParseSync, fileExistsSync } = require('../../../utils');
+const utils = require('../../../libs/utils');
 const { colorLog, printOutput, summaryOptions, checkRuntime } = require('./utils');
 const runPython = require('./runPython');
 const runPhp = require('./runPhp');
-const { generatePayload, storeLocally } = require('../../telemtry');
+const { generatePayload, storeLocally } = require('../../../libs/telemtry');
 
 module.exports = async (config, cli, command, instanceDir) => {
   const { config: ymlFilePath, c } = config;
@@ -21,7 +24,7 @@ module.exports = async (config, cli, command, instanceDir) => {
     if (ymlFilePath || c) {
       const customizedConfigFile = ymlFilePath || c;
 
-      if (!fileExistsSync(path.join(instanceDir, customizedConfigFile))) {
+      if (!utils.fileExistsSync(path.join(instanceDir, customizedConfigFile))) {
         await storeLocally({
           ...telemtryData,
           outcome: 'failure',
@@ -29,7 +32,7 @@ module.exports = async (config, cli, command, instanceDir) => {
         });
         throw new Error('指定的yml文件不存在');
       }
-      instanceYml = readAndParseSync(customizedConfigFile);
+      instanceYml = utils.readAndParseSync(customizedConfigFile);
     }
 
     const { inputs = {}, component } = instanceYml;

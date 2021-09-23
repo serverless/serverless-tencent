@@ -1,14 +1,13 @@
 'use strict';
 
 /*
- * CLI: Command: INFO
+ * serverless-tencnet: Command: INFO
  */
 
 const path = require('path');
 const { ServerlessSDK } = require('@serverless/platform-client-china');
 const { v4: uuidv4 } = require('uuid');
-const utils = require('./utils');
-const { runningTemplate, checkTemplateAppAndStage } = require('../utils');
+const utils = require('../libs/utils');
 const infoAll = require('./infoAll');
 const chalk = require('chalk');
 const dayjs = require('dayjs');
@@ -21,7 +20,7 @@ module.exports = async (config, cli, command) => {
   cli.sessionStart('Initializing', { timer: false });
 
   let instanceDir = process.cwd();
-  if (runningTemplate(instanceDir) && checkTemplateAppAndStage(instanceDir)) {
+  if (utils.runningTemplate(instanceDir) && utils.checkTemplateAppAndStage(instanceDir)) {
     return infoAll(config, cli);
   }
 

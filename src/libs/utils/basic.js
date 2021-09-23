@@ -1,7 +1,6 @@
 'use strict';
-
-/*
- * Serverless Components: Utilities
+/**
+ * Contains basic utils functions
  */
 
 const os = require('os');

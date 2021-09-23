@@ -3,7 +3,7 @@
 const path = require('path');
 const { inspect } = require('util');
 const semver = require('semver');
-const { fileExistsSync } = require('../../../utils');
+const { fileExistsSync } = require('../../../libs/utils');
 const chalk = require('chalk');
 const { execSync } = require('child_process');
 

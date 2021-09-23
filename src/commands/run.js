@@ -1,29 +1,22 @@
 'use strict';
 
 /*
- * CLI: Command: RUN
+ * serverless-tencent: Command: RUN
  */
 
 const path = require('path');
 const fs = require('fs');
-const {
-  runningTemplate,
-  loadInstanceConfig,
-  fileExists,
-  checkTemplateAppAndStage,
-  writeJsonToCredentials,
-} = require('../utils');
 const { ServerlessSDK, utils: tencentUtils } = require('@serverless/platform-client-china');
 const { v4: uuidv4 } = require('uuid');
-const { generatePayload, storeLocally, send: sendTelemtry } = require('./telemtry');
-const utils = require('./utils');
+const { generatePayload, storeLocally, send: sendTelemtry } = require('../libs/telemtry');
+const utils = require('../libs/utils');
 const runAll = require('./runAll');
 const chalk = require('chalk');
-const generateNotificationsPayload = require('../notifications/generate-payload');
-const requestNotification = require('../notifications/request');
-const printNotification = require('../notifications/print-notification');
+const generateNotificationsPayload = require('../libs/notifications/generate-payload');
+const requestNotification = require('../libs/notifications/request');
+const printNotification = require('../libs/notifications/print-notification');
 const { version } = require('../../package.json');
-const { getServerlessFilePath } = require('../serverlessFile');
+const { getServerlessFilePath } = require('../libs/serverlessFile');
 
 const componentsVersion = version;
 
@@ -33,13 +26,17 @@ module.exports = async (config, cli, command) => {
     instanceDir = path.join(instanceDir, config.target);
   }
 
-  if (!config.target && runningTemplate(instanceDir) && checkTemplateAppAndStage(instanceDir)) {
+  if (
+    !config.target &&
+    utils.runningTemplate(instanceDir) &&
+    utils.checkTemplateAppAndStage(instanceDir)
+  ) {
     return runAll(config, cli, command);
   }
 
   let telemtryData = await generatePayload({ command });
   try {
-    const hasPackageJson = await fileExists(path.join(process.cwd(), 'package.json'));
+    const hasPackageJson = await utils.fileExists(path.join(process.cwd(), 'package.json'));
 
     if (
       command === 'deploy' &&
@@ -49,7 +46,7 @@ module.exports = async (config, cli, command) => {
     ) {
       const generatedYML = await utils.generateYMLForNodejsProject(cli);
       await fs.promises.writeFile(path.join(process.cwd(), 'serverless.yml'), generatedYML, 'utf8');
-      loadInstanceConfig.clear();
+      utils.loadInstanceConfig.clear();
       cli.log('自动生成 serverless.yml 成功，即将部署');
     }
 
@@ -61,7 +58,7 @@ module.exports = async (config, cli, command) => {
     await utils.login(config);
 
     // Load YAML
-    const instanceYaml = await utils.loadInstanceConfig(instanceDir, command);
+    const instanceYaml = await utils.loadTencentInstanceConfig(instanceDir, command);
 
     // Presentation
     const meta = `Action: "${command}" - Stage: "${instanceYaml.stage}" - App: "${instanceYaml.app}" - Name: "${instanceYaml.name}"`;
@@ -174,7 +171,7 @@ module.exports = async (config, cli, command) => {
 
       // Insert appId into client_uid-credentials to avoid repeatly searching database, no matter the status of instance is succ or fail
       if (!cliendUidResult[orgUid]) {
-        writeJsonToCredentials(utils.clientUidDefaultPath, {
+        utils.writeJsonToCredentials(utils.clientUidDefaultPath, {
           client_uid: { ...cliendUidResult, [orgUid]: true },
         });
       }

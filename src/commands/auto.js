@@ -1,14 +1,18 @@
 'use strict';
 
+/*
+ * serverless-tencnet: Command: interactively init
+ */
+
 const path = require('path');
 const chalk = require('chalk');
 const inquirer = require('@serverless/utils/inquirer');
 const confirm = require('@serverless/utils/inquirer/confirm');
 const { ServerlessSDK } = require('@serverless/platform-client-china');
 const { v4: uuidv4 } = require('uuid');
-const { isProjectPath } = require('../utils');
+const { isProjectPath } = require('../libs/utils');
 const { initTemplateFromCli } = require('./init');
-const { generatePayload, storeLocally } = require('./telemtry');
+const { generatePayload, storeLocally } = require('../libs/telemtry');
 
 const isValidProjectName = RegExp.prototype.test.bind(/^[a-zA-Z][a-zA-Z0-9-]{0,100}$/);
 

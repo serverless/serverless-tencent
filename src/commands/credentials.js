@@ -19,7 +19,7 @@ const path = require('path');
 const os = require('os');
 const fse = require('fs-extra');
 const chalk = require('chalk');
-const { fileExistsSync, loadCredentialsToJson, writeJsonToCredentials } = require('../utils');
+const { fileExistsSync, loadCredentialsToJson, writeJsonToCredentials } = require('../libs/utils');
 
 const globalTencentCredentials = path.join(os.homedir(), '.serverless/tencent/credentials');
 
