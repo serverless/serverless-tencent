@@ -1,12 +1,15 @@
 'use strict';
 
+/*
+ * serverless-tencnet: Command: INVOKE
+ */
+
 const fs = require('fs');
 const nodePath = require('path');
-const utils = require('../utils');
-const { isJson, runningTemplate } = require('../../utils');
+const utils = require('../../libs/utils');
 const { ServerlessSDK, utils: chinaUtils } = require('@serverless/platform-client-china');
 const invokeLocal = require('./invoke-local');
-const { generatePayload, storeLocally } = require('../telemtry');
+const { generatePayload, storeLocally } = require('../../libs/telemtry');
 const chalk = require('chalk');
 const { inspect } = require('util');
 const { v4: uuidv4 } = require('uuid');
@@ -52,7 +55,7 @@ module.exports = async (config, cli, command) => {
     instanceDir = nodePath.join(instanceDir, config.target);
   }
 
-  if (runningTemplate(instanceDir)) {
+  if (utils.runningTemplate(instanceDir)) {
     try {
       instanceDir = await utils.getDirForInvokeCommand(instanceDir, functionAlias);
     } catch (e) {
@@ -102,7 +105,7 @@ module.exports = async (config, cli, command) => {
       }
     }
 
-    if (dataValue && !isJson(dataValue)) {
+    if (dataValue && !utils.isJson(dataValue)) {
       cli.log(`Serverless: ${chalk.yellow('传入的 data 不是序列化 JSON, 请检查后重试')}`);
 
       await storeLocally({

@@ -1,7 +1,7 @@
 'use strict';
 
 /*
- * Serverless Components: CLI Handler
+ * serverless-tencent: collection config for commands
  */
 
 const path = require('path');

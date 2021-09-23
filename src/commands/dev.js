@@ -1,7 +1,7 @@
 'use strict';
 
 /*
- * CLI: Command: Dev
+ * serverless-tencent: Command: Dev
  */
 
 const path = require('path');
@@ -9,11 +9,10 @@ const { Writable } = require('stream');
 const ansiEscapes = require('ansi-escapes');
 const chokidar = require('chokidar');
 const { ServerlessSDK, utils: chinaUtils } = require('@serverless/platform-client-china');
-const { generatePayload, storeLocally } = require('./telemtry');
+const { generatePayload, storeLocally } = require('../libs/telemtry');
 const { v4: uuidv4 } = require('uuid');
-const utils = require('./utils');
+const utils = require('../libs/utils');
 const chalk = require('chalk');
-const { runningTemplate } = require('../utils');
 
 class LogForwardingOutput extends Writable {
   _write(chunk, encoding, callback) {
@@ -150,7 +149,7 @@ module.exports = async (config, cli, command) => {
   if (config.target) {
     instanceDir = path.join(instanceDir, config.target);
   }
-  if (runningTemplate(instanceDir)) {
+  if (utils.runningTemplate(instanceDir)) {
     cli.log(
       `Serverless: ${chalk.yellow('该命令暂不支持对多组件进行调用, 使用 --target 指定执行目录')}`
     );

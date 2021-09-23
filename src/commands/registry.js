@@ -1,14 +1,13 @@
 'use strict';
 
 /*
- * CLI: Command: Registry
+ * serverless-tencent: Command: Registry
  */
 
 const { ServerlessSDK } = require('@serverless/platform-client-china');
 const { v4: uuidv4 } = require('uuid');
-const utils = require('./utils');
-const { loadComponentConfig, loadTemplateConfig } = require('../utils');
-const { loadServerlessFile } = require('../serverlessFile');
+const utils = require('../libs/utils');
+const { loadServerlessFile } = require('../libs/serverlessFile');
 
 /**
  * Publish a Package(Component or Template) to the Serverless Registry
@@ -27,8 +26,8 @@ const publish = async (config, cli) => {
   // We want to check the existence of serverless.template.yml and serverless.component.yml first
   // If both of them did not show up, we will check serverless.yml for backward compatibility
   // Why not check the existence of serverless.yml first? serverless.template.yml and serverless.yml may be in the same folder
-  const serverlessTemplateFile = await loadTemplateConfig(process.cwd());
-  const serverlessComponentFile = await loadComponentConfig(process.cwd());
+  const serverlessTemplateFile = await utils.loadTemplateConfig(process.cwd());
+  const serverlessComponentFile = await utils.loadComponentConfig(process.cwd());
   const serverlessFile = await loadServerlessFile(process.cwd());
 
   if (!serverlessTemplateFile && !serverlessComponentFile && !serverlessFile) {

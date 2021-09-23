@@ -1,12 +1,12 @@
 'use strict';
 
 /*
- * CLI: Command: Help
+ * serverless-tencent: Command: Help
  */
 
 const chalk = require('chalk');
 const { distance: getDistance } = require('fastest-levenshtein');
-const utils = require('../utils');
+const utils = require('../libs/utils');
 
 const title = chalk.blue.bold;
 const command = chalk.blue;

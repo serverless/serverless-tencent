@@ -1,7 +1,7 @@
 'use strict';
 
 /*
- * SERVERLESS COMPONENTS: CLI
+ * serverless-tencent: Build the cli outputs and other utils for commands
  */
 
 const os = require('os');
@@ -11,7 +11,7 @@ const stripAnsi = require('strip-ansi');
 const figures = require('figures');
 const prettyoutput = require('prettyoutput');
 const chokidar = require('chokidar');
-const packageInfo = require('../package.json');
+const packageInfo = require('../../package.json');
 const { isChinaUser, groupByKey } = require('./utils');
 
 const version = packageInfo.version;

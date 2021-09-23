@@ -3,7 +3,7 @@ const path = require('path');
 const { ServerlessSDK, utils: tencentUtils } = require('@serverless/platform-client-china');
 const { v4: uuidv4 } = require('uuid');
 const chalk = require('chalk');
-const utils = require('./utils');
+const utils = require('../libs/utils');
 const { version } = require('../../package.json');
 
 const resolveParams = (value) => {

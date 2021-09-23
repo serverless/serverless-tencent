@@ -1,9 +1,9 @@
 'use strict';
 
-const config = require('./config');
-const Cli = require('./cli');
-const functions = require('./libs');
-const { loadTencentGlobalConfig } = require('./utils');
+const config = require('./libs/config');
+const Cli = require('./libs/cli');
+const { loadTencentGlobalConfig } = require('./libs/utils');
+const functions = require('./commands');
 
 const commandList = [
   'init',

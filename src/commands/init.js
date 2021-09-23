@@ -1,7 +1,7 @@
 'use strict';
 
 /*
- * CLI: Command: CREATE
+ * serverless-tencent: Command: INIT
  */
 
 const fs = require('fs');
@@ -11,11 +11,11 @@ const path = require('path');
 const stream = require('stream');
 const AdmZip = require('adm-zip');
 const { v4: uuidv4 } = require('uuid');
-const { generatePayload, storeLocally } = require('./telemtry');
+const { generatePayload, storeLocally } = require('../libs/telemtry');
 const got = require('got');
 const { ServerlessSDK } = require('@serverless/platform-client-china');
 const spawn = require('child-process-ext/spawn');
-const { parseYaml, saveYaml } = require('./utils');
+const { parseYaml, saveYaml } = require('../libs/utils');
 
 const pipeline = promisify(stream.pipeline);
 

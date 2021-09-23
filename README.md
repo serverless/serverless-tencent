@@ -1,3 +1,29 @@
+# serverless-tencent-plugin
+
+此插件提供了在 `serverless` 中使用腾讯云功能的支持
+
+## 快速开始
+
+### 前置条件
+
+1. Nodejs 10.x 及以上版本
+2. Serverless CLI `v2.0+`, 如果没有安装可以使用 `npm i -g serverless` 命令安装
+3. 腾讯云账号以及对应权限开通:https://cloud.tencent.com/document/product/1154/43006
+
+### 新建 serverless 应用
+
+`sereverless init scf-nodejs --name example`
+
+### 部署应用
+
+`cd example && serverless deploy`
+
+如果没有配置全局认证信息，需要用户进行扫码登陆验证
+
+### 删除应用
+
+`serverless remove`
+
 ## CLI 命令列表
 
 ### `serverless registry`
@@ -50,7 +76,7 @@
 
 ### `serverless version`
 
-查看当前使用的 `serverless-tencent-plugin` 的版本
+查看当前使用的插件版本
 
 ### `serverless credentials`
 
