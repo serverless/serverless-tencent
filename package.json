@@ -1,8 +1,8 @@
 {
   "name": "@serverless/serverless-tencent-plugin",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Serverless Tencent plugin",
-  "main": "./src/index.js",
+  "main": "./dist/index.js",
   "repository": "serverless/serverless-tencent",
   "author": "Serverless, Inc.",
   "scripts": {

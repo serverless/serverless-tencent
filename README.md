@@ -1,6 +1,6 @@
 # serverless-tencent-plugin
 
-此插件提供了在 `serverless` 中使用腾讯云功能的支持
+此插件提供了在 [serverless](https://www.serverless.com/) 中使用腾讯云功能的支持
 
 ## 快速开始
 
@@ -112,3 +112,14 @@ serverless invoke --inputs env='{"LANG": "en"}'
 # 传递 Array: 用逗号分隔
 serverless backup --inputs userIds=foo,bar
 ```
+
+## 代码发布
+
+### Canary 测试版本
+
+提交代码到 `master` 分支，自动发布插件的 `canary` 版本，可以通过 `npm i @serverless/serverless-tencent-plugin@canary` 安装测试
+
+### 发布正式版本
+
+1. 功能完成之后，需要修改 `package.json/version` 字段以及在 `CHANGELOG.md` 中写明更新日志
+2. 提交代码到 `master`, 合并之后自动发布正式版本
