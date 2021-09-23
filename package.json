@@ -1,8 +1,10 @@
 {
   "name": "@serverless/serverless-tencent-plugin",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Serverless Tencent plugin",
   "main": "./dist/index.js",
+  "repository": "serverless/serverless-tencent",
+  "author": "Serverless, Inc.",
   "scripts": {
     "lint": "eslint .",
     "lint:updated": "pipe-git-updated --ext=js -- eslint",
