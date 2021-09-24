@@ -1,136 +1,83 @@
-# serverless-tencent-plugin
+# serverless-tencent
 
-此插件提供了在 [serverless](https://www.serverless.com/) 中使用腾讯云功能的支持
+[![serverless](http://public.serverless.com/badges/v3.svg)](http://cn.serverless.com)
+<!-- [![Build Status](https://github.com/serverless/serverless/workflows/Integrate/badge.svg)](https://github.com/serverless/serverless/actions?query=workflow%3AIntegrate) -->
+<!-- [![npm version](https://badge.fury.io/js/serverless.svg)](https://badge.fury.io/js/serverless) -->
+<!-- [![codecov](https://codecov.io/gh/serverless/serverless/branch/master/graph/badge.svg)](https://codecov.io/gh/serverless/serverless) -->
+<!-- [![Known Vulnerabilities](https://snyk.io/test/github/serverless/serverless/badge.svg)](https://snyk.io/test/github/serverless/serverless) -->
+<!-- [![license](https://img.shields.io/npm/l/serverless.svg)](https://www.npmjs.com/package/serverless) -->
+
+[![Serverless Framework](https://sp-assets-1300963013.file.myqcloud.com/blog/thumbnails/logo-sf-side-dark.png)](https://cn.serverless.com)
+
+<p align="center">
+  <a href="https://cn.serverless.com">🇨🇳 中文网站</a> •
+  <a href="https://cn.serverless.com/cn/framework/docs/">📖 帮助文档</a> •
+  <a href="https://github.com/serverless/serverless-tencent/discussions">💬 讨论区</a> •
+  <a href="https://github.com/serverless/serverless-tencent/issues/new/choose">🐞 BUG反馈</a> •
+  <a href="https://serverless.com/company/jobs/"> 👩‍💻👨‍💻 招聘职位</a>
+</p>
+
+> 此插件提供了 [Serverless](https://cn.serverless.com/) 在腾讯云上进行开发和调试的相关功能，并优化了使用流程和体验。
 
 ## 快速开始
+
+> 🚧 🚧 🚧 此插件为 Serverless Frameowrk CLI v3.0 重构测试继承使用，请不要在生产环境中使用此插件。 目前生产开发用的 CLI 工具请按照[帮助文档](https://cn.serverless.com/cn/framework/docs/quickstart/installation/)中的说明内容安装使用。
 
 ### 前置条件
 
 1. Nodejs 10.x 及以上版本
 2. Serverless CLI `v2.0+`, 如果没有安装可以使用 `npm i -g serverless` 命令安装
-3. 腾讯云账号以及对应权限开通:https://cloud.tencent.com/document/product/1154/43006
+3. [注册](https://cloud.tencent.com/register)腾讯云账号并[开通相关权限](https://cloud.tencent.com/document/product/1154/43006)
 
-### 新建 serverless 应用
+### 安装使用
 
-`sereverless init scf-nodejs --name example`
+> 🚧 🚧 🚧 此插件为 Serverless Frameowrk CLI v3.0 重构测试继承使用，请不要在生产环境中使用此插件。 目前生产开发用的 CLI 工具请按照[帮助文档](https://cn.serverless.com/cn/framework/docs/quickstart/installation/)中的说明内容安装使用。
 
-### 部署应用
+```sh
+$ sereverless init scf-nodejs --name example
+$ cd example
+$ npm install @serverless/serverless-tencent-plugin
+```
 
-#### 进入项目目录
-
-`cd example`
-
-#### 安装插件
-
-`npm install @serverless/serverless-tencent-plugin`
-
-#### 配置插件
-
-`serverless.yml` 添加 **plugins** 字段
-
-```yaml=
+```yml
 plugins:
   - "@serverless/serverless-tencent-plugin"
 ```
 
-#### 部署
+## CLI 命令
 
-`serverless deploy`
+> 🚧 🚧 🚧 此插件为 Serverless Frameowrk CLI v3.0 重构测试继承使用，请不要在生产环境中使用此插件。 目前生产开发用的 CLI 工具请按照[帮助文档](https://cn.serverless.com/cn/framework/docs/quickstart/installation/)中的说明内容安装使用。
 
-如果没有配置全局认证信息，需要用户进行扫码登陆验证
+<!-- - [Init 创建](#init)
+- [Deploy 部署](#deploy)
+- [Info 详情](#info)
+- [Dev 远程开发](#dev)
+- [Logs 日志](#logs)
+- [Remove 移除](#remove)
+- [Credentials 授权](#credentials)
+- [Registry 注册中心](#registry)
+- [Invoke 远程调用](#invoke)
+- [Invoke Local 本地调用](#invoke-local)
 
-### 删除应用
+### <a name="init">Init 创建</a>
 
-`serverless remove`
+### <a name="deploy">Deploy 部署</a>
 
-## CLI 命令列表
+### <a name="info">Info 详情</a>
 
-### `serverless registry`
+### <a name="dev">Dev 远程开发</a>
 
-查看可用的 组件（Components）以及模板（Template） 列表
+### <a name="logs">Logs 日志</a>
 
-### `serverless publish`
+### <a name="remove">Remove 移除</a>
 
-发布组件（Components）或者模板（Template） 到 Serverless 注册中心
+### <a name="credentials">Credentials 授权</a>
 
-`--dev` - 支持 dev 参数用于发布 `@dev` 版本的 Component，用于开发或测试，此参数仅对组件有效，对模板无效，模板没有版本的概念。
+### <a name="registry">Registry 注册中心</a>
 
-### `serverless init`
+### <a name="invoke">Invoke 远程调用</a>
 
-选择一个模板初始化项目
-
-### `serverless deploy`
-
-部署一个 Component 实例到云端
-
-`--debug` - 列出组件部署过程中 `console.log()` 输出的部署操作和状态等日志信息。
-
-### `serverless remove`
-
-从云端移除一个 Component 实例
-
-`--debug` - 列出组件移除过程中 `console.log()` 输出的移除操作和状态等日志信息。
-
-### `serverless info`
-
-获取并展示一个 Component 实例的相关信息
-
-`--debug` - 列出更多 `state`.
-
-### `serverless dev`
-
-启动 DEV MODE 开发者模式，通过检测 Component 的状态变化，自动部署变更信息。同时支持在命令行中实时输出运行日志，调用信息和错误等。此外，支持对 Node.js 应用进行云端调试。
-
-### `serverless logs`
-
-获取实例的运行日志
-
-### `serverless invoke`
-
-命令行对已部署实例进行调用
-
-### `serverless invoke local`
-
-命令行对代码进行本地调用
-
-### `serverless version`
-
-查看当前使用的插件版本
-
-### `serverless credentials`
-
-设置 腾讯云全局认证信息
-
-#### `serverless credentials set`
-
-认证信息设置
-
-#### `serverless credentials remove`
-
-认证信息删除
-
-#### `serverless credentilas list`
-
-列出当前已设置的认证信息
-
-### `serverless help`, `serverless xxxx --help`
-
-输出全局帮助信息，以及具体某一命令的具体参数和帮助信息
-
-### `serverless <command> --inputs key=value foo=bar`
-
-在运行命令时覆盖 `serverless.yml` 中的 inputs
-
-例子:
-
-```
-# 简单的例子
-serverless test --inputs domain=serverless.com
-# 传递对象: 使用 JSON 格式
-serverless invoke --inputs env='{"LANG": "en"}'
-# 传递 Array: 用逗号分隔
-serverless backup --inputs userIds=foo,bar
-```
+### <a name="invoke-local">Invoke Local 本地调用</a> -->
 
 ## 代码发布
 
