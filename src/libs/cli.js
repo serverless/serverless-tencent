@@ -12,7 +12,7 @@ const figures = require('figures');
 const prettyoutput = require('prettyoutput');
 const chokidar = require('chokidar');
 const packageInfo = require('../../package.json');
-const { isChinaUser, groupByKey } = require('./utils');
+const { groupByKey } = require('./utils');
 
 const version = packageInfo.version;
 
@@ -203,30 +203,16 @@ module.exports = class CLI {
     // Add default helpful info
     error.name = error.name || 'Unknown Error';
 
-    if (!isChinaUser()) {
-      if (error.documentation !== false) {
-        error.documentation = error.documentation
-          ? `  Documentation: ${error.documentation} ${os.EOL}`
-          : `  Documentation: https://github.com/serverless/components ${os.EOL}`;
-      }
-      if (error.support !== false) {
-        error.support = `  Support: https://app.serverless.com/support ${os.EOL}`;
-      }
-      if (error.chat !== false) {
-        error.chat = `  Slack: https://www.serverless.com/slack/ ${os.EOL}`;
-      }
-    } else {
-      if (error.documentation !== false) {
-        error.documentation = error.documentation
-          ? `  帮助文档: ${error.documentation} ${os.EOL}`
-          : `  帮助文档: https://www.serverless.com/cn/framework/docs/ ${os.EOL}`;
-      }
-      if (error.support !== false) {
-        error.support = `  BUG提交: https://github.com/serverless/serverless-tencent/issues ${os.EOL}`;
-      }
-      if (error.chat !== false) {
-        error.chat = `  问答社区: https://github.com/serverless/serverless-tencent/discussions ${os.EOL}`;
-      }
+    if (error.documentation !== false) {
+      error.documentation = error.documentation
+        ? `  帮助文档: ${error.documentation} ${os.EOL}`
+        : `  帮助文档: https://www.serverless.com/cn/framework/docs/ ${os.EOL}`;
+    }
+    if (error.support !== false) {
+      error.support = `  BUG提交: https://github.com/serverless/serverless-tencent/issues ${os.EOL}`;
+    }
+    if (error.chat !== false) {
+      error.chat = `  问答社区: https://github.com/serverless/serverless-tencent/discussions ${os.EOL}`;
     }
 
     // Clear any existing content

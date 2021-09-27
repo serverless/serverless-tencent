@@ -210,7 +210,7 @@ module.exports = async (config, cli, command) => {
   cli.log('Dev Mode - 项目监控中，任何变更都会通过日志输出', 'grey');
   cli.log();
 
-  let instanceYaml = await utils.loadInstanceConfig(instanceDir, command);
+  let instanceYaml = await utils.loadTencentInstanceConfig(instanceDir, command);
 
   // Load Instance Credentials
   const instanceCredentials = await utils.loadInstanceCredentials(instanceYaml.stage);

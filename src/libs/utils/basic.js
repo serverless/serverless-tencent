@@ -366,103 +366,6 @@ const loadInstanceConfigUncached = (directoryPath) => {
  */
 const loadInstanceConfig = memoize(loadInstanceConfigUncached);
 
-/**
- * THIS IS USED BY SFV1.  DO NOT MODIFY OR DELETE
- */
-const legacyLoadInstanceConfig = (directoryPath) => {
-  directoryPath = path.resolve(directoryPath);
-  const ymlFilePath = path.join(directoryPath, 'serverless.yml');
-  const yamlFilePath = path.join(directoryPath, 'serverless.yaml');
-  const jsonFilePath = path.join(directoryPath, 'serverless.json');
-  let filePath;
-  let isYaml = false;
-  let instanceFile;
-
-  // Check to see if exists and is yaml or json file
-  if (fileExistsSync(ymlFilePath)) {
-    filePath = ymlFilePath;
-    isYaml = true;
-  }
-  if (fileExistsSync(yamlFilePath)) {
-    filePath = yamlFilePath;
-    isYaml = true;
-  }
-  if (fileExistsSync(jsonFilePath)) {
-    filePath = jsonFilePath;
-  }
-
-  if (!filePath) {
-    throw new Error(`The following file could not be found: ${filePath}`);
-  }
-
-  // Read file
-  if (isYaml) {
-    try {
-      instanceFile = readAndParseSync(filePath);
-    } catch (e) {
-      // todo currently our YAML parser does not support
-      // CF schema (!Ref for example). So we silent that error
-      // because the framework can deal with that
-      if (e.name !== 'YAMLException') {
-        throw e;
-      }
-    }
-  } else {
-    instanceFile = readAndParseSync(filePath);
-  }
-
-  return instanceFile;
-};
-
-/**
- * THIS IS USED BY SFV1.  DO NOT MODIFY OR DELETE
- */
-const legacyLoadComponentConfig = (directoryPath) => {
-  directoryPath = path.resolve(directoryPath);
-  const ymlFilePath = path.join(directoryPath, 'serverless.component.yml');
-  const yamlFilePath = path.join(directoryPath, 'serverless.component.yaml');
-  const jsonFilePath = path.join(directoryPath, 'serverless.component.json');
-  let filePath;
-  let isYaml = false;
-  let componentFile;
-
-  // Check to see if exists and is yaml or json file
-  if (fileExistsSync(ymlFilePath)) {
-    filePath = ymlFilePath;
-    isYaml = true;
-  }
-  if (fileExistsSync(yamlFilePath)) {
-    filePath = yamlFilePath;
-    isYaml = true;
-  }
-  if (fileExistsSync(jsonFilePath)) {
-    filePath = jsonFilePath;
-  }
-  if (!filePath) {
-    throw new Error(
-      'The serverless.component file could not be found in the current working directory.'
-    );
-  }
-
-  // Read file
-  if (isYaml) {
-    try {
-      componentFile = readAndParseSync(filePath);
-    } catch (e) {
-      // todo currently our YAML parser does not support
-      // CF schema (!Ref for example). So we silent that error
-      // because the framework can deal with that
-      if (e.name !== 'YAMLException') {
-        throw e;
-      }
-    }
-  } else {
-    componentFile = readAndParseSync(filePath);
-  }
-
-  return componentFile;
-};
-
 const possibleConfigurationFiles = [
   'serverless.yml',
   'serverless.yaml',
@@ -708,17 +611,6 @@ const executeGraph = async (allComponents, command, graph, cli, sdk, options) =>
           instance = await sdk.remove(instanceYaml, options);
         } catch (error) {
           // Add helpful information
-          if (!isChinaUser()) {
-            if (error.name === 'Invalid Component Types') {
-              error.message = `Invalid Input: ${error.message}`;
-            }
-            if (error.details && error.details.repo) {
-              error.message = `${error.message} - Documentation: ${error.details.repo}`;
-            }
-            error.documentation = false;
-            error.support = false;
-            error.chat = false;
-          }
 
           // Prefix with app name
           error.message = `${instanceYaml.name}: ${error.message}`;
@@ -734,19 +626,6 @@ const executeGraph = async (allComponents, command, graph, cli, sdk, options) =>
         try {
           instance = await sdk.deploy(instanceYaml, options);
         } catch (error) {
-          // Add helpful information
-          if (!isChinaUser()) {
-            if (error.name === 'Invalid Component Types') {
-              error.message = `Invalid Input: ${error.message}`;
-            }
-            if (error.details && error.details.repo) {
-              error.message = `${error.message} - Documentation: ${error.details.repo}`;
-            }
-            error.documentation = false;
-            error.support = false;
-            error.chat = false;
-          }
-
           // Prefix with app name
           error.message = `${instanceYaml.name}: ${error.message}`;
 
@@ -886,61 +765,6 @@ const parseCliInputs = () => {
   return cliInputs;
 };
 
-const hasServerlessConfigFile = (inputPath) => {
-  const possibleConfigFiles = [
-    'serverless.yml',
-    'serverless.yaml',
-    'serverless.json',
-    'serverless.js',
-    'serverless.ts',
-  ];
-
-  for (const possibleConfigFile of possibleConfigFiles) {
-    if (fileExistsSync(path.join(inputPath, possibleConfigFile))) {
-      return true;
-    }
-  }
-  return false;
-};
-
-const getInstanceConfigPath = (inputPath) => {
-  const possibleConfigFiles = [
-    'serverless.yml',
-    'serverless.yaml',
-    'serverless.json',
-    'serverless.js',
-    'serverless.ts',
-  ];
-
-  for (const possibleConfigFile of possibleConfigFiles) {
-    const possibleConfigFilePath = path.join(inputPath, possibleConfigFile);
-    if (fileExistsSync(possibleConfigFilePath)) {
-      return possibleConfigFilePath;
-    }
-  }
-  return null;
-};
-
-// temporary UX function to help users transition to providers
-const checkLocalCredentials = async (sdk, config, orgName) => {
-  const org = await sdk.getOrgByName(orgName);
-
-  const { result: providers } = await sdk.getProviders(org.orgUid);
-
-  const defaultProvider = providers.find((p) => p.isDefault);
-
-  if (!defaultProvider && config.usingLocalCredentials) {
-    let dashboardStage = 'serverless';
-
-    if (process.env.SERVERLESS_PLATFORM_STAGE === 'dev') {
-      dashboardStage = 'serverless-dev';
-    }
-    throw new Error(
-      `Using local credentials is no longer supported. Please link a provider to a service or set a default provider on the dashboard by visiting this URL: \n\n  https://app.${dashboardStage}.com/${orgName}/settings/providers?providerId=new&provider=aws`
-    );
-  }
-};
-
 const loadTencentGlobalConfig = (cli, config = {}) => {
   // Users do not want to use global credentials
   if (config.login) {
@@ -1045,8 +869,6 @@ module.exports = {
   loadTemplateConfig,
   loadInstanceConfig,
   loadInstanceConfigUncached,
-  legacyLoadComponentConfig,
-  legacyLoadInstanceConfig,
   isProjectPath,
   runningTemplate,
   getOutputs,
@@ -1057,9 +879,6 @@ module.exports = {
   executeGraph,
   isChinaUser,
   parseCliInputs,
-  hasServerlessConfigFile,
-  getInstanceConfigPath,
-  checkLocalCredentials,
   checkTemplateAppAndStage,
   loadTencentGlobalConfig,
   loadCredentialsToJson,

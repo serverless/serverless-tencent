@@ -94,7 +94,7 @@ module.exports = async (config, cli, command) => {
   }
   await utils.checkBasicConfigValidation(instanceDir);
   await utils.login(config);
-  const instanceYaml = await utils.loadInstanceConfig(instanceDir, command);
+  const instanceYaml = await utils.loadTencentInstanceConfig(instanceDir, command);
 
   const orgUid = await chinaUtils.getOrgId();
   const telemtryData = await generatePayload({

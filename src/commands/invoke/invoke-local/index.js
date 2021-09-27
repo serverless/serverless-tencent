@@ -14,7 +14,7 @@ const { generatePayload, storeLocally } = require('../../../libs/telemtry');
 module.exports = async (config, cli, command, instanceDir) => {
   const { config: ymlFilePath, c } = config;
 
-  let instanceYml = await utils.loadInstanceConfig(instanceDir, command);
+  let instanceYml = await utils.loadTencentInstanceConfig(instanceDir, command);
   const telemtryData = await generatePayload({
     command: 'invoke_local',
     rootConfig: instanceYml,

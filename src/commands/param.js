@@ -93,7 +93,7 @@ module.exports = async (config, cli, command) => {
 
   await utils.login(config);
 
-  const instanceYaml = await utils.loadInstanceConfig(instanceDir, command);
+  const instanceYaml = await utils.loadTencentInstanceConfig(instanceDir, command);
   // initialize SDK
   const orgUid = await tencentUtils.getOrgId();
   const sdk = new ServerlessSDK({
