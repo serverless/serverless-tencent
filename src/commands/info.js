@@ -31,7 +31,7 @@ module.exports = async (config, cli, command) => {
   await utils.login(config);
   // Load YAML
 
-  const instanceYaml = await utils.loadInstanceConfig(instanceDir, command);
+  const instanceYaml = await utils.loadTencentInstanceConfig(instanceDir, command);
 
   // Presentation
   cli.logLogo();

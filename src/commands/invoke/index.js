@@ -72,7 +72,7 @@ module.exports = async (config, cli, command) => {
     return invokeLocal(config, cli, command, instanceDir);
   }
 
-  const instanceYaml = await utils.loadInstanceConfig(instanceDir, command);
+  const instanceYaml = await utils.loadTencentInstanceConfig(instanceDir, command);
   const telemtryData = await generatePayload({
     command,
     rootConfig: instanceYaml,

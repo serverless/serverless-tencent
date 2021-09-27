@@ -11,8 +11,10 @@ const confirm = require('@serverless/utils/inquirer/confirm');
 const { ServerlessSDK } = require('@serverless/platform-client-china');
 const { v4: uuidv4 } = require('uuid');
 const { isProjectPath } = require('../libs/utils');
-const { initTemplateFromCli } = require('./init');
+const { initTemplateFromCli } = require('../commands/init');
 const { generatePayload, storeLocally } = require('../libs/telemtry');
+const buildConfig = require('./config');
+const CLI = require('./cli');
 
 const isValidProjectName = RegExp.prototype.test.bind(/^[a-zA-Z][a-zA-Z0-9-]{0,100}$/);
 
@@ -153,7 +155,15 @@ const getTemplatesFromRegistry = async (sdk) => {
   return { templatesChoices, scfTemplatesChoices, multiScfTemplatesChioices };
 };
 
-module.exports = async (config, cli) => {
+module.exports = async () => {
+  if (await isProjectPath(process.cwd())) {
+    throw new Error(
+      '检测到当前目录下已有 serverless 项目，请通过 "sls deploy" 进行部署，或在新路径下完成 serverless 项目初始化'
+    );
+  }
+  const config = buildConfig();
+  const cli = new CLI(config);
+
   // We assume we're not in service|component context
   // As this function is configured to be invoked only in such case
   if (

@@ -1,10 +1,13 @@
 {
-  "name": "@serverless/serverless-tencent-plugin",
-  "version": "0.0.7",
-  "description": "Serverless Tencent plugin",
+  "name": "@serverless/serverless-tencent",
+  "version": "0.0.1",
+  "description": "Serverless Tencent command line tool",
   "main": "./dist/index.js",
   "repository": "serverless/serverless-tencent",
   "author": "Serverless, Inc.",
+  "bin": {
+    "tcli": "./bin/bin"
+  },
   "scripts": {
     "lint": "eslint .",
     "lint:updated": "pipe-git-updated --ext=js -- eslint",
@@ -68,9 +71,6 @@
     "webpack": "^5.52.1",
     "webpack-cli": "^4.8.0",
     "webpack-node-externals": "^3.0.0"
-  },
-  "peerDependencies": {
-    "serverless": "2.x"
   },
   "engines": {
     "node": ">=10.0"

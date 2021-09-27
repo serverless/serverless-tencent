@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const cli = require('../dist/');
+
+// Run
+(async () => {
+  return cli();
+})().catch((e) => console.log(e.stack)); // eslint-disable-line
