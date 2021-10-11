@@ -409,9 +409,9 @@ module.exports = class CLI {
    */
   logLogo() {
     let logo = os.EOL;
-    logo += 'serverless';
+    logo += 'serverless-tencent';
     logo += red(' ⚡');
-    logo += 'components';
+    logo += 'cli';
 
     if (process.env.SERVERLESS_PLATFORM_STAGE === 'dev') {
       logo += grey(' (dev)');
@@ -421,11 +421,11 @@ module.exports = class CLI {
   }
 
   /**
-   * Log Serverless Framework Registry Logo
+   * Log serverless-tencent cli Registry Logo
    */
   logRegistryLogo(text) {
     let logo = os.EOL;
-    logo += white('serverless');
+    logo += white('serverless-tencent');
     logo += red(' ⚡');
     logo += white('registry');
 
@@ -440,52 +440,13 @@ module.exports = class CLI {
   }
 
   /**
-   * Log Serverless Framework Components Version
+   * Log serverless-tencent cli Version
    */
   logVersion() {
     this.logLogo();
     this.log();
-    this.log(`components version: ${version}`);
+    this.log(`serverless-tencent version: ${version}`);
     this.log();
-  }
-
-  logAdvertisement() {
-    this.logLogo();
-    this.log();
-    let ad = grey(
-      'This is a Serverless Framework Component, a premium development experience. Run "serverless login" to use it for free with these features:'
-    );
-    ad += os.EOL;
-    ad = ad + os.EOL + grey('  • Instant Deployments');
-    ad = ad + os.EOL + grey('  • Real-Time Logs In Your CLI');
-    ad = ad + os.EOL + grey('  • State Storage, Secrets Management');
-    ad = ad + os.EOL + grey('  • And More: https://github.com/serverless/components');
-    ad += os.EOL;
-    ad =
-      ad +
-      os.EOL +
-      grey(
-        'Note - This is an optional SaaS feature, where our hosted cloud engine can access your credentials and code alike a CI/CD product. Learn more here: https://github.com/serverless/components#security-considerations'
-      );
-    this.log(ad);
-  }
-
-  /**
-   * Debug
-   * - Render debug statements cleanly
-   */
-  debug(msg) {
-    if (!this._.debug || !msg) {
-      return;
-    }
-
-    // Clear any existing content
-    process.stdout.write(ansiEscapes.eraseDown);
-
-    console.log(`${msg}`);
-
-    // Put cursor to starting position for next view
-    process.stdout.write(ansiEscapes.cursorLeft);
   }
 
   /**

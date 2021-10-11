@@ -145,7 +145,7 @@ module.exports = () => {
 
   const checkingVersion = args._[0] === 'version' || args.version || args.v;
   if (checkingVersion) {
-    config.command = 'version';
+    command = 'version';
   }
 
   config.command = command;

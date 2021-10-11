@@ -1,12 +1,13 @@
 {
-  "name": "@serverless/serverless-tencent",
+  "name": "serverless-tencent",
   "version": "0.0.1",
   "description": "Serverless Tencent command line tool",
   "main": "./dist/index.js",
   "repository": "serverless/serverless-tencent",
   "author": "Serverless, Inc.",
   "bin": {
-    "tcli": "./bin/bin"
+    "slt": "./bin/bin",
+    "serverless-tencent": "./bin/bin"
   },
   "scripts": {
     "lint": "eslint .",
