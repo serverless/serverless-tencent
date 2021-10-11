@@ -42,13 +42,13 @@ module.exports = async (config, cli, command) => {
   if (!config.debug) {
     cli.logLogo();
   } else if (process.env.SERVERLESS_PLATFORM_STAGE === 'dev') {
-    cli.log('Running in Platform Dev stage');
+    cli.log('正在dev环境执行命令');
   }
 
   const templateYaml = await getTemplate(process.cwd());
 
   if (!templateYaml) {
-    throw new Error('No components found in sub directories.');
+    throw new Error('在子文件夹中没有发现组件信息');
   }
 
   // Load Instance Credentials
