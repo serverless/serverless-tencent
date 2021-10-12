@@ -1,7 +1,7 @@
 ---
 title: "Tencent Serverless - 组件应用开发"
 menuText: "组件应用开发"
-menuOrder: 6
+menuOrder: 7
 description: Serverless 组件应用开发
 layout: Doc
 ---
@@ -38,9 +38,3 @@ Serverless 同腾讯云一起提供了众多 SaaS 应用组件，可以快速部
 - [x] `Wordpress` : 查看[腾讯 Wordpress 应用示例](https://github.com/serverless-components/tencent-wordpress/tree/master/example) 或 [腾讯 Wordpress 全量配置](https://github.com/serverless-components/tencent-wordpress/blob/master/docs/configure.md)
 - [x] `Discuz-Q` : 查看[腾讯 Discuz-Q 框架应用示例](https://github.com/serverless-components/tencent-discuzq/tree/main/example) 或 [腾讯 Discuz-Q 全量配置](https://github.com/serverless-components/tencent-discuzq/blob/main/docs/configure.md)
 
-**下一步：开始组件开发**
-
-- [静态网站开发](./website)
-- [框架应用开发](./http)
-- [SaaS 应用部署](./saas)
-- [Serverless CLI 命令](../quickstart/commands)

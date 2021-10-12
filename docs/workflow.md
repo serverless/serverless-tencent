@@ -32,13 +32,13 @@ Serverless 支持函数应用开发，框架应用开发以及 SaaS 应用开发
 
 > inputs 的配置都是腾讯云相关设施的配置信息，如： inputs.name 是腾讯云部署的实例名称，region 是腾讯云的地区信息等
 
-更多的组件和配置说明详见 [云函数开发](../function/README) 或 [框架及 SaaS 应用](../components/README)
+更多的组件和配置说明详见 [云函数开发](./function/README) 或 [框架及 SaaS 应用](./components/README)
 
 ## 调试开发
 
 应用开发过程中，可以通过 Serverless CLI 的功能方便进行调试，开发，包含一下主要命令
 
-- `sls dev` : 启动远程开发模式，更多调试模式详情请参考[远程开发模式](../basic/dev-mode)。
+- `sls dev` : 启动远程开发模式，更多调试模式详情请参考[远程开发模式](./guides/dev-mode)。
 - `sls invoke local` : (仅支持云函数开发) 本地调用函数。 同时可以发送 event 和 context 数据到函数进行本地调用测试。
 - `sls invoke` : (仅支持云函数开发) 调用已部署函数，可以发送自定义 event 数据来调用函数，在结果中可以查看日志，以及其他函数调用相关信息。
 - `sls logs` : 查看应用云端指定时间区间的日志或实时日志。
@@ -53,7 +53,7 @@ Serverless 支持函数应用开发，框架应用开发以及 SaaS 应用开发
 $ sls deploy --stage prod
 ```
 
-通过 stage 信息 Serverless 在部署时会自动加载相关环境的配置`.env.${stage}`信息，默认加载`.env` 环境变量配置文件，详见[Serverless 变量](../basic/variables)
+通过 stage 信息 Serverless 在部署时会自动加载相关环境的配置`.env.${stage}`信息，默认加载`.env` 环境变量配置文件，详见[Serverless 变量](./guides/variables)
 
 ## 账号管理
 
@@ -63,7 +63,7 @@ Serverless 部署时使用腾讯云账号，分为几种情况：
 - 应用身份认证信息：在环境变量中通过指定`TENCENT_SECRET_ID` 和 `TENCENT_SECRET_KEY` 来制定应用部署所需要的身份认证信息。
 - 扫码授权：在为配置全局身份，也没有使用应用身份部署时，或部署时传入参数 `--login` 回弹出登陆二维码，用绑定腾讯云的微信扫码后即可部署。
 
-更多腾讯云账号使用说明详见 [腾讯云账号](../basic/tencent-account)。
+更多腾讯云账号使用说明详见 [腾讯云账号](./guides/tencent-account)。
 
 ## 应用管理
 

@@ -6,10 +6,10 @@ description: Tencent Serverless 说明文档。
 layout: Doc
 menuItems:
   - menuText: 示例代码
-    menuOrder: 9
+    menuOrder: 10
     path: https://cn.serverless.com/examples/
   - menuText: 教程&指南
-    menuOrder: 10
+    menuOrder: 11
     path: https://cn.serverless.com/category/guides-and-tutorials
 ---
 
