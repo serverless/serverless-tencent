@@ -61,7 +61,7 @@ Event 用于传递事件信息，一下是一个 API 网关的事件示例：
 }
 ```
 
-同时 Serverless 还支持的事件有 [API 网关触发器](https://cloud.tencent.com/document/product/583/12513), [COS 触发器](https://cloud.tencent.com/document/product/583/9707), [CLS 触发器](https://cloud.tencent.com/document/product/583/49587), [定时触发器](https://cloud.tencent.com/document/product/583/9708), [CMQ Topic 触发器](https://cloud.tencent.com/document/product/583/11517), [CKafka 触发器](https://cloud.tencent.com/document/product/583/17530), [MPS 触发器](https://cloud.tencent.com/document/product/583/50833), [CLB 触发器](https://cloud.tencent.com/document/product/583/52635), [云 API 触发器](https://cloud.tencent.com/document/product/583/18198)， 更多请查看[触发器配置](../basic/trigger)。
+同时 Serverless 还支持的事件有 [API 网关触发器](https://cloud.tencent.com/document/product/583/12513), [COS 触发器](https://cloud.tencent.com/document/product/583/9707), [CLS 触发器](https://cloud.tencent.com/document/product/583/49587), [定时触发器](https://cloud.tencent.com/document/product/583/9708), [CMQ Topic 触发器](https://cloud.tencent.com/document/product/583/11517), [CKafka 触发器](https://cloud.tencent.com/document/product/583/17530), [MPS 触发器](https://cloud.tencent.com/document/product/583/50833), [CLB 触发器](https://cloud.tencent.com/document/product/583/52635), [云 API 触发器](https://cloud.tencent.com/document/product/583/18198)， 更多请查看[触发器配置](../guides/trigger)。
 
 ### Context 运行时信息
 
