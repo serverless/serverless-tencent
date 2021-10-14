@@ -3,7 +3,7 @@ title: 多函数TODO应用示例
 description: "本示例使用 Serverless Framework 的多函数组件（multi-scf）和 PostgreSQL组件（postgresql），实现一个基本的TODO应用。"
 date: 2021-07-15
 layout: Post
-thumbnail: https://sp-assets-1300963013.file.myqcloud.com/blog/thumbnails/logo-sf-side-dark.png
+thumbnail: https://sp-assets-1300963013.file.myqcloud.com/blog/thumbnails/2021-07-15-multi-scf-todo.png
 authors:
   - OliverWang
 category:
