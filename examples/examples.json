@@ -7,7 +7,7 @@
         "platform": "tencent",
         "component": "http",
         "language": "Python",
-        "stack": "django",
+        "stack": "云函数(SCF), Django",
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -20,7 +20,7 @@
         "platform": "tencent",
         "component": "http",
         "language": "Node.js",
-        "stack": "egg",
+        "stack": "云函数(SCF), Egg",
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -33,7 +33,7 @@
         "platform": "tencent",
         "component": "http",
         "language": "Node.js",
-        "stack": "express",
+        "stack": "云函数(SCF), Express",
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -46,7 +46,7 @@
         "platform": "tencent",
         "component": "http",
         "language": "Python",
-        "stack": "flask",
+        "stack": "云函数(SCF), Flask",
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -59,7 +59,7 @@
         "platform": "tencent",
         "component": "http",
         "language": "Node.js",
-        "stack": "koa",
+        "stack": "云函数(SCF), Koa",
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -72,7 +72,7 @@
         "platform": "tencent",
         "component": "http",
         "language": "PHP",
-        "stack": "Laravel",
+        "stack": "云函数(SCF), Laravel",
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -85,7 +85,7 @@
         "platform": "tencent",
         "component": "http",
         "language": "Node.js",
-        "stack": "NestJS",
+        "stack": "云函数(SCF), NestJS",
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -98,7 +98,7 @@
         "platform": "tencent",
         "component": "http",
         "language": "Node.js",
-        "stack": "Next.js",
+        "stack": "云函数(SCF), Next.js",
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -111,7 +111,7 @@
         "platform": "tencent",
         "component": "http",
         "language": "Node.js",
-        "stack": "Nuxt",
+        "stack": "云函数(SCF), Nuxt",
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -124,7 +124,7 @@
         "platform": "tencent",
         "component": "http",
         "language": "PHP",
-        "stack": "ThinkPhp",
+        "stack": "云函数(SCF), ThinkPhp",
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
