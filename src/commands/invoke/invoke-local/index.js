@@ -6,9 +6,10 @@
 
 const path = require('path');
 const utils = require('../../../libs/utils');
-const { colorLog, printOutput, summaryOptions, checkRuntime } = require('./utils');
+const { colorLog, summaryOptions, checkRuntime } = require('./utils');
 const runPython = require('./runPython');
 const runPhp = require('./runPhp');
+const runNode = require('./runNode');
 const { generatePayload, storeLocally } = require('../../../libs/telemtry');
 
 module.exports = async (config, cli, command, instanceDir) => {
@@ -58,18 +59,7 @@ module.exports = async (config, cli, command, instanceDir) => {
       checkRuntime(runtime, cli);
 
       if (runtime.includes('Nodejs')) {
-        const invokeFromFile = path.join(instanceDir, handlerFile);
-        const exportedVars = require(`${invokeFromFile}`);
-        const finalInvokedFunc = exportedVars[handlerFunc];
-        if (!finalInvokedFunc) {
-          colorLog(`调用的函数 ${handlerFunc} 不存在， 请检查后重试。`, 'yellow', cli);
-        }
-        try {
-          const result = await finalInvokedFunc(eventData, contextData);
-          printOutput(cli, result);
-        } catch (e) {
-          printOutput(cli, null, e);
-        }
+        await runNode(eventData, contextData, handlerFile, handlerFunc, cli);
       }
 
       if (runtime.includes('Python')) {
