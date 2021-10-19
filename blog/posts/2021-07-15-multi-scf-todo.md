@@ -1,6 +1,6 @@
 ---
 title: 多函数TODO应用示例
-description: "本示例使用 Serverless Framework 的多函数组件（multi-scf）和 PostgreSQL组件（postgresql），实现一个基本的TODO应用。"
+description: 本示例使用 Serverless Framework 的多函数组件（multi-scf）和 PostgreSQL组件（postgresql），实现一个基本的TODO应用。
 date: 2021-07-15
 layout: Post
 thumbnail: https://sp-assets-1300963013.file.myqcloud.com/blog/thumbnails/2021-07-15-multi-scf-todo.png
@@ -94,7 +94,7 @@ $ sls init multi-scf-nodejs --name sls-demo-msn-todo
 
 此命令会使用应用模板 `multi-scf-nodejs` 初始化名为 `my-multi-scf-demo` 的应用目录。初始化成功后该目录结构为
 
-```
+```console
 .
 ├── README.md
 ├── index.js
@@ -179,7 +179,7 @@ stage: dev # 应用部署环境名称，这里使用环境变量 STAGE 的值。
 
 最终完成的项目目录结构如下：
 
-```
+```console
 .
 ├── README.md
 ├── db # 数据库
@@ -434,7 +434,7 @@ $  serverless invoke -f addTodo --data "{\"body\":\"{\\\"title\\\":\\\"Create mu
 
 执行后可以得到结果
 
-```
+```console
 使用授权信息 default 授权中，如果需要使用临时密钥，请使用 --login 重新登陆
 billDuration:      35
 duration:          35
@@ -465,7 +465,7 @@ Serverless: 调用成功
 
 使用下面命令可以快速部署项目到生产环境（这里命名生产环境为`prod`）
 
-```
+```sh
 $ serverless deploy --stage prod
 ```
 
@@ -473,13 +473,13 @@ $ serverless deploy --stage prod
 
 在项目目录`src`中执行以下命令可以查看项目的即时日志信息
 
-```
+```sh
 $ sls logs --tail -f allTodo --stage prod
 ```
 
 以下是返回结果：
 
-```
+```console
 使用授权信息 default 授权中，如果需要使用临时密钥，请使用 --login 重新登陆
 
 serverless ⚡components

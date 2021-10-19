@@ -1,6 +1,6 @@
 ---
 title: 写给 Serverless 开发者的一些建议 - 上篇
-description: "Serverless 是如何实现自动扩缩容、冷启动的原理和优化方法、如何规划服务函数粒度、如何选择合适的函数类型"
+description: Serverless 是如何实现自动扩缩容、冷启动的原理和优化方法、如何规划服务函数粒度、如何选择合适的函数类型
 date: 2021-09-01
 layout: Post
 thumbnail: https://sp-assets-1300963013.file.myqcloud.com/blog/thumbnails/2021-09-01-sls-dev-suggest.png
