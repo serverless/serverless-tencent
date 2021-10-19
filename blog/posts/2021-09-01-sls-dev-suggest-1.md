@@ -10,7 +10,7 @@ category:
   - guides-and-tutorials
 ---
 
-> by yugasun from https://yugasun.com/post/serverless-advise.html
+> 转载自 https://yugasun.com/post/serverless-advise.html
 
 在阅读本文之前，需要读者对 Serverless 概念有一定的了解，如果你还不知道什么是 Serverless，也可以先阅读本系列之前的相关文章。笔者在之前的几篇文章，重点讲解了很多关于如何 Serverless 化传统服务和 Serverless 实战经验，比如如何实现一个后台管理系统。但是在实际开发过程中，我们不仅要考虑如何将自己的服务迁移到 Serverless 架构上，还需要了解 Serverless 架构相对于传统架构的区别，这样才能够在实际工作中，开发出更加高效稳定的服务。本章是笔者在 2 年的 Serverless 研发过程中，总结出来的认为比较重要的几点知识经验，希望对读者有所帮助。
 
