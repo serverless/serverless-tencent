@@ -2,7 +2,7 @@
     {
         "title": "多函数 TODO 应用",
         "name": "ole3021-multi_scf-node-event-todo",
-        "description": "基于事件的 TODO 应用，使用 Postgres 存任务，可以添加查询，添加，完成任务。",
+        "description": "基于事件的 TODO 应用，使用 Postgres 存任务，可以添加查询、添加、完成任务。",
         "githubUrl": "https://github.com/ole3021/sls-demo-msn-todo",
         "platform": "tencent",
         "component": "multi-scf",
