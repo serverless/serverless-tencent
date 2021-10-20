@@ -1,6 +1,6 @@
 {
   "name": "serverless-tencent",
-  "version": "0.0.1",
+  "version": "2.31.0",
   "description": "Serverless Tencent command line tool",
   "main": "./dist/index.js",
   "repository": "serverless/serverless-tencent",

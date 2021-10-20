@@ -200,23 +200,13 @@ module.exports = class CLI {
       error = { message: error };
     }
 
-    // Add default helpful info
-    error.name = error.name || 'Unknown Error';
-
-    if (error.documentation !== false) {
-      error.documentation = error.documentation
-        ? `  帮助文档: ${error.documentation} ${os.EOL}`
-        : `  帮助文档: https://www.serverless.com/cn/framework/docs/ ${os.EOL}`;
-    }
-    if (error.support !== false) {
-      error.support = `  BUG提交: https://github.com/serverless/serverless-tencent/issues ${os.EOL}`;
-    }
-    if (error.chat !== false) {
-      error.chat = `  问答社区: https://github.com/serverless/serverless-tencent/discussions ${os.EOL}`;
-    }
-
     // Clear any existing content
     process.stdout.write(ansiEscapes.eraseDown);
+
+    if (error.command) {
+      process.stdout.write(red(`${os.EOL}x ${error.command}失败 `));
+      process.stdout.write(grey(`(${options.timer || this._.timerSeconds || 0}s)${os.EOL}`));
+    }
 
     // Add space
     console.log('');
@@ -224,36 +214,57 @@ module.exports = class CLI {
     // Render stack trace (if debug is on)
     this.logErrorStackTrace(error.stack);
 
-    let content;
+    let basicInfo = `Environment: ${process.platform}, node ${process.version}, cli v${version}
+帮助文档:    https://www.serverless.com/cn/framework/docs/
+BUG提交:     https://github.com/serverless/serverless-tencent/issues
+问答社区:    https://github.com/serverless/serverless-tencent/discussions`;
 
-    if (options.hideEntity) {
-      content = `${error.message} ${os.EOL}`;
-    } else {
-      content = `${this._.entity} ${figures.pointerSmall} ${error.message} ${os.EOL}`;
+    const extraErrorInfo = error.extraErrorInfo || {};
+    const requestId = error.requestId || extraErrorInfo.requestId;
+    const traceId = error.traceId || extraErrorInfo.traceId;
+    const referral = error.referral || extraErrorInfo.referral;
+    if (referral) {
+      basicInfo += `
+referral:   ${referral}`;
     }
 
-    // Add timer seconds, if included
-    if (options.timer) {
-      content = `${options.timer}s ${figures.pointerSmall} ${content}`;
+    if (requestId) {
+      basicInfo += `
+requestId:   ${requestId}`;
     }
-
-    // Add additional space
-    content += os.EOL;
-
-    // Add helpful error info
-    if (error.documentation) {
-      content += error.documentation;
+    if (traceId) {
+      basicInfo += `
+traceId:     ${traceId}`;
     }
-    if (error.support) {
-      content += error.support;
-    }
-    if (error.chat) {
-      content += error.chat;
-    }
-
     // Write to terminal
-    process.stdout.write(red(content));
+    process.stdout.write(grey(basicInfo));
 
+    console.log('');
+
+    let errorMessage = `
+${red('Error:')}
+`;
+
+    let extraMessage = '';
+    const { step, source, code } = extraErrorInfo;
+
+    if (code) {
+      extraMessage += `${code}:`;
+    }
+    if (step) {
+      extraMessage += `${step}`;
+    }
+    if (source) {
+      extraMessage += ` (${grey(source)})`;
+    }
+
+    if (extraMessage) {
+      errorMessage += `${extraMessage}
+`;
+    }
+    errorMessage += `错误信息: ${error.message}`;
+
+    process.stdout.write(errorMessage);
     // Put cursor to starting position for next view
     process.stdout.write(ansiEscapes.cursorLeft);
 
@@ -288,7 +299,7 @@ module.exports = class CLI {
   }
 
   logWarning(error = {}) {
-    console.log(`Serverless: ${chalk.yellow(error.message)}`);
+    console.log(`Serverless: ${chalk.yellow(error.message)} `);
     process.exit();
   }
 
@@ -300,19 +311,19 @@ module.exports = class CLI {
     process.stdout.write(ansiEscapes.eraseDown);
     console.log();
     console.log(
-      `${component} 组件校验结果: 错误 ${errors.length} 警告 ${warnings.length} 规则版本 v${typeVersion}`
+      `${component} 组件校验结果: 错误 ${errors.length} 警告 ${warnings.length} 规则版本 v${typeVersion} `
     );
     console.log('---------------------------------------------');
     if (msgsByPath.message) {
       const globalMessage = msgsByPath.message[0];
       let color = chalk.yellow;
       if (globalMessage.level === 'error') color = chalk.red;
-      console.log(`${color(globalMessage.message)}`);
+      console.log(`${color(globalMessage.message)} `);
     }
     Object.keys(msgsByPath)
       .filter((key) => key !== 'message')
       .forEach((key) => {
-        console.log(`  * ${key}`);
+        console.log(`  * ${key} `);
         msgsByPath[key]
           .sort((a) => {
             if (a.message && a.message.includes('类型错误')) return -1;
@@ -323,7 +334,7 @@ module.exports = class CLI {
             if (msg.level === 'warning') {
               color = chalk.yellow;
             }
-            console.log(color(`    - ${msg.message}`));
+            console.log(color(`    - ${msg.message} `));
           });
       });
     console.log();
@@ -375,7 +386,7 @@ module.exports = class CLI {
 
     // Write log
     if (typeof msg === 'string') {
-      msg = `${msg}\n`;
+      msg = `${msg} \n`;
       if (!color || color === 'white') {
         process.stdout.write(white(msg));
       }
@@ -445,7 +456,7 @@ module.exports = class CLI {
   logVersion() {
     this.logLogo();
     this.log();
-    this.log(`serverless-tencent version: ${version}`);
+    this.log(`serverless - tencent version: ${version} `);
     this.log();
   }
 
@@ -492,7 +503,7 @@ module.exports = class CLI {
       // Print Status
       if (this._.status !== this._.lastStatus) {
         this.log(`${this._.status}...`);
-        this._.lastStatus = `${this._.status}`;
+        this._.lastStatus = `${this._.status} `;
       }
     }
 
@@ -526,8 +537,10 @@ module.exports = class CLI {
         content += `${this._.statusColor(figures.pointerSmall)} `;
       }
       content += `${this._.statusColor(this._.entity)} `;
-      content += `${this._.statusColor(figures.pointerSmall)} ${this._.statusColor(this._.status)}`;
-      content += ` ${this._.statusColor(this._.loadingDots)}`;
+      content += `${this._.statusColor(figures.pointerSmall)} ${this._.statusColor(
+        this._.status
+      )} `;
+      content += ` ${this._.statusColor(this._.loadingDots)} `;
       process.stdout.write(content);
       console.log();
 
