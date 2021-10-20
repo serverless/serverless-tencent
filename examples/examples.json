@@ -113,7 +113,7 @@
       {
         "title": "Next.js 框架示例应用",
         "name": "tencent-http-node-nextjs-example",
-        "description": "使用 http 组件开发 NestJS 框架应用",
+        "description": "使用 http 组件开发 Next.js 框架应用",
         "githubUrl": "https://github.com/serverless-components/tencent-http/tree/master/examples/nextjs",
         "platform": "tencent",
         "component": "http",
