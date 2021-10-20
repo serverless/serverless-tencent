@@ -1,7 +1,3 @@
-// 因为网站显示布局限制，Language 和 Stack 只用使用以下列出的内容。
-// Languages: Python, Node.js, PHP, Go, Java, HTML, Rust, 其他
-// Stacks: Event函数, Web函数, Docker镜像, Web框架, 静态网站, SaaS应用, 数据库, 消息队列, 数据库, 
-
 [
     {
         "title": "多函数 TODO 应用",
