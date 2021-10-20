@@ -1,3 +1,6 @@
+// Languages: Python, Node.js, PHP, HTML
+// stacks: 云函数(SCF)
+
 [
     {
         "title": "Django 框架示例应用",
@@ -7,10 +10,10 @@
         "platform": "tencent",
         "component": "http",
         "language": "Python",
-        "stack": ["云函数(SCF)", "Django"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+        "disableReadme": true
       },
       {
         "title": "Egg 框架示例应用",
@@ -20,10 +23,10 @@
         "platform": "tencent",
         "component": "http",
         "language": "Node.js",
-        "stack": ["云函数(SCF)", "Egg"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+        "disableReadme": true  
       },
       {
         "title": "Express 框架示例应用",
@@ -33,10 +36,10 @@
         "platform": "tencent",
         "component": "http",
         "language": "Node.js",
-        "stack": ["云函数(SCF)", "Express"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+        "disableReadme": true
       },
       {
         "title": "Flask 框架示例应用",
@@ -46,10 +49,10 @@
         "platform": "tencent",
         "component": "http",
         "language": "Python",
-        "stack": ["云函数(SCF)", "Flask"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+        "disableReadme": true
       },
       {
         "title": "Koa 框架示例应用",
@@ -59,10 +62,10 @@
         "platform": "tencent",
         "component": "http",
         "language": "Node.js",
-        "stack": ["云函数(SCF)", "Koa"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+        "disableReadme": true
       },
       {
         "title": "Laravel 框架示例应用",
@@ -72,10 +75,10 @@
         "platform": "tencent",
         "component": "http",
         "language": "PHP",
-        "stack": ["云函数(SCF)", "Laravel"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+        "disableReadme": true
       },
       {
         "title": "NestJS 框架示例应用",
@@ -85,10 +88,10 @@
         "platform": "tencent",
         "component": "http",
         "language": "Node.js",
-        "stack": ["云函数(SCF)", "NestJS"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+        "disableReadme": true
       },
       {
         "title": "Next.js 框架示例应用",
@@ -98,10 +101,10 @@
         "platform": "tencent",
         "component": "http",
         "language": "Node.js",
-        "stack": ["云函数(SCF)", "Next.js"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+        "disableReadme": true
       },
       {
         "title": "Nuxt 框架示例应用",
@@ -111,10 +114,10 @@
         "platform": "tencent",
         "component": "http",
         "language": "Node.js",
-        "stack": ["云函数(SCF)", "Nuxt"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+        "disableReadme": true
       },
       {
         "title": "ThinkPHP 框架示例应用",
@@ -124,10 +127,10 @@
         "platform": "tencent",
         "component": "http",
         "language": "PHP",
-        "stack": ["云函数(SCF)", "ThinkPhp"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+        "disableReadme": true
       },
       {
         "title": "云函数 Event 应用示例",
@@ -137,10 +140,10 @@
         "platform": "tencent",
         "component": "scf",
         "language": "Node.js",
-        "stack": ["云函数(SCF)"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+        "disableReadme": true
       },
       {
         "title": "云函数 Web 应用示例",
@@ -150,10 +153,10 @@
         "platform": "tencent",
         "component": "scf",
         "language": "Node.js",
-        "stack": ["云函数(SCF)"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+        "disableReadme": true
       },
       {
         "title": "云函数镜像 Event 应用示例",
@@ -163,10 +166,11 @@
         "platform": "tencent",
         "component": "scf",
         "language": "Node.js",
-        "stack": ["云函数(SCF)", "Docker"],
+        "stack": ["Docker"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+        "disableReadme": true
       },
       {
         "title": "云函数镜像 Web 应用示例",
@@ -176,10 +180,11 @@
         "platform": "tencent",
         "component": "scf",
         "language": "Node.js",
-        "stack": ["云函数(SCF)", "Docker"],
+        "stack": ["Docker"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+        "disableReadme": true
       },
       {
         "title": "云函数多 Event 函数应用示例",
@@ -189,10 +194,10 @@
         "platform": "tencent",
         "component": "multi-scf",
         "language": "Node.js",
-        "stack": ["云函数(SCF)"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+        "disableReadme": true
       },
       {
         "title": "云函数多 Web 函数应用示例",
@@ -202,10 +207,10 @@
         "platform": "tencent",
         "component": "multi-scf",
         "language": "Node.js",
-        "stack": ["云函数(SCF)"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+        "disableReadme": true
       },
       {
         "title": "云函数多 Event 函数与 Web 镜像函数应用示例",
@@ -215,10 +220,11 @@
         "platform": "tencent",
         "component": "multi-scf",
         "language": "Node.js",
-        "stack": ["云函数(SCF)", "Docker"],
+        "stack": ["Docker"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+        "disableReadme": true
       },
       {
         "title": "静态网站构建与部署的应用示例",
@@ -228,10 +234,11 @@
         "platform": "tencent",
         "component": "website",
         "language": "HTML",
-        "stack": ["对象存储(COS)", "内容分发(CDN)", "HTML"],
+        "stack": ["对象存储(COS)", "内容分发(CDN)"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+        "disableReadme": true
       },
       {
         "title": "WordPress 应用示例",
@@ -241,10 +248,11 @@
         "platform": "tencent",
         "component": "wordpress",
         "language": "PHP",
-        "stack": ["云函数(SCF)", "PHP", "WordPress"],
+        "stack": ["WordPress"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+        "disableReadme": true
       },
       {
         "title": "Discuz!Q 应用示例",
@@ -254,9 +262,10 @@
         "platform": "tencent",
         "component": "discuzq",
         "language": "PHP",
-        "stack": ["云函数(SCF)", "PHP", "Discuz!Q"],
+        "stack": ["Discuz!Q"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+        "disableReadme": true
       }
 ]
