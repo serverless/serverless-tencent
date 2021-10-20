@@ -1,7 +1,21 @@
-// Languages: Python, Node.js, PHP, HTML
-// stacks: 云函数(SCF)
+// 因为网站显示布局限制，Language 和 Stack 只用使用以下列出的内容。
+// Languages: Python, Node.js, PHP, Go, Java, HTML, Rust, 其他
+// Stacks: Event函数, Web函数, Docker镜像, Web框架, 静态网站, SaaS应用, 数据库, 消息队列, 数据库, 
 
 [
+    {
+        "title": "多函数 TODO 应用",
+        "name": "ole3021-multi_scf-node-event-todo",
+        "description": "基于事件的 TODO 应用，使用 Postgres 存任务，可以添加查询，添加，完成任务。",
+        "githubUrl": "https://github.com/ole3021/sls-demo-msn-todo",
+        "platform": "tencent",
+        "component": "multi-scf",
+        "language": "Node.js",
+        "stack": ["Event函数", "数据库"],
+        "authorLink": "https://github.com/ole3021",
+        "authorName": "Oliver Wang",
+        "authorAvatar": "https://avatars.githubusercontent.com/u/2676686?v=44"
+    },
     {
         "title": "Django 框架示例应用",
         "name": "tencent-http-python-django-example",
@@ -10,6 +24,7 @@
         "platform": "tencent",
         "component": "http",
         "language": "Python",
+        "stack": ["Web框架"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -23,6 +38,7 @@
         "platform": "tencent",
         "component": "http",
         "language": "Node.js",
+        "stack": ["Web框架"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -36,6 +52,7 @@
         "platform": "tencent",
         "component": "http",
         "language": "Node.js",
+        "stack": ["Web框架"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -49,6 +66,7 @@
         "platform": "tencent",
         "component": "http",
         "language": "Python",
+        "stack": ["Web框架"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -62,6 +80,7 @@
         "platform": "tencent",
         "component": "http",
         "language": "Node.js",
+        "stack": ["Web框架"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -75,6 +94,7 @@
         "platform": "tencent",
         "component": "http",
         "language": "PHP",
+        "stack": ["Web框架"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -88,6 +108,7 @@
         "platform": "tencent",
         "component": "http",
         "language": "Node.js",
+        "stack": ["Web框架"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -101,6 +122,7 @@
         "platform": "tencent",
         "component": "http",
         "language": "Node.js",
+        "stack": ["Web框架"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -114,6 +136,7 @@
         "platform": "tencent",
         "component": "http",
         "language": "Node.js",
+        "stack": ["Web框架"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -127,6 +150,7 @@
         "platform": "tencent",
         "component": "http",
         "language": "PHP",
+        "stack": ["Web框架"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -140,6 +164,7 @@
         "platform": "tencent",
         "component": "scf",
         "language": "Node.js",
+        "stack": ["Event函数"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -153,6 +178,7 @@
         "platform": "tencent",
         "component": "scf",
         "language": "Node.js",
+        "stack": ["Web函数"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -166,7 +192,7 @@
         "platform": "tencent",
         "component": "scf",
         "language": "Node.js",
-        "stack": ["Docker"],
+        "stack": ["Docker", "Event函数"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -180,7 +206,7 @@
         "platform": "tencent",
         "component": "scf",
         "language": "Node.js",
-        "stack": ["Docker"],
+        "stack": ["Docker", "Web函数"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -194,6 +220,7 @@
         "platform": "tencent",
         "component": "multi-scf",
         "language": "Node.js",
+        "stack": ["Event函数"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -207,6 +234,7 @@
         "platform": "tencent",
         "component": "multi-scf",
         "language": "Node.js",
+        "stack": ["Web函数"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -220,7 +248,7 @@
         "platform": "tencent",
         "component": "multi-scf",
         "language": "Node.js",
-        "stack": ["Docker"],
+        "stack": ["Docker", "Event函数", "Web函数"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -234,7 +262,7 @@
         "platform": "tencent",
         "component": "website",
         "language": "HTML",
-        "stack": ["对象存储(COS)", "内容分发(CDN)"],
+        "stack": ["静态网站"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -248,7 +276,7 @@
         "platform": "tencent",
         "component": "wordpress",
         "language": "PHP",
-        "stack": ["WordPress"],
+        "stack": ["SaaS应用"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
@@ -262,7 +290,7 @@
         "platform": "tencent",
         "component": "discuzq",
         "language": "PHP",
-        "stack": ["Discuz!Q"],
+        "stack": ["SaaS应用"],
         "authorLink": "https://github.com/yugasun",
         "authorName": "Yuga Sun",
         "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
