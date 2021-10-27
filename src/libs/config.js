@@ -12,7 +12,7 @@ const dotenv = require('dotenv');
 const semver = require('semver');
 const chalk = require('chalk');
 const HttpsProxyAgent = require('https-proxy-agent');
-const { loadInstanceConfig, fileExistsSync } = require('./utils');
+const { loadInstanceConfig, fileExistsSync, ServerlessCliError } = require('./utils');
 
 module.exports = () => {
   const args = minimist(process.argv.slice(2));
@@ -89,10 +89,19 @@ module.exports = () => {
     if (semver.gte(process.version, 'v11.7.0')) {
       // save default global agent in case we want to restore them
       // and hand proxy handling to other libs
-      http.defaultGlobalAgent = http.globalAgent;
-      https.defaultGlobalAgent = https.globalAgent;
-      http.globalAgent = new HttpsProxyAgent(httpProxy || httpsProxy);
-      https.globalAgent = new HttpsProxyAgent(httpsProxy || httpProxy);
+      try {
+        http.defaultGlobalAgent = http.globalAgent;
+        https.defaultGlobalAgent = https.globalAgent;
+        http.globalAgent = new HttpsProxyAgent(httpProxy || httpsProxy);
+        https.globalAgent = new HttpsProxyAgent(httpsProxy || httpProxy);
+      } catch (e) {
+        throw new ServerlessCliError(e.message, {
+          step: '设置用户代理',
+          code: e.code,
+          referral:
+            'https://github.com/serverless/components/blob/master/README.cn.md#%E4%BB%A3%E7%90%86',
+        });
+      }
     } else {
       process.stdout.write(
         `Serverless: ${chalk.yellow(

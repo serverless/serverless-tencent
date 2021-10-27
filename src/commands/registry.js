@@ -170,13 +170,8 @@ const listFeatured = async (config, cli) => {
       } else if (featuredTemplate.description) {
         name = `${name} - ${featuredTemplate.description}`;
       }
-
-      cli.log(`• ${name}`, 'grey');
     }
   }
-
-  cli.sessionStop('close', '查看更多: https://github.com/serverless-components?q=tencent');
-  return null;
 };
 
 /**

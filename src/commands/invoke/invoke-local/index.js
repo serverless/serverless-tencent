@@ -58,16 +58,24 @@ module.exports = async (config, cli, command, instanceDir) => {
       const runtime = inputs.runtime;
       checkRuntime(runtime, cli);
 
-      if (runtime.includes('Nodejs')) {
-        await runNode(eventData, contextData, handlerFile, handlerFunc, cli);
-      }
+      try {
+        if (runtime.includes('Nodejs')) {
+          await runNode(eventData, contextData, handlerFile, handlerFunc, cli);
+        }
 
-      if (runtime.includes('Python')) {
-        await runPython(eventData, contextData, handlerFile, handlerFunc, cli);
-      }
+        if (runtime.includes('Python')) {
+          await runPython(eventData, contextData, handlerFile, handlerFunc, cli);
+        }
 
-      if (runtime.includes('Php')) {
-        await runPhp(eventData, contextData, handlerFile, handlerFunc, cli);
+        if (runtime.includes('Php')) {
+          await runPhp(eventData, contextData, handlerFile, handlerFunc, cli);
+        }
+      } catch (e) {
+        e.extraErrorInfo = {
+          step: '函数本地调用',
+          source: 'Serverless::Cli',
+        };
+        throw e;
       }
     } catch (e) {
       await storeLocally({

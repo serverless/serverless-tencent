@@ -48,13 +48,22 @@ module.exports = async (config, cli, command) => {
   }
 
   // Fetch info
-  let instance = await sdk.getInstance(
-    instanceYaml.org,
-    instanceYaml.stage,
-    instanceYaml.app,
-    instanceYaml.name,
-    { fetchSourceCodeUrl: true }
-  );
+  let instance = {};
+  try {
+    instance = await sdk.getInstance(
+      instanceYaml.org,
+      instanceYaml.stage,
+      instanceYaml.app,
+      instanceYaml.name,
+      { fetchSourceCodeUrl: true }
+    );
+  } catch (e) {
+    e.extraErrorInfo = {
+      step: '实例信息获取',
+      source: 'Sereverless::Cli',
+    };
+    throw e;
+  }
 
   instance = instance.instance;
 

@@ -19,7 +19,12 @@ const path = require('path');
 const os = require('os');
 const fse = require('fs-extra');
 const chalk = require('chalk');
-const { fileExistsSync, loadCredentialsToJson, writeJsonToCredentials } = require('../libs/utils');
+const {
+  fileExistsSync,
+  loadCredentialsToJson,
+  writeJsonToCredentials,
+  ServerlessCliError,
+} = require('../libs/utils');
 
 const globalTencentCredentials = path.join(os.homedir(), '.serverless/tencent/credentials');
 
@@ -90,7 +95,7 @@ module.exports = async (config, cli) => {
 
       writeJsonToCredentials(globalTencentCredentials, credContent);
     } catch (e) {
-      throw new Error(e.message);
+      throw new ServerlessCliError(e.message, { step: '授权信息存储' });
     }
   }
 
@@ -128,7 +133,7 @@ module.exports = async (config, cli) => {
         );
         cli.log(`Serverless: ${chalk.green(`授权信息 ${profile} 移除成功`)}`);
       } catch (e) {
-        throw new Error(e.message);
+        throw new ServerlessCliError(e.message, { step: '授权信息删除' });
       }
     } else {
       cli.log(`无法找到全局认证配置文件: ${globalTencentCredentials}, 删除失败`);
@@ -136,13 +141,17 @@ module.exports = async (config, cli) => {
   }
 
   if (subCommand === 'list') {
-    if (fileExistsSync(globalTencentCredentials)) {
-      const credContent = loadCredentialsToJson(globalTencentCredentials);
+    try {
+      if (fileExistsSync(globalTencentCredentials)) {
+        const credContent = loadCredentialsToJson(globalTencentCredentials);
 
-      cli.log('Serverless: 当前已有用户授权信息名称：\n');
-      Object.keys(credContent).forEach((item) => {
-        cli.log(`  - ${item}`);
-      });
+        cli.log('Serverless: 当前已有用户授权信息名称：\n');
+        Object.keys(credContent).forEach((item) => {
+          cli.log(`  - ${item}`);
+        });
+      }
+    } catch (e) {
+      throw new ServerlessCliError(e.message, { step: '授权信息查询' });
     }
   }
 };
