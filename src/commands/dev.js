@@ -76,70 +76,78 @@ async function deploy(sdk, instance, credentials) {
   } catch (e) {
     instanceInfo.instanceStatus = 'error';
     instanceInfo.deploymentError = e;
+    instanceInfo.extraErrorInfo = e.extraErrorInfo;
   }
 
   return instanceInfo;
 }
 
 async function updateDeploymentStatus(cli, instanceInfo, startDebug) {
-  const { instanceStatus, instanceName, deploymentError, deploymentErrorStack } = instanceInfo;
-  const d = new Date();
-  const header = `${d.toLocaleTimeString()} - ${instanceName} - deployment`;
+  try {
+    const { instanceStatus, instanceName, deploymentError, deploymentErrorStack } = instanceInfo;
+    const d = new Date();
+    const header = `${d.toLocaleTimeString()} - ${instanceName} - deployment`;
 
-  cliEventCallback.stdout = logForwardingOutput;
+    cliEventCallback.stdout = logForwardingOutput;
 
-  switch (instanceStatus) {
-    case 'active': {
-      const {
-        state: { lambdaArn, region, function: stateFunction },
-        outputs: { scf, runtime, namespace },
-      } = instanceInfo;
-      regionStore = region;
+    switch (instanceStatus) {
+      case 'active': {
+        const {
+          state: { lambdaArn, region, function: stateFunction },
+          outputs: { scf, runtime, namespace },
+        } = instanceInfo;
+        regionStore = region;
 
-      let runtimeInfo = runtime;
-      let namespaceInfo = namespace;
-      if (!runtimeInfo && scf) {
-        runtimeInfo = scf.runtime;
-      }
-
-      if (!runtimeInfo && stateFunction && stateFunction.Runtime) {
-        runtimeInfo = stateFunction.Runtime;
-      }
-      if (!namespaceInfo && scf) {
-        namespaceInfo = scf.namespace;
-      }
-
-      if (!namespaceInfo && stateFunction && stateFunction.Namespace) {
-        namespaceInfo = stateFunction.Namespace;
-      }
-
-      if (lambdaArn && runtimeInfo && region) {
-        const functionInfo = {
-          functionName: lambdaArn,
-          namespace: namespaceInfo,
-          runtime: runtimeInfo,
-        };
-        functionInfoStore = functionInfo;
-        await chinaUtils.stopTencentRemoteLogAndDebug(functionInfo, region, cliEventCallback);
-        if (startDebug) {
-          await chinaUtils.startTencentRemoteLogAndDebug(functionInfo, region, cliEventCallback);
+        let runtimeInfo = runtime;
+        let namespaceInfo = namespace;
+        if (!runtimeInfo && scf) {
+          runtimeInfo = scf.runtime;
         }
+
+        if (!runtimeInfo && stateFunction && stateFunction.Runtime) {
+          runtimeInfo = stateFunction.Runtime;
+        }
+        if (!namespaceInfo && scf) {
+          namespaceInfo = scf.namespace;
+        }
+
+        if (!namespaceInfo && stateFunction && stateFunction.Namespace) {
+          namespaceInfo = stateFunction.Namespace;
+        }
+
+        if (lambdaArn && runtimeInfo && region) {
+          const functionInfo = {
+            functionName: lambdaArn,
+            namespace: namespaceInfo,
+            runtime: runtimeInfo,
+          };
+          functionInfoStore = functionInfo;
+          await chinaUtils.stopTencentRemoteLogAndDebug(functionInfo, region, cliEventCallback);
+          if (startDebug) {
+            await chinaUtils.startTencentRemoteLogAndDebug(functionInfo, region, cliEventCallback);
+          }
+        }
+        cli.log(header, 'grey');
+        delete instanceInfo.outputs.vendorMessage;
+        cli.logOutputs(instanceInfo.outputs);
+        cli.sessionStatus('监听中');
+        return true;
       }
-      cli.log(header, 'grey');
-      delete instanceInfo.outputs.vendorMessage;
-      cli.logOutputs(instanceInfo.outputs);
-      cli.sessionStatus('监听中');
-      return true;
+      case 'error':
+        cli.log(`${header} error`, 'grey');
+        cli.log(deploymentErrorStack || deploymentError, 'red');
+        cli.sessionStatus('监听中');
+        break;
+      default:
+        cli.log(`部署失败，当前实例状态不支持更改: ${instanceStatus}`, 'red');
     }
-    case 'error':
-      cli.log(`${header} error`, 'grey');
-      cli.log(deploymentErrorStack || deploymentError, 'red');
-      cli.sessionStatus('监听中');
-      break;
-    default:
-      cli.log(`部署失败，当前实例状态不支持更改: ${instanceStatus}`, 'red');
+    return false;
+  } catch (e) {
+    e.extraErrorInfo = {
+      step: '远程开发启动',
+    };
+    throw e;
   }
-  return false;
 }
 
 // eslint-disable-next-line consistent-return

@@ -44,10 +44,22 @@ module.exports = async (config, cli, command) => {
       hasPackageJson &&
       !config.target
     ) {
-      const generatedYML = await utils.generateYMLForNodejsProject(cli);
-      await fs.promises.writeFile(path.join(process.cwd(), 'serverless.yml'), generatedYML, 'utf8');
-      utils.loadInstanceConfig.clear();
-      cli.log('自动生成 serverless.yml 成功，即将部署');
+      try {
+        const generatedYML = await utils.generateYMLForNodejsProject(cli);
+        await fs.promises.writeFile(
+          path.join(process.cwd(), 'serverless.yml'),
+          generatedYML,
+          'utf8'
+        );
+        utils.loadInstanceConfig.clear();
+        cli.log('自动生成 serverless.yml 成功，即将部署');
+      } catch (e) {
+        e.extraErrorInfo = {
+          step: '配置文件生成',
+          source: 'Serverless::Cli',
+        };
+        throw e;
+      }
     }
 
     // Start CLI persistance status
@@ -117,14 +129,20 @@ module.exports = async (config, cli, command) => {
 
     // Connect to Serverless Platform Events, if in debug mode
     if (options.debug) {
-      await sdk.connect({
-        filter: {
-          stageName: instanceYaml.stage,
-          appName: instanceYaml.app,
-          instanceName: instanceYaml.name,
-        },
-        onEvent: utils.handleDebugLogMessage(cli),
-      });
+      try {
+        await sdk.connect({
+          filter: {
+            stageName: instanceYaml.stage,
+            appName: instanceYaml.app,
+            instanceName: instanceYaml.name,
+          },
+          onEvent: utils.handleDebugLogMessage(cli),
+        });
+      } catch (e) {
+        e.extraInfoError = {
+          step: '获取调试信息',
+        };
+      }
     }
 
     let deferredNotificationsData;
@@ -221,7 +239,6 @@ module.exports = async (config, cli, command) => {
     telemtryData.outcome = 'failure';
     telemtryData.failure_reason = e.message;
     await storeLocally(telemtryData);
-
     if (command === 'deploy') {
       await sendTelemtry();
     }

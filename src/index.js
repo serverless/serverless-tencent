@@ -34,11 +34,9 @@ module.exports = async () => {
     } else if (error.isTypeError) {
       cli.logTypeError(error.typeErrors);
     } else if (cli.isSessionActive()) {
-      error.command = command;
-      cli.sessionStop('error', error);
+      cli.sessionStop('error', error, command);
     } else {
-      error.command = command;
-      cli.logError(error);
+      cli.logError(error, { command });
       cli.log();
     }
   }

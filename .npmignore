@@ -3,3 +3,4 @@ blog
 /.github
 src
 !dist/*
+examples

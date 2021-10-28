@@ -25,10 +25,12 @@ async function unpack(cli, dir) {
     try {
       await spawn('npm', ['install'], { cwd: dir });
     } catch (error) {
-      cli.logError(
-        'Failed install dependencies, make sure install dependencies manually before deploy.'
-      );
-      return null;
+      error.message = '自动安装依赖失败，请手动执行安装';
+      error.extraErrorInfo = {
+        step: '依赖安装',
+        source: 'Serverless::Cli',
+      };
+      throw error;
     }
   }
 
@@ -49,13 +51,18 @@ async function unpack(cli, dir) {
 
 const initTemplateFromCli = async (targetPath, packageName, registryPackage, cli, appName) => {
   cli.sessionStatus('Fetching template from registry', packageName);
-  const tmpFilename = path.resolve(path.basename(registryPackage.downloadKey));
-  await pipeline(got.stream(registryPackage.downloadUrl), fs.createWriteStream(tmpFilename));
+  try {
+    const tmpFilename = path.resolve(path.basename(registryPackage.downloadKey));
+    await pipeline(got.stream(registryPackage.downloadUrl), fs.createWriteStream(tmpFilename));
 
-  cli.sessionStatus('Unpacking your new app', packageName);
-  const zip = new AdmZip(tmpFilename);
-  zip.extractAllTo(targetPath);
-  await fs.promises.unlink(tmpFilename);
+    cli.sessionStatus('Unpacking your new app', packageName);
+    const zip = new AdmZip(tmpFilename);
+    zip.extractAllTo(targetPath);
+    await fs.promises.unlink(tmpFilename);
+  } catch (e) {
+    e.extraErrorInfo = { step: '模版下载', source: 'Serverless::Cli' };
+    throw e;
+  }
 
   cli.sessionStatus('app.YAML processd');
   let serverlessFilePath = path.resolve(targetPath, 'serverless.yaml');
@@ -115,7 +122,16 @@ const init = async (config, cli) => {
     }
 
     const sdk = new ServerlessSDK({ context: { traceId: uuidv4() } });
-    const registryPackage = await sdk.getPackage(packageName);
+    let registryPackage;
+    try {
+      registryPackage = await sdk.getPackage(packageName);
+    } catch (e) {
+      e.extraErrorInfo = {
+        step: '组件信息获取',
+        source: 'Serverless::Cli',
+      };
+      throw e;
+    }
     if (!registryPackage) {
       telemtryData.outcome = 'failure';
       telemtryData.failure_reason = `查询的包 "${packageName}" 不存在.`;

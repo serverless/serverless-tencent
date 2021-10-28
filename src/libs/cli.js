@@ -109,8 +109,9 @@ module.exports = class CLI {
    * Stops rendering the persistent status bar in the CLI with a final status message.
    * @param {string} reason This tells the status bar how to display its final message. Can be 'error', 'cancel', 'close', 'success', 'silent'.
    * @param {string || error} messageOrError Can be a final message to the user (string) or an error object.
+   * @param {string} command
    */
-  sessionStop(reason, messageOrError = 'Closed') {
+  sessionStop(reason, messageOrError = 'Closed', command) {
     // Clear any existing content
     process.stdout.write(ansiEscapes.cursorLeft);
     process.stdout.write(ansiEscapes.eraseDown);
@@ -129,7 +130,7 @@ module.exports = class CLI {
 
     // Render error
     if (reason === 'error') {
-      this.logError(messageOrError, { timer: this._.timerSeconds });
+      this.logError(messageOrError, { timer: this._.timerSeconds, command });
       process.exitCode = 1;
     } else if (reason !== 'silent') {
       // Silent is used to skip the "Done" message
@@ -203,8 +204,8 @@ module.exports = class CLI {
     // Clear any existing content
     process.stdout.write(ansiEscapes.eraseDown);
 
-    if (error.command) {
-      process.stdout.write(red(`${os.EOL}x ${error.command}失败 `));
+    if (options.command) {
+      process.stdout.write(red(`${os.EOL}x ${options.command}失败 `));
       process.stdout.write(grey(`(${options.timer || this._.timerSeconds || 0}s)${os.EOL}`));
     }
 
@@ -245,17 +246,20 @@ traceId:     ${traceId}`;
 ${red('Error:')}
 `;
 
+    const pureStep = new Set(['无效的Serverless应用']);
     let extraMessage = '';
-    const { step, source, code } = extraErrorInfo;
+    const step = error.step || extraErrorInfo.step;
+    const source = error.source || extraErrorInfo.source;
+    const code = error.code || extraErrorInfo.code;
 
     if (code) {
       extraMessage += `${code}:`;
     }
     if (step) {
-      extraMessage += `${step}`;
+      extraMessage += `${pureStep.has(step) ? step : `${step}失败`} `;
     }
     if (source) {
-      extraMessage += ` (${grey(source)})`;
+      extraMessage += `(${grey(source)})`;
     }
 
     if (extraMessage) {
