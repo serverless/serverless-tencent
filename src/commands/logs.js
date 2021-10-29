@@ -135,9 +135,13 @@ module.exports = async (config, cli, command) => {
       await storeLocally(telemtryData);
       return logs;
     } catch (error) {
-      telemtryData.outcome = 'failure';
-      telemtryData.failure_reason = error.message;
-      await storeLocally(telemtryData);
+      if (!error.extraErrorInfo) {
+        error.extraErrorInfo = {
+          step: '日志获取',
+        };
+      } else {
+        error.extraErrorInfo.step = '日志获取';
+      }
       throw error;
     }
   }

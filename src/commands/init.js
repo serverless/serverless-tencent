@@ -126,10 +126,13 @@ const init = async (config, cli) => {
     try {
       registryPackage = await sdk.getPackage(packageName);
     } catch (e) {
-      e.extraErrorInfo = {
-        step: '组件信息获取',
-        source: 'Serverless::Cli',
-      };
+      if (!e.extraErrorInfo) {
+        e.extraErrorInfo = {
+          step: '组件信息获取',
+        };
+      } else {
+        e.extraErrorInfo.step = '组件信息获取';
+      }
       throw e;
     }
     if (!registryPackage) {

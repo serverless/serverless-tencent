@@ -139,9 +139,10 @@ module.exports = async (config, cli, command) => {
           onEvent: utils.handleDebugLogMessage(cli),
         });
       } catch (e) {
-        e.extraInfoError = {
+        e.extraErrorInfo = {
           step: '获取调试信息',
         };
+        throw e;
       }
     }
 
