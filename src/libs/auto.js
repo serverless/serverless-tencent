@@ -155,9 +155,13 @@ const getTemplatesFromRegistry = async (sdk) => {
 
     return { templatesChoices, scfTemplatesChoices, multiScfTemplatesChioices };
   } catch (e) {
-    e.extraErrorInfo = {
-      step: '模版信息获取',
-    };
+    if (!e.extraErrorInfo) {
+      e.extraErrorInfo = {
+        step: '模版信息获取',
+      };
+    } else {
+      e.extraErrorInfo.step = '模版信息获取';
+    }
     throw e;
   }
 };

@@ -81,6 +81,13 @@ const publish = async (config, cli) => {
       error.message = error.message.replace('409 - ', '');
       cli.error(error.message, true);
     } else {
+      if (!error.extraErrorInfo) {
+        error.extraErrorInfo = {
+          step: '组件发布',
+        };
+      } else {
+        error.extraErrorInfo.step = '组件发布';
+      }
       throw error;
     }
   }
@@ -110,7 +117,19 @@ const getPackage = async (config, cli) => {
   cli.sessionStart(`正在获取版本: ${packageName}`);
 
   const sdk = new ServerlessSDK({ context: { traceId: uuidv4() } });
-  const data = await sdk.getPackage(packageName);
+  let data;
+  try {
+    data = await sdk.getPackage(packageName);
+  } catch (e) {
+    if (!e.extraErrorInfo) {
+      e.extraErrorInfo = {
+        step: '组件信息获取',
+      };
+    } else {
+      e.extraErrorInfo.step = '组件信息获取';
+    }
+    throw e;
+  }
   delete data.component;
 
   if (Object.keys(data).length === 0) {
@@ -153,24 +172,35 @@ const getPackage = async (config, cli) => {
 const listFeatured = async (config, cli) => {
   cli.logRegistryLogo();
 
-  const sdk = new ServerlessSDK({ context: { traceId: uuidv4() } });
-  const { templates: featuredTemplates } = await sdk.listPackages(null, {
-    isFeatured: true,
-  });
+  try {
+    const sdk = new ServerlessSDK({ context: { traceId: uuidv4() } });
+    const { templates: featuredTemplates } = await sdk.listPackages(null, {
+      isFeatured: true,
+    });
 
-  if (featuredTemplates.length > 0) {
-    cli.log();
-    cli.log('运行 "serverless init <package>" 安装组件或者模版...');
-    cli.log();
-    for (const featuredTemplate of featuredTemplates) {
-      let name = featuredTemplate.name;
+    if (featuredTemplates.length > 0) {
+      cli.log();
+      cli.log('运行 "serverless init <package>" 安装组件或者模版...');
+      cli.log();
+      for (const featuredTemplate of featuredTemplates) {
+        let name = featuredTemplate.name;
 
-      if (featuredTemplate['description-i18n'] && featuredTemplate['description-i18n']['zh-cn']) {
-        name = `${name} - ${featuredTemplate['description-i18n']['zh-cn']}`;
-      } else if (featuredTemplate.description) {
-        name = `${name} - ${featuredTemplate.description}`;
+        if (featuredTemplate['description-i18n'] && featuredTemplate['description-i18n']['zh-cn']) {
+          name = `${name} - ${featuredTemplate['description-i18n']['zh-cn']}`;
+        } else if (featuredTemplate.description) {
+          name = `${name} - ${featuredTemplate.description}`;
+        }
       }
     }
+  } catch (e) {
+    if (!e.extraErrorInfo) {
+      e.extraErrorInfo = {
+        step: '组件列表获取',
+      };
+    } else {
+      e.extraErrorInfo.step = '组件列表获取';
+    }
+    throw e;
   }
 };
 

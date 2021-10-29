@@ -149,13 +149,26 @@ module.exports = async (config, cli, command) => {
         namespace: namespaceValue,
         qualifier: qualifierValue,
       };
-      const res = await sdk.invoke(
-        instanceYaml.org,
-        instanceYaml.app,
-        instanceYaml.stage,
-        instanceYaml.name,
-        options
-      );
+      let res;
+      try {
+        res = await sdk.invoke(
+          instanceYaml.org,
+          instanceYaml.app,
+          instanceYaml.stage,
+          instanceYaml.name,
+          options
+        );
+      } catch (e) {
+        if (!e.extraErrorInfo) {
+          e.extraErrorInfo = {
+            step: '函数远程调用',
+          };
+        } else {
+          e.extraErrorInfo.step = '函数远程调用';
+        }
+
+        throw e;
+      }
 
       if (res.retMsg) {
         const retMsg = res.retMsg;

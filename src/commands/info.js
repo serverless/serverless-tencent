@@ -58,10 +58,11 @@ module.exports = async (config, cli, command) => {
       { fetchSourceCodeUrl: true }
     );
   } catch (e) {
-    e.extraErrorInfo = {
-      step: '实例信息获取',
-      source: 'Sereverless::Cli',
-    };
+    if (!e.extraErrorInfo) {
+      e.extraErrorInfo = { step: '实例信息获取' };
+    } else {
+      e.extraErrorInfo.step = '实例信息获取';
+    }
     throw e;
   }
 
