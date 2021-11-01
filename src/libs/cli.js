@@ -205,7 +205,7 @@ module.exports = class CLI {
     process.stdout.write(ansiEscapes.eraseDown);
 
     if (options.command) {
-      process.stdout.write(red(`${os.EOL}x ${options.command}失败 `));
+      process.stdout.write(red(`${os.EOL}x ${options.command} 失败 `));
       process.stdout.write(grey(`(${options.timer || this._.timerSeconds || 0}s)${os.EOL}`));
     }
 
@@ -215,30 +215,20 @@ module.exports = class CLI {
     // Render stack trace (if debug is on)
     this.logErrorStackTrace(error.stack);
 
-    let basicInfo = `Environment: ${process.platform}, node ${process.version}, cli v${version}
-帮助文档:    https://www.serverless.com/cn/framework/docs/
+    let basicInfo = `帮助文档:    https://www.serverless.com/cn/framework/docs/
 BUG提交:     https://github.com/serverless/serverless-tencent/issues
 问答社区:    https://github.com/serverless/serverless-tencent/discussions`;
 
     const extraErrorInfo = error.extraErrorInfo || {};
-    const requestId = error.requestId || extraErrorInfo.requestId;
-    const traceId = error.traceId || extraErrorInfo.traceId;
+
     const referral = error.referral || extraErrorInfo.referral;
     if (referral) {
       basicInfo += `
-referral:   ${referral}`;
+Referral:   ${referral}`;
     }
 
-    if (requestId) {
-      basicInfo += `
-requestId:   ${requestId}`;
-    }
-    if (traceId) {
-      basicInfo += `
-traceId:     ${traceId}`;
-    }
     // Write to terminal
-    process.stdout.write(grey(basicInfo));
+    process.stdout.write(basicInfo);
 
     console.log('');
 
@@ -269,6 +259,24 @@ ${red('Error:')}
     errorMessage += `错误信息: ${error.message}`;
 
     process.stdout.write(errorMessage);
+
+    // Addtional informations for error
+    console.log('');
+    let additionalInfo = `
+Environment: ${process.platform}, node ${process.version}, tencent v${version}`;
+    const requestId = error.requestId || extraErrorInfo.requestId;
+    const traceId = error.traceId || extraErrorInfo.traceId;
+
+    if (requestId) {
+      additionalInfo += `
+RequestId:   ${requestId}`;
+    }
+    if (traceId) {
+      additionalInfo += `
+TraceId:     ${traceId}`;
+    }
+    process.stdout.write(additionalInfo);
+
     // Put cursor to starting position for next view
     process.stdout.write(ansiEscapes.cursorLeft);
 
@@ -424,9 +432,9 @@ ${red('Error:')}
    */
   logLogo() {
     let logo = os.EOL;
-    logo += 'serverless-tencent';
+    logo += 'serverless';
     logo += red(' ⚡');
-    logo += 'cli';
+    logo += 'tencent';
 
     if (process.env.SERVERLESS_PLATFORM_STAGE === 'dev') {
       logo += grey(' (dev)');

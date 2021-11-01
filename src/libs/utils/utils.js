@@ -80,7 +80,7 @@ const checkBasicConfigValidation = async (dicPath) => {
   } catch (e) {
     e.extraErrorInfo = {
       step: '无效的Serverless应用',
-      source: 'Serverless::Cli',
+      source: 'Serverless::CLI',
     };
     throw e;
   }
@@ -568,11 +568,11 @@ const writeClientUid = async (p = clientUidDefaultPath, options = {}) => {
   return res;
 };
 
-class ServerlessCliError extends Error {
+class ServerlessCLIError extends Error {
   constructor(message, extraErrorInfo = {}) {
     super(message);
     this.message = message;
-    this.extraErrorInfo = { source: 'Serverless::Cli', ...extraErrorInfo };
+    this.extraErrorInfo = { source: 'Serverless::CLI', ...extraErrorInfo };
   }
 }
 
@@ -592,5 +592,5 @@ module.exports = {
   writeClientUid,
   clientUidDefaultPath,
   loadTencentInstanceConfig,
-  ServerlessCliError,
+  ServerlessCLIError,
 };

@@ -56,7 +56,7 @@ module.exports = async (config, cli, command) => {
       } catch (e) {
         e.extraErrorInfo = {
           step: '配置文件生成',
-          source: 'Serverless::Cli',
+          source: 'Serverless::CLI',
         };
         throw e;
       }
@@ -239,7 +239,7 @@ module.exports = async (config, cli, command) => {
   } catch (e) {
     telemtryData.outcome = 'failure';
     telemtryData.failure_reason = e.message;
-    await storeLocally(telemtryData);
+    await storeLocally(telemtryData, e);
     if (command === 'deploy') {
       await sendTelemtry();
     }

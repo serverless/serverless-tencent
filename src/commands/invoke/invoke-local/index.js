@@ -88,11 +88,14 @@ module.exports = async (config, cli, command, instanceDir) => {
 
     await storeLocally({ ...telemtryData, outcome: 'success' });
   } catch (e) {
-    await storeLocally({
-      ...telemtryData,
-      outcome: 'failure',
-      failure_reason: e.message,
-    });
+    await storeLocally(
+      {
+        ...telemtryData,
+        outcome: 'failure',
+        failure_reason: e.message,
+      },
+      e
+    );
     throw e;
   }
 };

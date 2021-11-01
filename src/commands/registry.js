@@ -31,7 +31,7 @@ const publish = async (config, cli) => {
   const serverlessFile = await loadServerlessFile(process.cwd());
 
   if (!serverlessTemplateFile && !serverlessComponentFile && !serverlessFile) {
-    throw new Error(
+    throw new utils.ServerlessCLIError(
       '发布失败。当前工作目录没有包含 "serverless.template.yml" 或者 "serverless.component.yml"'
     );
   }
@@ -84,6 +84,7 @@ const publish = async (config, cli) => {
       if (!error.extraErrorInfo) {
         error.extraErrorInfo = {
           step: '组件发布',
+          source: 'Serverless::Cli',
         };
       } else {
         error.extraErrorInfo.step = '组件发布';

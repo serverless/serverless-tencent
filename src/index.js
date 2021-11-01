@@ -3,7 +3,7 @@
 const commands = require('./commands');
 const buildConfig = require('./libs/config');
 const CLI = require('./libs/cli');
-const { isProjectPath, loadTencentGlobalConfig } = require('./libs/utils');
+const { isProjectPath, loadTencentGlobalConfig, ServerlessCLIError } = require('./libs/utils');
 
 module.exports = async () => {
   const config = buildConfig();
@@ -12,11 +12,17 @@ module.exports = async () => {
   if (process.argv.length === 2 && !(await isProjectPath(process.cwd()))) {
     return require('./libs/auto')(config, cli);
   }
-
-  loadTencentGlobalConfig(config, cli);
   const command = config.command;
 
   try {
+    try {
+      loadTencentGlobalConfig(config, cli);
+    } catch (e) {
+      throw new ServerlessCLIError(e.message, {
+        step: '授权登录',
+      });
+    }
+
     if (!config.command) {
       throw new Error(
         '检测到当前目录下已有 serverless 项目，请通过 "sls deploy" 进行部署，或在新路径下完成 serverless 项目初始化'
@@ -34,9 +40,9 @@ module.exports = async () => {
     } else if (error.isTypeError) {
       cli.logTypeError(error.typeErrors);
     } else if (cli.isSessionActive()) {
-      cli.sessionStop('error', error, command);
+      cli.sessionStop('error', error, config.realCommand || command);
     } else {
-      cli.logError(error, { command });
+      cli.logError(error, { command: config.realCommand || command });
       cli.log();
     }
   }
