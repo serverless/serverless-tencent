@@ -34,12 +34,24 @@ module.exports = async (config, cli) => {
   for (const instanceYaml of instanceYamls) {
     cli.log(instanceYaml.name, 'whiteBold');
 
-    const { instance } = await sdk.getInstance(
-      instanceYaml.org,
-      instanceYaml.stage,
-      instanceYaml.app,
-      instanceYaml.name
-    );
+    let instance = {};
+    try {
+      const result = await sdk.getInstance(
+        instanceYaml.org,
+        instanceYaml.stage,
+        instanceYaml.app,
+        instanceYaml.name
+      );
+      instance = result.instance;
+      instance = result.instance;
+    } catch (e) {
+      if (!e.extraErrorInfo) {
+        e.extraErrorInfo = { step: '实例信息获取' };
+      } else {
+        e.extraErrorInfo.step = '实例信息获取';
+      }
+      throw e;
+    }
 
     if (!instance || !instance.outputs || Object.keys(instance.outputs).length === 0) {
       cli.log(`  ${chalk.grey('Status:')}       ${chalk.red('inactive')}`);

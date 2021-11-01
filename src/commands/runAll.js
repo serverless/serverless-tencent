@@ -192,7 +192,7 @@ module.exports = async (config, cli, command) => {
   } catch (e) {
     telemtryData.outcome = 'failure';
     telemtryData.failure_reason = e.message;
-    await storeLocally(telemtryData);
+    await storeLocally(telemtryData, e);
 
     if (command === 'deploy') {
       sendTelemtry();

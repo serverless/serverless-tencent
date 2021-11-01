@@ -71,7 +71,7 @@ module.exports = async (config, cli, command) => {
   // Throw a helpful error if the instance was not deployed
   if (!instance) {
     throw new Error(
-      `Instance "${instanceYaml.name}" is not active. Please deploy the instance first, then run "serverless info" again.`
+      `实例 "${instanceYaml.name}" 不是激活状态. 请先部署实例, 然后再次运行"serverless info".`
     );
   }
 

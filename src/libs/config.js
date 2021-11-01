@@ -12,7 +12,8 @@ const dotenv = require('dotenv');
 const semver = require('semver');
 const chalk = require('chalk');
 const HttpsProxyAgent = require('https-proxy-agent');
-const { loadInstanceConfig, fileExistsSync, ServerlessCliError } = require('./utils');
+const { loadInstanceConfig, fileExistsSync, ServerlessCLIError } = require('./utils');
+const CLI = require('./cli');
 
 module.exports = () => {
   const args = minimist(process.argv.slice(2));
@@ -95,12 +96,16 @@ module.exports = () => {
         http.globalAgent = new HttpsProxyAgent(httpProxy || httpsProxy);
         https.globalAgent = new HttpsProxyAgent(httpsProxy || httpProxy);
       } catch (e) {
-        throw new ServerlessCliError(e.message, {
-          step: '设置用户代理',
-          code: e.code,
-          referral:
-            'https://github.com/serverless/components/blob/master/README.cn.md#%E4%BB%A3%E7%90%86',
-        });
+        const cli = new CLI({});
+        cli.logError(
+          new ServerlessCLIError(e.message, {
+            code: e.code,
+            referral:
+              'https://github.com/serverless/components/blob/master/README.cn.md#%E4%BB%A3%E7%90%86',
+          }),
+          { command: args._[0] }
+        );
+        process.exit();
       }
     } else {
       process.stdout.write(
@@ -136,6 +141,7 @@ module.exports = () => {
   // handle "publish" command.
   if (command === 'publish') {
     command = 'registry';
+    config.realCommand = 'publish'; // Save the real command for error messgae handling
     config.params.unshift('publish');
   }
 

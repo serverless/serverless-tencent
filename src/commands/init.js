@@ -15,20 +15,20 @@ const { generatePayload, storeLocally } = require('../libs/telemtry');
 const got = require('got');
 const { ServerlessSDK } = require('@serverless/platform-client-china');
 const spawn = require('child-process-ext/spawn');
-const { parseYaml, saveYaml } = require('../libs/utils');
+const { parseYaml, saveYaml, ServerlessCLIError } = require('../libs/utils');
 
 const pipeline = promisify(stream.pipeline);
 
 async function unpack(cli, dir) {
   if (await fse.exists(path.resolve(dir, 'package.json'))) {
-    cli.sessionStatus(`Installing node_modules via npm in ${dir}`);
+    cli.sessionStatus(`通过 npm install 在 ${dir} 文件夹中安装依赖`);
     try {
       await spawn('npm', ['install'], { cwd: dir });
     } catch (error) {
       error.message = '自动安装依赖失败，请手动执行安装';
       error.extraErrorInfo = {
         step: '依赖安装',
-        source: 'Serverless::Cli',
+        source: 'Serverless::CLI',
       };
       throw error;
     }
@@ -60,7 +60,7 @@ const initTemplateFromCli = async (targetPath, packageName, registryPackage, cli
     zip.extractAllTo(targetPath);
     await fs.promises.unlink(tmpFilename);
   } catch (e) {
-    e.extraErrorInfo = { step: '模版下载', source: 'Serverless::Cli' };
+    e.extraErrorInfo = { step: '模版下载', source: 'Serverless::CLI' };
     throw e;
   }
 
@@ -163,7 +163,11 @@ const init = async (config, cli) => {
       const envConfig = `component: ${packageName}\nname: ${targetName}\napp: ${targetName}-${
         uuidv4().split('-')[0]
       }\ninputs:\n`;
-      await fse.writeFile(envDestination, envConfig);
+      try {
+        await fse.writeFile(envDestination, envConfig);
+      } catch (e) {
+        throw new ServerlessCLIError(e.message);
+      }
 
       telemtryData.components.push(packageName);
     } else {
@@ -189,7 +193,7 @@ const init = async (config, cli) => {
   } catch (err) {
     telemtryData.outcome = 'failure';
     telemtryData.failure_reason = err.message;
-    await storeLocally(telemtryData);
+    await storeLocally(telemtryData, err);
 
     throw err;
   }

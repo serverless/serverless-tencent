@@ -23,7 +23,7 @@ const {
   fileExistsSync,
   loadCredentialsToJson,
   writeJsonToCredentials,
-  ServerlessCliError,
+  ServerlessCLIError,
 } = require('../libs/utils');
 
 const globalTencentCredentials = path.join(os.homedir(), '.serverless/tencent/credentials');
@@ -32,32 +32,32 @@ module.exports = async (config, cli) => {
   const subCommand = config.params[0];
 
   if (subCommand === 'set') {
-    const { i, k, n, overwrite, o } = config;
-    let { secretId, secretKey, profile } = config;
-
-    const canOverwrite = overwrite || o;
-
-    if (!secretId && !i) {
-      throw new Error('缺少secretId, 请使用 --secretId 或者 -i 指定');
-    } else if (i) {
-      secretId = i;
-    }
-
-    if (!secretKey && !k) {
-      throw new Error('缺少secretKey, 请使用 --secretKey 或者 -k 指定');
-    } else if (k) {
-      secretKey = k;
-    }
-
-    if (!profile) {
-      if (n) {
-        profile = n;
-      } else {
-        profile = 'default';
-      }
-    }
-
     try {
+      const { i, k, n, overwrite, o } = config;
+      let { secretId, secretKey, profile } = config;
+
+      const canOverwrite = overwrite || o;
+
+      if (!secretId && !i) {
+        throw new Error('缺少secretId, 请使用 --secretId 或者 -i 指定');
+      } else if (i) {
+        secretId = i;
+      }
+
+      if (!secretKey && !k) {
+        throw new Error('缺少secretKey, 请使用 --secretKey 或者 -k 指定');
+      } else if (k) {
+        secretKey = k;
+      }
+
+      if (!profile) {
+        if (n) {
+          profile = n;
+        } else {
+          profile = 'default';
+        }
+      }
+
       if (!fileExistsSync(globalTencentCredentials)) {
         fse.createFileSync(globalTencentCredentials);
       }
@@ -95,7 +95,7 @@ module.exports = async (config, cli) => {
 
       writeJsonToCredentials(globalTencentCredentials, credContent);
     } catch (e) {
-      throw new ServerlessCliError(e.message, { step: '授权信息存储' });
+      throw new ServerlessCLIError(e.message, { step: '授权信息存储' });
     }
   }
 
@@ -133,7 +133,7 @@ module.exports = async (config, cli) => {
         );
         cli.log(`Serverless: ${chalk.green(`授权信息 ${profile} 移除成功`)}`);
       } catch (e) {
-        throw new ServerlessCliError(e.message, { step: '授权信息删除' });
+        throw new ServerlessCLIError(e.message, { step: '授权信息删除' });
       }
     } else {
       cli.log(`无法找到全局认证配置文件: ${globalTencentCredentials}, 删除失败`);
@@ -151,7 +151,7 @@ module.exports = async (config, cli) => {
         });
       }
     } catch (e) {
-      throw new ServerlessCliError(e.message, { step: '授权信息查询' });
+      throw new ServerlessCLIError(e.message, { step: '授权信息查询' });
     }
   }
 };

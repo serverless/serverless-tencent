@@ -269,7 +269,7 @@ module.exports = async () => {
   } catch (err) {
     telemtryData.outcome = 'failure';
     telemtryData.failure_reason = err.message;
-    await storeLocally(telemtryData);
+    await storeLocally(telemtryData, err);
 
     throw err;
   }
