@@ -15,7 +15,8 @@
     "prettify": "prettier --write --ignore-path .gitignore \"**/*.{css,html,js,json,md,yaml,yml}\"",
     "prettier-check:updated": "pipe-git-updated --ext=css --ext=html --ext=js --ext=json --ext=md --ext=yaml --ext=yml -- prettier -c",
     "prebuild": "rm -fr dist",
-    "build": "webpack"
+    "build": "webpack",
+    "test": "jest ./tests"
   },
   "eslintConfig": {
     "extends": "@serverless/eslint-config/node",
@@ -64,11 +65,13 @@
   },
   "devDependencies": {
     "@serverless/eslint-config": "^3.0.0",
-    "eslint-plugin-import": "^2.22.1",
     "eslint": "^7.32.0",
+    "eslint-plugin-import": "^2.22.1",
     "git-list-updated": "^1.2.1",
     "github-release-from-cc-changelog": "^2.2.0",
+    "jest": "^27.3.1",
     "prettier": "^2.4.1",
+    "process-utils": "^4.0.0",
     "webpack": "^5.52.1",
     "webpack-cli": "^4.8.0",
     "webpack-node-externals": "^3.0.0"

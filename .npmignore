@@ -4,3 +4,4 @@ blog
 src
 !dist/*
 examples
+tests
