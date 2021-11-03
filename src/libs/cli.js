@@ -19,7 +19,6 @@ const version = packageInfo.version;
 // CLI Colors
 const grey = chalk.dim;
 const white = (str) => str; // we wanna use the default terimanl color, so we just return the string as is with no color codes
-const whiteBold = chalk.bold;
 const { green } = chalk;
 const red = chalk.rgb(255, 99, 99);
 const blue = chalk.rgb(199, 232, 255);
@@ -240,11 +239,7 @@ ${red('Error:')}
     let extraMessage = '';
     const step = error.step || extraErrorInfo.step;
     const source = error.source || extraErrorInfo.source;
-    const code = error.code || extraErrorInfo.code;
 
-    if (code) {
-      extraMessage += `${code}:`;
-    }
     if (step) {
       extraMessage += `${pureStep.has(step) ? step : `${step}失败`} `;
     }
@@ -264,9 +259,14 @@ ${red('Error:')}
     console.log('');
     let additionalInfo = `
 Environment: ${process.platform}, node ${process.version}, tencent v${version}`;
+    const code = error.code || extraErrorInfo.code;
     const requestId = error.requestId || extraErrorInfo.requestId;
     const traceId = error.traceId || extraErrorInfo.traceId;
 
+    if (code) {
+      additionalInfo += `
+ErrorCode: ${code}`;
+    }
     if (requestId) {
       additionalInfo += `
 RequestId:   ${requestId}`;
@@ -403,7 +403,7 @@ TraceId:     ${traceId}`;
         process.stdout.write(white(msg));
       }
       if (color === 'whiteBold') {
-        process.stdout.write(whiteBold(msg));
+        process.stdout.write(chalk.bold(msg));
       }
       if (color === 'grey') {
         process.stdout.write(grey(msg));
