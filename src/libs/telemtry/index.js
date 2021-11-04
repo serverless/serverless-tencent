@@ -6,6 +6,7 @@ const fse = require('fs-extra');
 const isTelemetryDisabled = require('./areDisabled');
 const cacheDirPath = require('./cache-path');
 const got = require('got');
+const { utils: chinaUtils } = require('@serverless/platform-client-china');
 const generatePayload = require('./generatePayload');
 
 const timestampWeekBefore = Date.now() - 1000 * 60 * 60 * 24 * 7;
@@ -15,7 +16,8 @@ const isUuid = RegExp.prototype.test.bind(
 );
 
 const sendToMetrics = async (payload, { ids }, options = {}) => {
-  const metricsUrl = (() => require('@serverless/utils/analytics-and-notfications-url'))();
+  const metricsUrl = chinaUtils.getMetricsUrl();
+
   if (!metricsUrl) return null;
 
   try {
@@ -43,7 +45,11 @@ const sendToMetrics = async (payload, { ids }, options = {}) => {
 };
 
 // Store telemtry data locally and send them later while deploying
-const storeLocally = async (payload = {}) => {
+const storeLocally = async (payload = {}, err = null) => {
+  if (err) {
+    payload.err = err;
+  }
+
   if (isTelemetryDisabled || !cacheDirPath || !payload.event) return null;
   const id = uuid();
 
