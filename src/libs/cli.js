@@ -214,7 +214,7 @@ module.exports = class CLI {
     // Render stack trace (if debug is on)
     this.logErrorStackTrace(error.stack);
 
-    let basicInfo = `帮助文档:    https://www.serverless.com/cn/framework/docs/
+    let basicInfo = `帮助文档:    https://cn.serverless.com/framework/docs
 BUG提交:     https://github.com/serverless/serverless-tencent/issues
 问答社区:    https://github.com/serverless/serverless-tencent/discussions`;
 
@@ -222,8 +222,8 @@ BUG提交:     https://github.com/serverless/serverless-tencent/issues
 
     const referral = error.referral || extraErrorInfo.referral;
     if (referral) {
-      basicInfo += `
-Referral:   ${referral}`;
+      basicInfo = `参考信息:    ${referral}
+${basicInfo}`;
     }
 
     // Write to terminal
@@ -251,7 +251,8 @@ ${red('Error:')}
       errorMessage += `${extraMessage}
 `;
     }
-    errorMessage += `错误信息: ${error.message}`;
+    // remove [requestId, traceId] from error message
+    errorMessage += `错误信息: ${error.message.replace(/\[(.*?)\]/g, '')}`;
 
     process.stdout.write(errorMessage);
 
@@ -265,7 +266,7 @@ Environment: ${process.platform}, node ${process.version}, tencent v${version}`;
 
     if (code) {
       additionalInfo += `
-ErrorCode: ${code}`;
+ErrorCode:   ${code}`;
     }
     if (requestId) {
       additionalInfo += `
@@ -448,9 +449,9 @@ TraceId:     ${traceId}`;
    */
   logRegistryLogo(text) {
     let logo = os.EOL;
-    logo += white('serverless-tencent');
+    logo += white('serverless');
     logo += red(' ⚡');
-    logo += white('registry');
+    logo += white('tencent');
 
     if (process.env.SERVERLESS_PLATFORM_STAGE === 'dev') {
       logo += grey(' (dev)');

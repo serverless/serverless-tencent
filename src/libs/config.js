@@ -161,11 +161,11 @@ module.exports = () => {
     config.command = command;
   } catch (e) {
     if (e.extraErrorInfo) {
-      e.extraErrorInfo.step = '配置初始化';
+      e.extraErrorInfo.step = '命令初始化';
       e.extraErrorInfo.source = 'Serverless::CLI';
     } else {
       e.extraErrorInfo = {
-        step: '配置初始化',
+        step: '命令初始化配置',
         source: 'Serverless::CLI',
       };
     }

@@ -93,7 +93,7 @@ module.exports = async ({
         }
         return 'unknown';
       }
-      return null;
+      return 'untracked';
     })();
 
     const { value: clientUid } = await writeClientUid(undefined, {
