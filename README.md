@@ -1,6 +1,7 @@
 # serverless-tencent
 
 [![serverless](http://public.serverless.com/badges/v3.svg)](http://cn.serverless.com)
+
 <!-- [![Build Status](https://github.com/serverless/serverless/workflows/Integrate/badge.svg)](https://github.com/serverless/serverless/actions?query=workflow%3AIntegrate) -->
 <!-- [![npm version](https://badge.fury.io/js/serverless.svg)](https://badge.fury.io/js/serverless) -->
 <!-- [![codecov](https://codecov.io/gh/serverless/serverless/branch/master/graph/badge.svg)](https://codecov.io/gh/serverless/serverless) -->
@@ -21,7 +22,7 @@
 
 ## 快速开始
 
-> 🚧 🚧 🚧 此插件为 Serverless Frameowrk CLI v3.0 重构测试继承使用，请不要在生产环境中使用此插件。 目前生产开发用的 CLI 工具请按照[帮助文档](https://cn.serverless.com/cn/framework/docs/quickstart/installation/)中的说明内容安装使用。
+> 🚧 🚧 🚧 此插件为 Serverless Frameowrk CLI v3.0 重构测试继承使用，请不要在生产环境中使用此 CLI。 目前生产开发用的 CLI 工具请按照[帮助文档](https://cn.serverless.com/cn/framework/docs/quickstart/installation/)中的说明内容安装使用。
 
 ### 前置条件
 
@@ -31,22 +32,22 @@
 
 ### 安装使用
 
-> 🚧 🚧 🚧 此插件为 Serverless Frameowrk CLI v3.0 重构测试继承使用，请不要在生产环境中使用此插件。 目前生产开发用的 CLI 工具请按照[帮助文档](https://cn.serverless.com/cn/framework/docs/quickstart/installation/)中的说明内容安装使用。
+> 🚧 🚧 🚧 此 CLI 为 Serverless Frameowrk CLI v3.0 重构测试继承使用，请不要在生产环境中使用此插件。 目前生产开发用的 CLI 工具请按照[帮助文档](https://cn.serverless.com/cn/framework/docs/quickstart/installation/)中的说明内容安装使用。
+
+#### 直接使用 serverless-tencent CLI
 
 ```sh
-$ sereverless init scf-nodejs --name example
+$ npm i -g serverless-tencent
+$ slt init express-starter --name example
 $ cd example
-$ npm install @serverless/serverless-tencent-plugin
+$ slt deploy
 ```
 
-```yml
-plugins:
-  - "@serverless/serverless-tencent-plugin"
-```
+#### Serverless Framework CLI 集成使用- 开发中
 
 ## CLI 命令
 
-> 🚧 🚧 🚧 此插件为 Serverless Frameowrk CLI v3.0 重构测试继承使用，请不要在生产环境中使用此插件。 目前生产开发用的 CLI 工具请按照[帮助文档](https://cn.serverless.com/cn/framework/docs/quickstart/installation/)中的说明内容安装使用。
+> 🚧 🚧 🚧 此 CLI 为 Serverless Frameowrk CLI v3.0 重构测试继承使用，请不要在生产环境中使用此插件。 目前生产开发用的 CLI 工具请按照[帮助文档](https://cn.serverless.com/cn/framework/docs/quickstart/installation/)中的说明内容安装使用。
 
 <!-- - [Init 创建](#init)
 - [Deploy 部署](#deploy)
@@ -83,7 +84,7 @@ plugins:
 
 ### Canary 测试版本
 
-提交代码到 `master` 分支，自动发布插件的 `canary` 版本，可以通过 `npm i @serverless/serverless-tencent-plugin@canary` 安装测试
+提交代码到 `master` 分支，自动发布插件的 `canary` 版本，可以通过 `npm i -g serverless-tencent@canary` 安装测试
 
 ### 发布正式版本
 
