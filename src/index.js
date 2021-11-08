@@ -16,7 +16,7 @@ module.exports = async () => {
 
   try {
     try {
-      loadTencentGlobalConfig(config, cli);
+      loadTencentGlobalConfig(cli, config);
     } catch (e) {
       throw new ServerlessCLIError(e.message, {
         step: '授权登录',
