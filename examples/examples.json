@@ -1,5 +1,18 @@
 [
   {
+    "title": "优雅的部署 Next.js 的 SSR 应用",
+    "name": "http-component-Nextjs-gracely",
+    "description": "如何优雅的部署一个 Serverless Next.js 应用文章相关代码",
+    "githubUrl": "https://github.com/zongUMR/Serverlss_Http_Nextjs",
+    "platform": "tencent",
+    "component": "http",
+    "language": "Node.js",
+    "stack": ["网站应用", "Web框架"],
+    "authorLink": "https://github.com/yugasun",
+    "authorName": "Yuga Sun",
+    "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4"
+  },
+  {
     "title": "多函数 TODO 应用",
     "name": "ole3021-multi_scf-node-event-todo",
     "description": "基于事件的 TODO 应用，使用 Postgres 存任务，可以添加查询、添加、完成任务。",
@@ -258,7 +271,7 @@
     "platform": "tencent",
     "component": "website",
     "language": "HTML",
-    "stack": ["静态网站"],
+    "stack": ["网站应用"],
     "authorLink": "https://github.com/yugasun",
     "authorName": "Yuga Sun",
     "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4",
@@ -287,20 +300,6 @@
     "component": "discuzq",
     "language": "PHP",
     "stack": ["SaaS应用"],
-    "authorLink": "https://github.com/yugasun",
-    "authorName": "Yuga Sun",
-    "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4",
-    "disableReadme": true
-  },
-  {
-    "title": "使用 Http 组件部署 Next.js 的应用示例",
-    "name": "http-component-Nextjs-example",
-    "description": "使用 Http 组件部署 Next.js 应用",
-    "githubUrl": "https://github.com/zongUMR/Serverlss_Http_Nextjs",
-    "platform": "tencent",
-    "component": "http",
-    "language": "Node.js",
-    "stack": ["网站应用", "SSR"],
     "authorLink": "https://github.com/yugasun",
     "authorName": "Yuga Sun",
     "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4",
