@@ -3,7 +3,7 @@ title: 如何优雅的部署一个 Serverless Next.js 应用
 description: 一步一步带大家了解，如何基于 Serverless 架构部署一个实际的线上业务
 date: 2021-11-09
 layout: Post
-thumbnail:
+thumbnail: https://sp-assets-1300963013.file.myqcloud.com/blog/thumbnails/2021-11-09-deploy-nextjs-gracely.png
 authors:
   - YugaSun
 category:
@@ -42,7 +42,7 @@ $ serverless deploy
 
 Next.js 组件，会默认帮助我们创建一个 `云函数` 和 `API 网关`，并且将它们关联，实际我们访问的 是 API 网关，然后触发云函数，来获得请求返回结果，流程图如下：
 
-![Serverless Requst Flow](https://static.cdn.yugasun.com/request-flow.png)
+![Serverless Requst Flow](https://sp-assets-1300963013.file.myqcloud.com/blog/posts/2021-11-09-deploy-nextjs-gracely-1.png)
 
 > **解释**：我们在执行部署命令时，由于一个简单的 Next.js 应用除了业务代码，还包括庞大的 `node_modules` 文件夹，这就导致打包压缩的代码体积大概 `20M` 左右，所以大部分时间消耗在代码上传上。这里的速度也跟开发环境的网络环境有关，而实际上我们云端部署是很快的，这也是为什么需要 `30s` 左右的部署时间，而且网络差时会更久，当然后面也会提到如何提高部署速度。
 
@@ -54,7 +54,7 @@ Next.js 组件，会默认帮助我们创建一个 `云函数` 和 `API 网关`�
 
 使用过 API 网关的小伙伴，应该都知道它可以配置自定义域名，如下图所示：
 
-![Manual Config Custom Domain](https://static.cdn.yugasun.com/manual-config-custom-domain.png)
+![Manual Config Custom Domain](https://sp-assets-1300963013.file.myqcloud.com/blog/posts/2021-11-09-deploy-nextjs-gracely-2.png)
 
 但是这个手动配置还是不够方便，为此 Http 组件也提供了 `customDomains` 来帮助开发者快速配置自定义域名，于是我们可以在项目的 `serverless.yml` 中新增如下配置：
 
@@ -89,7 +89,7 @@ inputs:
 
 之后我们再次执行部署命令，会得到如下输出结果：
 
-![Custom Domain Outputs](https://static.cdn.yugasun.com/custom-domain-outputs.png)
+![Custom Domain Outputs](https://sp-assets-1300963013.file.myqcloud.com/blog/posts/2021-11-09-deploy-nextjs-gracely-3.png)
 
 这里由于自定义域名时通过 CNAME 映射到 API 网关服务，所以还需要手动添加输出结果中红框部分的 CNAME 解析记录。等待自定义域名解析成功，就可以正常访问了。
 
@@ -194,7 +194,7 @@ assets:
 
 浏览器访问，打开调试控制台，可以看到访问的静态资源请求路径如下：
 
-![Static Asset Url](https://static.cdn.yugasun.com/static-asset-url.png)
+![Static Asset Url](https://sp-assets-1300963013.file.myqcloud.com/blog/posts/2021-11-09-deploy-nextjs-gracely-4.png)
 
 上图可以看出，静态资源均通过访问 COS 获取，现在云函数只需要渲染入口文件，而不需要像之前，静态资源全部通过云函数返回。
 
@@ -265,13 +265,13 @@ assets:
 
 优化前：
 
-![Before Next.js Optimization](https://static.cdn.yugasun.com/nextjs-optimize-before.png)
+![Before Next.js Optimization](https://sp-assets-1300963013.file.myqcloud.com/blog/posts/2021-11-09-deploy-nextjs-gracely-5.png)
 
 优化后：
 
-![After Next.js Optimization](https://static.cdn.yugasun.com/nextjs-optimize-after.png)
+![After Next.js Optimization](https://sp-assets-1300963013.file.myqcloud.com/blog/posts/2021-11-09-deploy-nextjs-gracely-6.png)
 
-前后对比，可以明显看出优化效果，当然这里主要是针对静态资源进行了优化处理，减少了冷启动。为了更好地游湖体验，我们还可以做的更多，这里就不展开讨论了。
+前后对比，可以明显看出优化效果，当然这里主要是针对静态资源进行了优化处理，减少了冷启动。为了更好地优化体验，我们还可以做的更多，这里就不展开讨论了。
 
 ## 基于 Layer 部署 node_modules
 
