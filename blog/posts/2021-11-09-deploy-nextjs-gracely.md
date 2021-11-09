@@ -375,6 +375,10 @@ inputs:
 
 之后再次执行部署命令 `serverless deploy` 即可， 你会发现这次部署时间大大缩减了，因为我们不在需要每次压缩上传 `node_moduels` 这个庞大的文件夹了 (_^▽^_)
 
+## 参考资料
+
+- [Serverless_Http_Next.js](https://github.com/zongUMR/Serverlss_Http_Nextjs): 基于本文的 Serverless Next.js 项目
+
 ## 最后
 
 关于 Serverless SSR 的方案，我也在不断尝试和探索中，如果你有更好的方案和建议，欢迎评论或者私信来撩~
