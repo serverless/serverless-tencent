@@ -2,7 +2,7 @@
 title: '云函数 SCF 终极指南'
 description: '了解什么是 SCF 以及如何开始使用。我们还将介绍它的使用案例、缺点、好处、价格、常见问题、支持的语言/运行时以及它如何融入到无服务器架构中。'
 thumbnail: https://sp-assets-1300963013.file.myqcloud.com/website/guides/tencent-scf.png
-category: 使用指南 - 腾讯 SCF
+path: 使用指南 - 腾讯 SCF
 ---
 
 您是否想第一次使用 SCF？或者您正在评估它在生产环境中的应用？我们创建这篇文章是为了在这两种情况下帮助您。
