@@ -139,47 +139,11 @@ jobs:
       - name: unit tests
         run: npm run test -b
 
-  linuxNode12:
-    name: Lint & Formatting & unit tests && coverage
+  coverage:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          # Ensure connection with 'master' branch
-          fetch-depth: 2
-
-      - name: Retrieve last master commit (for `git diff` purposes)
-        run: |
-          git checkout -b pr
-          git fetch --prune --depth=20 origin +refs/heads/master:refs/remotes/origin/master
-          git checkout master
-          git checkout pr
-
-      - name: Retrieve dependencies from cache
-        id: cacheNpm
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.npm
-            node_modules
-          key: npm-v12-${{ runner.os }}-${{ github.ref }}-${{ hashFiles('package.json') }}
-          restore-keys: |
-            npm-v12-${{ runner.os }}-${{ github.ref }}-
-            npm-v12-${{ runner.os }}-refs/heads/master-
-
-      - name: Install Node.js and npm
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-
-      - name: Install dependencies
-        if: steps.cacheNpm.outputs.cache-hit != 'true'
-        run: |
-          npm update --no-save
-          npm update --save-dev --no-save
-      - name: unit tests with coverage report
-        uses: artiomtr/jest-coverage-report-action@v2.0-rc.5
+      - uses: actions/checkout@v1
+      - uses: artiomtr/jest-coverage-report-action@v2.0-rc.5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
