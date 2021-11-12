@@ -14,19 +14,19 @@ beforeEach(() => (process.env = { ...originEnv }));
 const credentialsPath = path.join(__dirname, './credentials');
 
 describe('Test loading global credentials', () => {
-  it('import credentials with default profile', () => {
+  test('import credentials with default profile', () => {
     loadTencentGlobalConfig(cli, {}, credentialsPath);
     expect(process.env.TENCENT_SECRET_KEY).toBe('default_key');
     expect(process.env.TENCENT_SECRET_ID).toBe('default_id');
   });
 
-  it('import credentails with specific profile', () => {
+  test('import credentails with specific profile', () => {
     loadTencentGlobalConfig(cli, { profile: 'test' }, credentialsPath);
     expect(process.env.TENCENT_SECRET_KEY).toBe('test_key');
     expect(process.env.TENCENT_SECRET_ID).toBe('test_id');
   });
 
-  it('import credentials with the non-existed profile', () => {
+  test('import credentials with the non-existed profile', () => {
     const mockExit = jest.spyOn(process, 'exit').mockImplementation(() => {});
     cli.log = jest.fn();
 

@@ -70,6 +70,7 @@
     "eslint-plugin-import": "^2.22.1",
     "git-list-updated": "^1.2.1",
     "github-release-from-cc-changelog": "^2.2.0",
+    "husky": "^7.0.4",
     "jest": "^27.3.1",
     "prettier": "^2.4.1",
     "process-utils": "^4.0.0",
