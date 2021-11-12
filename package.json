@@ -16,7 +16,8 @@
     "prettier-check:updated": "pipe-git-updated --ext=css --ext=html --ext=js --ext=json --ext=md --ext=yaml --ext=yml -- prettier -c",
     "prebuild": "rm -fr dist",
     "build": "webpack",
-    "test": "jest ./tests"
+    "test": "jest ./tests",
+    "test:coverage": "npx jest --silent --ci --coverage -i --coverageReporters=\"text\" --coverageReporters=\"text-summary\""
   },
   "eslintConfig": {
     "extends": "@serverless/eslint-config/node",
