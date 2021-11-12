@@ -143,8 +143,11 @@ jobs:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     steps:
-      - uses: actions/checkout@v1
-      - uses: artiomtr/jest-coverage-report-action@v2.0-rc.5
+      - uses: mattallty/jest-github-action@v1
+        env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          test-script: npm run test:coverage
+         # this is just an example, this could be any command that will trigger jest
+         test-command: "npm run test:coverage"
+         changes-only: true
+
