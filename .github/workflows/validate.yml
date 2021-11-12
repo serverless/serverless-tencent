@@ -143,11 +143,14 @@ jobs:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     steps:
+      - uses: actions/checkout@v1
+      - run: yarn install
+      - name: Run Tests
+        run: yarn jest --coverage --json -i --outputFile=/home/runner/work/_actions/mattallty/jest-github-action/v1/dist/jest.results.json
       - uses: mattallty/jest-github-action@v1
         env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
          # this is just an example, this could be any command that will trigger jest
-         test-command: "npm run test:coverage"
-         changes-only: true
+         test-command: "echo done"
 
