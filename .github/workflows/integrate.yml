@@ -7,6 +7,7 @@ on:
     paths:
       - 'src/**'
       - 'package.json'
+      - 'tests/**'
     branches: [master]
 
 jobs:
@@ -56,6 +57,8 @@ jobs:
           npm update --no-save
           npm update --save-dev --no-save
 
+      - name: 'unit test'
+        run: 'npm run tests'
       - name: Publish canary
         run: |
           chmod +x ./.github/prepare-canary.js

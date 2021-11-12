@@ -765,7 +765,11 @@ const parseCliInputs = () => {
   return cliInputs;
 };
 
-const loadTencentGlobalConfig = (cli, config = {}) => {
+const loadTencentGlobalConfig = (
+  cli,
+  config = {},
+  credentialsPath = path.join(os.homedir(), '.serverless/tencent/credentials')
+) => {
   // Users do not want to use global credentials
   if (config.login) {
     return;
@@ -773,9 +777,8 @@ const loadTencentGlobalConfig = (cli, config = {}) => {
 
   const profile = process.env.TENCENT_CREDENTIALS_PROFILE || config.profile || 'default';
 
-  const globalTencentCredentials = path.join(os.homedir(), '.serverless/tencent/credentials');
-  if (fileExistsSync(globalTencentCredentials)) {
-    const credContent = loadCredentialsToJson(globalTencentCredentials);
+  if (fileExistsSync(credentialsPath)) {
+    const credContent = loadCredentialsToJson(credentialsPath);
     const envToInsert = credContent[profile];
     if (!envToInsert) {
       // If the user indicates the profile to be used, but the profile doesn't exist, throw a warning and stop the process, or only skip the global credentials and continue normal process
