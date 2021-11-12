@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const overrideCwd = require('process-utils/override-cwd');
 
-const { generateYMLForNodejsProject } = require('../src/libs/utils/utils');
+const { generateYMLForNodejsProject } = require('../../src/libs/utils/utils');
 
 const cli = {
   log: () => {},

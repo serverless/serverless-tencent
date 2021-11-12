@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const { loadTencentGlobalConfig } = require('../src/libs/utils/basic');
+const { loadTencentGlobalConfig } = require('../../src/libs/utils/basic');
 
 const cli = {
   log: console.log,
