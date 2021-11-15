@@ -12,13 +12,19 @@
   "scripts": {
     "lint": "eslint .",
     "lint:updated": "pipe-git-updated --ext=js -- eslint",
-    "prettify": "prettier --write --ignore-path .gitignore \"**/*.{css,html,js,json,md,yaml,yml}\"",
     "prettier-check:updated": "pipe-git-updated --ext=css --ext=html --ext=js --ext=json --ext=md --ext=yaml --ext=yml -- prettier -c",
     "prebuild": "rm -fr dist",
     "build": "webpack",
-    "test": "jest ./tests",
-    "test:coverage": "npx jest --silent --ci --coverage -i --coverageReporters=\"text\" --coverageReporters=\"text-summary\""
+    "prettify": "prettier --write --ignore-path .gitignore .github/workflows/**.yml tests/**/**.js src/**.js",
+    "test": "jest ./tests --verbose -o",
+    "test:coverage": "npx jest --silent --ci --coverage --coverageReporters=\"text\" --coverageReporters=\"text-summary\"",
+    "prepare": "husky install"
   },
+  "pre-commit": [
+    "prettify",
+    "prettier-check:updated",
+    "lint"
+  ],
   "eslintConfig": {
     "extends": "@serverless/eslint-config/node",
     "root": true,
@@ -75,7 +81,8 @@
     "process-utils": "^4.0.0",
     "webpack": "^5.52.1",
     "webpack-cli": "^4.8.0",
-    "webpack-node-externals": "^3.0.0"
+    "webpack-node-externals": "^3.0.0",
+    "husky": "^7.0.0"
   },
   "engines": {
     "node": ">=10.0"

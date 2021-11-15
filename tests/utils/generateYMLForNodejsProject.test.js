@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const overrideCwd = require('process-utils/override-cwd');
 
-const { generateYMLForNodejsProject } = require('../src/libs/utils/utils');
+const { generateYMLForNodejsProject } = require('../../src/libs/utils/utils');
 
 const cli = {
   log: () => {},
@@ -18,13 +18,13 @@ const packageContent = {
 
 let restoreCwd;
 beforeAll(() => {
-  restoreCwd = overrideCwd(path.join(process.cwd(), 'tests')).restoreCwd;
+  restoreCwd = overrideCwd(path.resolve(__dirname)).restoreCwd;
 });
 
 afterEach(() => fs.unlinkSync('package.json'));
 
 describe('Test CLI generate yaml config for a nodejs project', () => {
-  it('generate an egg porject yaml', async () => {
+  test('generate an egg porject yaml', async () => {
     fs.writeFileSync('package.json', JSON.stringify(packageContent));
     const result = await generateYMLForNodejsProject(cli);
     expect(result).toEqual(
@@ -45,7 +45,7 @@ inputs:
     );
   });
 
-  it('generate with error for empty dependencies', async () => {
+  test('generate with error for empty dependencies', async () => {
     packageContent.dependencies = {};
     fs.writeFileSync('package.json', JSON.stringify(packageContent));
     try {

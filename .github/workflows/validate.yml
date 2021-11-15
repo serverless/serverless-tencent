@@ -149,8 +149,7 @@ jobs:
         run: yarn jest --coverage --json -i --outputFile=/home/runner/work/_actions/mattallty/jest-github-action/v1/dist/jest.results.json
       - uses: mattallty/jest-github-action@v1
         env:
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-         # this is just an example, this could be any command that will trigger jest
-         test-command: "echo done"
-
+          # this is just an example, this could be any command that will trigger jest
+          test-command: 'echo done'

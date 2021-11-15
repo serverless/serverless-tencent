@@ -67,26 +67,15 @@ describe('Test CLI functions', () => {
       ],
     };
 
-    let stdoutData = '';
-
-    // mock the process.exit for test
     const mockExit = jest.spyOn(process, 'exit').mockImplementation(() => {});
     // we need to re-write console.log method to stdout.write, otherwise we can not get the output and judge it
-    const originLog = console.log;
-    console.log = (msg) => {
-      process.stdout.write(msg);
-    };
-    overrideStdoutWrite(
-      (data) => (stdoutData += data),
-      () => cli.logTypeError(typeErrors)
-    );
-    expect(stdoutData).toEqual(
-      expect.stringContaining('scf 组件校验结果: 错误 1 警告 0 规则版本 v0.0.1')
-    );
-    expect(stdoutData).toEqual(expect.stringContaining('inputs.region'));
+    console.log = jest.fn();
+
+    cli.logTypeError(typeErrors);
+    expect(console.log.mock.calls[1][0]).toMatch('scf 组件校验结果: 错误 1 警告 0 规则版本 v0.0.1');
+    expect(console.log.mock.calls[3][0]).toMatch('inputs.region');
 
     expect(mockExit).toHaveBeenCalledWith();
-    console.log = originLog;
   });
 });
 
