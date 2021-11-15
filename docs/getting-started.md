@@ -12,7 +12,7 @@ layout: Doc
 
 ## 安装/升级 Serverless CLI
 
-使用前请安装最新版本的 Serverless CLI 工具，您可以再命令行通过以下命令安装/更新：
+使用前请安装最新版本的 Serverless CLI 工具，您可以在命令行通过以下命令安装/更新：
 
 ```sh
 # 使用 npm 全局安装 serverless 命令行工具
