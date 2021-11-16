@@ -28,10 +28,13 @@ describe('Test CLI generate yaml config for a nodejs project', () => {
   test('generate an simple framwork project yaml for egg, next, nuxt', async () => {
     fs.writeFileSync('package.json', JSON.stringify(packageContent));
     const eggResult = await generateYMLForNodejsProject(cli);
-    expect(eggResult).toEqual(
+
+    // need to trim app field due to it contains a random string part
+    expect(eggResult.replace(/-app([-\w]+)/, '')).toEqual(
       `
 component: http
-name: eggDemo
+name: http-eggjs
+app: my-eggjs
 
 inputs:
   src:
@@ -53,10 +56,11 @@ inputs:
     fs.writeFileSync('package.json', JSON.stringify(packageContent));
     const nextResult = await generateYMLForNodejsProject(cli);
 
-    expect(nextResult).toEqual(
+    expect(nextResult.replace(/-app([-\w]+)/, '')).toEqual(
       `
 component: http
-name: nextDemo
+name: http-nextjs
+app: my-nextjs
 
 inputs:
   src:
@@ -79,10 +83,12 @@ inputs:
     packageContent.dependencies = { nuxt: '1.1.1' };
     fs.writeFileSync('package.json', JSON.stringify(packageContent));
     const nuxtResult = await generateYMLForNodejsProject(cli);
-    expect(nuxtResult).toEqual(
+
+    expect(nuxtResult.replace(/-app([-\w]+)/, '')).toEqual(
       `
 component: http
-name: nuxtDemo
+name: http-nuxtjs
+app: my-nuxtjs
 
 inputs:
   src:
@@ -115,10 +121,12 @@ inputs:
     );
 
     const result = await generateYMLForNodejsProject(cli);
-    expect(result).toEqual(
+
+    expect(result.replace(/-app([-\w]+)/, '')).toEqual(
       `
 component: http
-name: eggDemo
+name: http-eggjs
+app: my-eggjs
 
 inputs:
   src:
@@ -154,10 +162,11 @@ inputs:
 
     fs.writeFileSync('express.js', '');
     const expressResult = await generateYMLForNodejsProject(cli);
-    expect(expressResult).toEqual(
+    expect(expressResult.replace(/-app([-\w]+)/, '')).toEqual(
       `
 component: http
-name: expressDemo
+name: http-express
+app: my-express
 
 inputs:
   src:
@@ -182,10 +191,11 @@ inputs:
     fs.writeFileSync('koa.js', '');
     const koaResult = await generateYMLForNodejsProject(cli);
 
-    expect(koaResult).toEqual(
+    expect(koaResult.replace(/-app([-\w]+)/, '')).toEqual(
       `
 component: http
-name: koaDemo
+name: http-koa
+app: my-koa
 
 inputs:
   src:

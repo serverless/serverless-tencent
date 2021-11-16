@@ -388,7 +388,8 @@ const saveYaml = async (yamlPath, yamlObj) => {
 const generateYMLForNodejsProject = async (cli) => {
   const getExpressYML = () => `
 component: http
-name: expressDemo
+name: http-express
+app: my-express-app-${uuidv1().split('-')[0]}
 
 inputs:
   src:
@@ -407,7 +408,8 @@ inputs:
 
   const getKoaYML = () => `
 component: http
-name: koaDemo
+name: http-koa
+app: my-koa-app-${uuidv1().split('-')[0]}
 
 inputs:
   src:
@@ -426,7 +428,8 @@ inputs:
 
   const getNextYML = () => `
 component: http
-name: nextDemo
+name: http-nextjs
+app: my-nextjs-app-${uuidv1().split('-')[0]}
 
 inputs:
   src:
@@ -446,7 +449,8 @@ inputs:
 
   const getNuxtYML = () => `
 component: http
-name: nuxtDemo
+name: http-nuxtjs
+app: my-nuxtjs-app-${uuidv1().split('-')[0]}
 
 inputs:
   src:
@@ -465,7 +469,8 @@ inputs:
 
   const getEggYML = () => `
 component: http
-name: eggDemo
+name: http-eggjs
+app: my-eggjs-app-${uuidv1().split('-')[0]}
 
 inputs:
   src:
