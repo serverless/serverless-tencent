@@ -386,7 +386,7 @@ const saveYaml = async (yamlPath, yamlObj) => {
 };
 
 const generateYMLForNodejsProject = async (cli) => {
-  const getExpressYML = (entryFile) => `
+  const getExpressYML = () => `
 component: http
 name: expressDemo
 
@@ -397,7 +397,7 @@ inputs:
       - .env
   faas:
     runtme: Nodejs12.16
-    name: $\{name\}
+    name: $\{name}
     framework: express
   apigw:
     protocols:
@@ -405,7 +405,7 @@ inputs:
       - https
 `;
 
-  const getKoaYML = (entryFile) => `
+  const getKoaYML = () => `
 component: http
 name: koaDemo
 
@@ -416,7 +416,7 @@ inputs:
       - .env
   faas:
     runtme: Nodejs12.16
-    name: $\{name\}
+    name: $\{name}
     framework: koa
   apigw:
     ignoreUpdate: true
@@ -437,7 +437,7 @@ inputs:
   faas:
     runtime: Nodejs12.16
     framework: nextjs
-    name: $\{name\}
+    name: $\{name}
   apigw:
     protocols:
       - http
@@ -457,7 +457,7 @@ inputs:
   faas:
     runtime: Nodejs12.16
     framework: nuxtjs
-    name: $\{name\}
+    name: $\{name}
   apigw:
     protocols:
       - http
@@ -475,7 +475,7 @@ inputs:
   faas:
     runtime: Nodejs12.16
     framework: egg
-    name: $\{name\}
+    name: $\{name}
   apigw:
     protocols:
       - http
@@ -546,9 +546,8 @@ inputs:
     return getNuxtYML();
   }
 
-  if (ymlType === 'egg') {
-    return getEggYML();
-  }
+  // finally return egg's yml
+  return getEggYML();
 };
 
 const clientUidDefaultPath = path.join(os.homedir(), '.serverless/tencent/client_uid-credentials');

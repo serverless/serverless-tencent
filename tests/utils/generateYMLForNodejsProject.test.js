@@ -5,7 +5,7 @@ const fs = require('fs');
 const overrideCwd = require('process-utils/override-cwd');
 const inquirer = require('@serverless/utils/inquirer');
 
-const { generateYMLForNodejsProject, fileExistsSync } = require('../../src/libs/utils');
+const { generateYMLForNodejsProject } = require('../../src/libs/utils');
 
 const cli = {
   log: () => {},
@@ -41,7 +41,7 @@ inputs:
   faas:
     runtime: Nodejs12.16
     framework: egg
-    name: $\{name\}
+    name: $\{name}
   apigw:
     protocols:
       - http
@@ -67,7 +67,7 @@ inputs:
   faas:
     runtime: Nodejs12.16
     framework: nextjs
-    name: $\{name\}
+    name: $\{name}
   apigw:
     protocols:
       - http
@@ -93,7 +93,7 @@ inputs:
   faas:
     runtime: Nodejs12.16
     framework: nuxtjs
-    name: $\{name\}
+    name: $\{name}
   apigw:
     protocols:
       - http
@@ -108,7 +108,7 @@ inputs:
     };
 
     fs.writeFileSync('package.json', JSON.stringify(packageContent));
-    const mock = jest.spyOn(inquirer, 'prompt').mockImplementation((obj) =>
+    const mock = jest.spyOn(inquirer, 'prompt').mockImplementation(() =>
       Promise.resolve({
         ymlType: 'egg',
       })
@@ -128,7 +128,7 @@ inputs:
   faas:
     runtime: Nodejs12.16
     framework: egg
-    name: $\{name\}
+    name: $\{name}
   apigw:
     protocols:
       - http
@@ -166,7 +166,7 @@ inputs:
       - .env
   faas:
     runtme: Nodejs12.16
-    name: $\{name\}
+    name: $\{name}
     framework: express
   apigw:
     protocols:
@@ -194,7 +194,7 @@ inputs:
       - .env
   faas:
     runtme: Nodejs12.16
-    name: $\{name\}
+    name: $\{name}
     framework: koa
   apigw:
     ignoreUpdate: true
