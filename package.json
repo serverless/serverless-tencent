@@ -1,6 +1,6 @@
 {
   "name": "serverless-tencent",
-  "version": "3.16.1",
+  "version": "3.16.2",
   "description": "Serverless Tencent command line tool",
   "main": "./dist/index.js",
   "repository": "serverless/serverless-tencent",
@@ -17,7 +17,7 @@
     "build": "webpack",
     "prettify": "prettier --write --ignore-path .gitignore .github/workflows/**.yml tests/**/**.js src/**.js",
     "test": "jest ./tests --verbose -o",
-    "test:coverage": "npx jest --silent --ci --coverage --coverageReporters=\"text\" --coverageReporters=\"text-summary\"",
+    "test:coverage": "jest --silent --coverage --coverageReporters=\"text\" --coverageReporters=\"text-summary\"",
     "prepare": "husky install"
   },
   "pre-commit": [
