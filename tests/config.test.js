@@ -4,6 +4,7 @@
  */
 
 const path = require('path');
+const fs = require('fs');
 const { addArgvToProcess } = require('./testUtils');
 const buildConfig = require('../src/libs/config');
 
@@ -28,8 +29,10 @@ describe('Generate config for command', () => {
   test('insert .env values to process.env', () => {
     // change dir to tests for helping config function to find .env file
     process.chdir(path.join(process.cwd(), 'tests'));
+    fs.writeFileSync(path.resolve(process.cwd(), '.env'), 'test=test\nid=123');
     buildConfig();
     expect(process.env.test).toBe('test');
     expect(process.env.id).toBe('123');
+    fs.unlinkSync('.env');
   });
 });
