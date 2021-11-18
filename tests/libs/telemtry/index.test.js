@@ -1,7 +1,7 @@
 'use strict';
 
 const got = require('got');
-const { storeLocally } = require('../../src/libs/telemtry/index');
+const { storeLocally } = require('../../../src/libs/telemtry/index');
 
 describe('Test telemtry utils', () => {
   test('storeLocally', async () => {
@@ -12,7 +12,7 @@ describe('Test telemtry utils', () => {
 
   test('send telemtry', async () => {
     const mock = jest.spyOn(got, 'post').mockImplementation(async () => 'mock');
-    expect(await require('../../src/libs/telemtry/index').send()).toBeNull();
+    expect(await require('../../../src/libs/telemtry/index').send()).toBeNull();
 
     mock.mockRestore();
   });

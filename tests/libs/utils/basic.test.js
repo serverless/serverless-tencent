@@ -5,13 +5,13 @@ const fs = require('fs');
 const { Graph } = require('graphlib');
 const overrideCwd = require('process-utils/override-cwd');
 
-const { writeFile, writeYamlFile, addArgvToProcess } = require('../testUtils');
-const basicUtils = require('../../src//libs/utils/basic');
+const { writeFile, writeYamlFile, addArgvToProcess } = require('../../testUtils');
+const basicUtils = require('../../../src//libs/utils/basic');
 
 let restoreCwd;
 
 beforeAll(() => {
-  restoreCwd = overrideCwd(path.resolve(process.cwd(), 'tests/utils/')).restoreCwd;
+  restoreCwd = overrideCwd(path.resolve(process.cwd(), 'tests/libs/utils/')).restoreCwd;
 });
 
 describe('Test basic utils in src/libs/utils/basic.js', () => {

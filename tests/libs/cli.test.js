@@ -1,9 +1,9 @@
 'use strict';
 
 const overrideStdoutWrite = require('process-utils/override-stdout-write');
-const buildConfig = require('../src/libs/config');
-const CLI = require('../src/libs/cli');
-const { addEnv, addArgvToProcess } = require('./testUtils');
+const buildConfig = require('../../src/libs/config');
+const CLI = require('../../src/libs/cli');
+const { addEnv, addArgvToProcess } = require('../testUtils');
 
 let cli;
 

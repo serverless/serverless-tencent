@@ -5,14 +5,14 @@ const fs = require('fs');
 const { utils: platformUtils } = require('@serverless/platform-client-china');
 const overrideEnv = require('process-utils/override-env');
 const overrideCwd = require('process-utils/override-cwd');
-const utils = require('../../src/libs/utils/utils');
-const { loadInstanceConfig } = require('../../src/libs/utils/basic');
-const { addArgvToProcess, writeYamlFile, writeFile } = require('../testUtils');
+const utils = require('../../../src/libs/utils/utils');
+const { loadInstanceConfig } = require('../../../src/libs/utils/basic');
+const { addArgvToProcess, writeYamlFile, writeFile } = require('../../testUtils');
 
 let restoreCwd;
 
 beforeAll(() => {
-  restoreCwd = overrideCwd(path.resolve(process.cwd(), 'tests')).restoreCwd;
+  restoreCwd = overrideCwd(path.resolve(process.cwd(), 'tests/libs/')).restoreCwd;
 });
 
 describe('src/libs/utils/utils.js functions test', () => {
@@ -269,7 +269,7 @@ describe('src/libs/utils/utils.js functions test', () => {
     writeYamlFile('tmp2/serverless.yml', t2);
     loadInstanceConfig.clear();
     expect(await utils.getTemplate(process.cwd())).toEqual({
-      name: 'tests',
+      name: 'libs',
       org: 't',
       app: 't',
       stage: 't1',

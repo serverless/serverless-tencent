@@ -2,25 +2,25 @@
 
 const path = require('path');
 const fs = require('fs');
-const cliUtils = require('../../src/libs/utils');
+const cliUtils = require('../../../src/libs/utils');
 const overrideCwd = require('process-utils/override-cwd');
-const { version } = require('../../package.json');
-const { writeYamlFile } = require('../testUtils');
+const { version } = require('../../../package.json');
+const { writeYamlFile } = require('../../testUtils');
 
 let restoreCwd;
 let generatePayload;
 
 beforeAll(() => {
-  restoreCwd = overrideCwd(path.resolve(process.cwd(), 'tests/telemtry/')).restoreCwd;
+  restoreCwd = overrideCwd(path.resolve(process.cwd(), 'tests/libs/telemtry/')).restoreCwd;
   jest.spyOn(cliUtils, 'writeClientUid').mockImplementation(async () => ({
     value: 100,
   }));
-  generatePayload = require('../../src/libs/telemtry/generatePayload');
+  generatePayload = require('../../../src/libs/telemtry/generatePayload');
 });
 
 describe('generatePayload for telemtry', () => {
   test('non command', async () => {
-    const innerGeneratePayload = require('../../src/libs/telemtry/generatePayload');
+    const innerGeneratePayload = require('../../../src/libs/telemtry/generatePayload');
     try {
       await innerGeneratePayload({});
     } catch (e) {
@@ -142,7 +142,7 @@ describe('generatePayload for telemtry', () => {
     process.env.SERVERLESS_CI_CD = true;
     expect(
       (
-        await require('../../src/libs/telemtry/generatePayload')({
+        await require('../../../src/libs/telemtry/generatePayload')({
           command: 'deploy',
         })
       ).ciName
@@ -153,7 +153,7 @@ describe('generatePayload for telemtry', () => {
     process.env.SEED_APP_NAME = true;
     expect(
       (
-        await require('../../src/libs/telemtry/generatePayload')({
+        await require('../../../src/libs/telemtry/generatePayload')({
           command: 'deploy',
         })
       ).ciName
@@ -164,7 +164,7 @@ describe('generatePayload for telemtry', () => {
       // certain ci
       expect(
         (
-          await require('../../src/libs/telemtry/generatePayload')({
+          await require('../../../src/libs/telemtry/generatePayload')({
             command: 'deploy',
           })
         ).ciName

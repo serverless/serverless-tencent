@@ -3,8 +3,8 @@
 const overrideCwd = require('process-utils/override-cwd');
 const path = require('path');
 const fs = require('fs');
-const { writeYamlFile } = require('../testUtils');
-const { checkBasicConfigValidation } = require('../../src/libs/utils');
+const { writeYamlFile } = require('../../testUtils');
+const { checkBasicConfigValidation } = require('../../../src/libs/utils');
 
 let restoreCwd;
 beforeAll(() => {

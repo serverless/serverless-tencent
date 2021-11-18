@@ -5,15 +5,15 @@
 
 const path = require('path');
 const fs = require('fs');
-const { addArgvToProcess } = require('./testUtils');
-const buildConfig = require('../src/libs/config');
+const { addArgvToProcess } = require('../testUtils');
+const buildConfig = require('../../src/libs/config');
 const overrideCwd = require('process-utils/override-cwd');
 const overrideEnv = require('process-utils/override-env');
 
 let restoreCwd;
 let restoreEnv;
 beforeAll(() => {
-  restoreCwd = overrideCwd(path.resolve(process.cwd(), 'tests')).restoreCwd;
+  restoreCwd = overrideCwd(path.resolve(process.cwd(), 'tests/libs/')).restoreCwd;
   restoreEnv = overrideEnv().restoreEnv;
 });
 describe('Generate config for command', () => {
