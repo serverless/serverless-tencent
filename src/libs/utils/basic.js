@@ -72,6 +72,7 @@ const readAndParseSync = (filePath, options = {}) => {
   return contents.toString().trim();
 };
 
+/* istanbul ignore next */
 const validateAgainstV1Variables = (variable) => {
   const v1Variables = ['self', 'opt', 'sls', 'cf', 's3', 'ssm', 'file'];
 
@@ -108,6 +109,7 @@ const resolveVariables = (inputs) => {
           if (match === value) {
             newValue = process.env[referencedPropertyPath[1]];
           } else {
+            /* istanbul ignore next */
             newValue = value.replace(match, process.env[referencedPropertyPath[1]]);
           }
         }
@@ -158,6 +160,7 @@ const loadComponentConfig = (directoryPath) => {
       // todo currently our YAML parser does not support
       // CF schema (!Ref for example). So we silent that error
       // because the framework can deal with that
+      /* istanbul ignore next */
       if (e.name !== 'YAMLException') {
         throw e;
       }
@@ -206,6 +209,7 @@ const loadTemplateConfig = (directoryPath) => {
       // todo currently our YAML parser does not support
       // CF schema (!Ref for example). So we silent that error
       // because the framework can deal with that
+      /* istanbul ignore next */
       if (e.name !== 'YAMLException') {
         throw e;
       }
@@ -222,6 +226,7 @@ const loadTemplateConfig = (directoryPath) => {
  * Checks if a filename ends with yaml or yml
  * @param {*} filename
  */
+/* istanbul ignore next */
 const isYamlFile = (filename) => {
   return (filename && filename.endsWith('yaml')) || (filename && filename.endsWith('yml'));
 };
@@ -230,6 +235,7 @@ const isYamlFile = (filename) => {
  * Returns the path of the serverless file found in the given directory
  * @param {*} filePath
  */
+/* istanbul ignore next */
 const getServerlessFilePath = (directoryPath) => {
   directoryPath = path.resolve(directoryPath);
   const ymlFilePath = path.join(directoryPath, 'serverless.yml');
@@ -261,6 +267,8 @@ const getServerlessFilePath = (directoryPath) => {
  * Reads and parses a the serverless config file found in the parent directory
  * @param {*} directoryPath
  */
+
+/* istanbul ignore next */
 const loadParentConfigFile = (directoryPath) => {
   const parentConfigFilePath = path.resolve(directoryPath, '..');
   let configFile;
@@ -286,7 +294,6 @@ const loadParentConfigFile = (directoryPath) => {
   } else {
     configFile = readAndParseSync(filePath);
   }
-
   return configFile;
 };
 
@@ -324,7 +331,7 @@ const loadInstanceConfigUncached = (directoryPath) => {
   if (isYaml) {
     try {
       instanceFile = readAndParseSync(filePath);
-    } catch (e) {
+    } catch (e) /* istanbul ignore next */ {
       // todo currently our YAML parser does not support
       // CF schema (!Ref for example). So we silent that error
       // because the framework can deal with that
@@ -433,7 +440,6 @@ const checkTemplateAppAndStage = (root) => {
         }
       }
     }
-
     // If we need to check the app and stage value for all sub folders, if we have more than 1 app value or at least one folder's yml has app but others do not have, we think it's not a valid template project
     // same to stage value. Valid template standard: 1. All sub folders do not have app and stage; 2. All sub folders have one same app and stage.
     return !(
@@ -442,7 +448,7 @@ const checkTemplateAppAndStage = (root) => {
       stages.size > 1 ||
       (stages.size === 1 && hasNullStage)
     );
-  } catch (error) {
+  } catch (error) /* istanbul ignore next */ {
     return false;
   }
 };
@@ -528,6 +534,7 @@ const getAllComponents = (template = {}) => {
   return allComponents;
 };
 
+/* istanbul ignore next */
 const setDependencies = (allComponents) => {
   const regex = /\${output:(\w*[-_${}:\w.]+)}/g;
 
@@ -556,6 +563,7 @@ const setDependencies = (allComponents) => {
   return allComponents;
 };
 
+/* istanbul ignore next */
 const createGraph = (allComponents, command) => {
   const graph = new Graph();
 

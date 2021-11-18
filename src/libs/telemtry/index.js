@@ -59,7 +59,7 @@ const storeLocally = async (payload = {}, err = null) => {
         payload,
         timestamp: Date.now(),
       });
-    } catch (error) {
+    } catch (error) /* istanbul ignore next */ {
       if (error.code === 'ENOENT') {
         try {
           await fse.ensureDir(cacheDirPath);
@@ -90,7 +90,7 @@ const send = async () => {
         let data;
         try {
           data = await fse.readJson(join(cacheDirPath, dirFilename));
-        } catch (readJsonError) {
+        } catch (readJsonError) /* istanbul ignore next */ {
           if (readJsonError.code === 'ENOENT') return null; // Race condition
           const cacheFile = join(cacheDirPath, dirFilename);
           try {
