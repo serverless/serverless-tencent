@@ -41,6 +41,7 @@ const resolveEvents = (component, inputs) => {
 
 // Collect project's npm dependencies, due to this's an expensive action, we only run it when rootConfig has a **depMode** field as true
 // And it will not collect sub-instance's dependencies within a template project, it will make action very slow
+/* istanbul ignore next */
 const npmDependencies = (p) => {
   const pkgJson = (() => {
     try {
@@ -87,6 +88,7 @@ module.exports = async ({
         return 'Seed';
       }
 
+      /* istanbul ignore next */
       if (ci.isCI) {
         if (ci.name) {
           return ci.name;
@@ -125,6 +127,7 @@ module.exports = async ({
     const providerRuntimes = []; // which runtime used in this project
 
     if (rootConfig) {
+      /* istanbul ignore next */
       if (rootConfig.depMode) {
         payload.npmDependencies = npmDependencies(serviceDir);
       }
@@ -197,18 +200,18 @@ module.exports = async ({
         } else if (config.component === 'multi-scf' && config.inputs && config.inputs.functions) {
           const count = Object.keys(config.inputs.functions);
           if (payload.functions_count) {
-            payload.functions_count += count;
+            payload.functions_count += count.length;
           } else {
-            payload.functions_count = count;
+            payload.functions_count = count.length;
           }
         }
 
         // collect events for each sub-instance
-        const resolveEventsResult = resolveEvents(rootConfig.component, rootConfig.inputs);
+        const resolveEventsResult = resolveEvents(config.component, config.inputs);
         if (resolveEventsResult) {
           if (payload.events_count) {
             payload.events_count += resolveEventsResult[0];
-            payload.events_type += resolveEventsResult[1];
+            payload.events_type.push(...resolveEventsResult[1]);
           } else {
             payload.events_count = resolveEventsResult[0];
             payload.events_type = resolveEventsResult[1];

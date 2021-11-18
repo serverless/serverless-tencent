@@ -55,6 +55,7 @@ module.exports = class CLI {
    * @param {string} options.timer Shows a timer for how long the session has been running.
    * @param {function} options.closeHandler A function to call when the session is closed.
    */
+  /* istanbul ignore next */
   sessionStart(status, options = {}) {
     // Prevent commands from accidently starting multiple sessions
     if (this._.sessionActive) {
@@ -110,6 +111,7 @@ module.exports = class CLI {
    * @param {string || error} messageOrError Can be a final message to the user (string) or an error object.
    * @param {string} command
    */
+  /* istanbul ignore next */
   sessionStop(reason, messageOrError = 'Closed', command) {
     // Clear any existing content
     process.stdout.write(ansiEscapes.cursorLeft);
@@ -507,6 +509,7 @@ TraceId:     ${traceId}`;
   /**
    * Handles the rendering of the the persistent status bar in the CLI. Repetitively updates the CLI view on a regular interval
    */
+  /* istanbul ignore next */
   async _renderEngine() {
     if (!this._.sessionActive) return null;
     /**
@@ -571,6 +574,7 @@ TraceId:     ${traceId}`;
    * Get Relative Vertical Cursor Position
    * Get cursor starting position according to terminal & content width
    */
+  /* istanbul ignore next */
   _getRelativeVerticalCursorPosition(contentString) {
     const base = 1;
     const terminalWidth = process.stdout.columns;

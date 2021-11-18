@@ -95,7 +95,7 @@ module.exports = () => {
           https.defaultGlobalAgent = https.globalAgent;
           http.globalAgent = new HttpsProxyAgent(httpProxy || httpsProxy);
           https.globalAgent = new HttpsProxyAgent(httpsProxy || httpProxy);
-        } catch (e) {
+        } catch (e) /* istanbul ignore next */ {
           e.extraErrorInfo = {
             referral:
               'https://github.com/serverless/components/blob/master/README.cn.md#%E4%BB%A3%E7%90%86',
@@ -103,6 +103,7 @@ module.exports = () => {
           throw e;
         }
       } else {
+        /* istanbul ignore next */
         process.stdout.write(
           `Serverless: ${chalk.yellow(
             'you need to upgrade the NodeJS in order to use http/https proxy.(Nodejs >= 11.7)'
@@ -159,7 +160,7 @@ module.exports = () => {
     }
 
     config.command = command;
-  } catch (e) {
+  } catch (e) /* istanbul ignore next */ {
     if (e.extraErrorInfo) {
       e.extraErrorInfo.step = '命令初始化';
       e.extraErrorInfo.source = 'Serverless::CLI';

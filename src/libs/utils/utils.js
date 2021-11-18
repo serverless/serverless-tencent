@@ -8,7 +8,6 @@ const fs = require('fs');
 const os = require('os');
 const chalk = require('chalk');
 const { v1: uuidv1 } = require('uuid');
-const args = require('minimist')(process.argv.slice(2));
 const { utils: platformUtils } = require('@serverless/platform-client-china');
 const {
   writeJsonToCredentials,
@@ -94,6 +93,8 @@ const loadTencentInstanceConfig = async (directoryPath, command) => {
   await checkBasicConfigValidation(directoryPath);
   let instanceFile = loadInstanceConfig(directoryPath);
 
+  const args = require('minimist')(process.argv.slice(2));
+
   // if stage flag provided, overwrite
   if (args.stage) {
     instanceFile.stage = args.stage;
@@ -177,7 +178,7 @@ const login = async (config = {}) => {
         TENCENT_TOKEN: token,
       });
     }
-  } catch (e) {
+  } catch (e) /* istanbul ignore next */ {
     e.extraErrorInfo = {
       source: 'Tencent::Auth',
       step: '授权登陆',
@@ -216,7 +217,7 @@ const loadInstanceCredentials = () => {
       if (process.env[envVarName] != null) {
         credentials[providerName][envVarValue] = process.env[envVarName];
       } else if (envVars[envVarName] != null) {
-        credentials[providerName][envVarValue] = envVars[envVarName];
+        /* istanbul ignore next */ credentials[providerName][envVarValue] = envVars[envVarName];
       }
       continue;
     }
@@ -228,7 +229,6 @@ const loadInstanceCredentials = () => {
 const getDirForInvokeCommand = async (root, functionAlias) => {
   let instanceDir = root;
   const instances = [];
-
   const directories = fs
     .readdirSync(root)
     .filter((f) => fs.statSync(path.join(root, f)).isDirectory());
