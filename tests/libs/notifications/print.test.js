@@ -7,6 +7,7 @@ test('printNotification', () => {
   const cli = {
     log: console.log,
   };
+  process.env.SLS_NOTIFICATIONS_MODE = '2';
   printNotify(cli, [
     {
       code: 'COMPONENTS_QUESTIONNAIRE',
