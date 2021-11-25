@@ -49,15 +49,12 @@ javascript + css ，将评论插入网页。
 
 ### 1. 本地开发与部署
 
-本地开发与部署前端代码
+评论系统默认使用 AWS S3 或者 Tencent COS 作为数据存储插件 (欢迎[贡献其他插件](https://github.com/timqian/murmur#plugins))。
+以 Tencent COS 为例，在开启服务前，我们需要到腾讯云 COS 创建一个 Bucket 用于存储评论。
 
-```bash
-cd frontend
-npm i
-npm start
-```
+随后将 `backend/.env.example` 重命名为 `backend/.env` 并且添加所需的环境变量。
 
-本地开发与部署后端代码
+准备好 COS Bucket，配置好环境变量之后，我们就可以在本地启动和调试评论服务了：
 
 ```bash
 cd backend
@@ -67,13 +64,7 @@ npm start
 
 ### 2. 部署到腾讯云
 
-```bash
-npm i serverless -g
-cd backend
-serverless deploy
-````
-
-Serverless framework 支持将一个常规的 express 应用部署到腾讯云，只需添加如下 `serverless.yml` 文件（使用 [tencent-http](https://github.com/serverless-components/tencent-http/) component）。
+Serverless framework 支持将一个常规的 express 应用部署到腾讯云，只需添加如下 `serverless.yml` 文件（使用 [tencent-http](https://github.com/serverless-components/tencent-http/) component），就可以使用 Serverless CLI 将我们的服务部署到腾讯云 SCF。
 
 ```yaml
 # serverless.yml
@@ -92,6 +83,14 @@ inputs:
       - https
 ```
 
+```bash
+# 安装 serverless cli
+npm i serverless -g
+
+# 部署服务
+cd backend
+serverless deploy
+```
 
 ## 参考资料
 
