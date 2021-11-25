@@ -73,7 +73,7 @@ cd backend
 serverless deploy
 ````
 
-Serverless framework 支持将一个常规的 express 应用部署到腾讯云，只需添加一个 `serverless.yml` 文件。
+Serverless framework 支持将一个常规的 express 应用部署到腾讯云，只需添加如下 `serverless.yml` 文件（使用 [tencent-http](https://github.com/serverless-components/tencent-http/) component）。
 
 ```yaml
 # serverless.yml
