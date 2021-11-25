@@ -10,7 +10,7 @@ category:
   - guides-and-tutorials
 ---
 
-评论系统是内容型网站必备模块之一。足够简单，但却是一个完整的全栈应用。同时涉及到前端，后端和数据库的操作。本文介绍笔者开发的一个基于 Serverless 的[评论系统](https://github.com/timqian/murmur/)。如果你也考虑使用Serverless 的方式开发全栈应用，不妨作为一个参考。
+评论系统是内容型网站必备模块之一。足够简单，但却是一个完整的全栈应用。同时涉及到前端，后端和数据库的操作。本文介绍笔者开发的一个基于 Serverless 的评论系统([源码](https://github.com/timqian/murmur/))。如果你也考虑使用Serverless 的方式开发全栈应用，不妨作为一个参考。
 
 ## 使用 Serverless 方式部署的评论系统可以带来什么
 
@@ -94,15 +94,15 @@ inputs:
 
 ### GitHub 源码
 
-https://github.com/timqian/murmur
 
 ## 参考资料
 
+- [GitHub 源码](https://github.com/timqian/murmur)
 - [Serverless tencent-http component](https://github.com/serverless-components/tencent-http/)
-- [Bye bye disqus](https://pawelgrzybek.com/bye-bye-disqus-i-built-my-commenting-system-using-aws-serverless-stack-and-netlify-build-hooks/)
-- [How to build your own free serverless comment box](https://www.freecodecamp.org/news/how-you-can-build-your-own-free-serverless-comment-box-dc9d4f366d12/)
+- [Blog: Bye bye disqus](https://pawelgrzybek.com/bye-bye-disqus-i-built-my-commenting-system-using-aws-serverless-stack-and-netlify-build-hooks/)
+- [Blog: How to build your own free serverless comment box](https://www.freecodecamp.org/news/how-you-can-build-your-own-free-serverless-comment-box-dc9d4f366d12/)
 
-### 其他开源评论系统
+### 一些其他的开源评论系统
 
 - https://github.com/djyde/cusdis
 - https://github.com/gitalk/gitalk
