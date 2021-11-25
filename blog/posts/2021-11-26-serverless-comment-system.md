@@ -92,8 +92,6 @@ inputs:
       - https
 ```
 
-### GitHub 源码
-
 
 ## 参考资料
 
@@ -102,7 +100,7 @@ inputs:
 - [Blog: Bye bye disqus](https://pawelgrzybek.com/bye-bye-disqus-i-built-my-commenting-system-using-aws-serverless-stack-and-netlify-build-hooks/)
 - [Blog: How to build your own free serverless comment box](https://www.freecodecamp.org/news/how-you-can-build-your-own-free-serverless-comment-box-dc9d4f366d12/)
 
-### 一些其他的开源评论系统
+#### 一些其他的开源评论系统
 
 - https://github.com/djyde/cusdis
 - https://github.com/gitalk/gitalk
