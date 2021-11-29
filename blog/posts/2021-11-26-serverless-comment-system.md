@@ -96,7 +96,7 @@ serverless deploy
 
 对于业务逻辑复杂的应用，通常需要使用 SQL 数据库方便实现复杂的查询。[腾讯云原生数据库 TDSQL-C](https://cloud.tencent.com/document/product/1003/30505) 已支持 Serverless MySQL 版本，做到按实际使用的计算和存储量计费。需要的读者可以参考[这篇文章](https://cloud.tencent.com/document/product/1154/51858)来配置 MySQL 数据库在 serverless 应用中使用。
 
-不过并不是所有应用都需要复杂的查询。比如对于本文描述的应用，简单的 Key-Value 存储和查询就可以满足要求，于是我们默认选择了 COS 作为我们的数据存储服务。
+不过并不是所有应用都需要复杂的查询。比如对于本文描述的应用，简单的 Key-Value 存储和查询就可以满足要求，于是我们默认选择了 COS 作为数据存储服务。
 
 使用 COS 作为数据存储服务有以下几个优点。
 
@@ -104,7 +104,7 @@ serverless deploy
 
 由于 Serverless 函数是按需创建和销毁的，没有固定的 IP 地址，在和 SQL 数据库连接时，无法简单通过 IP 白名单来限制函数的访问，必须配合 VPC 一起使用。
 
-使用 COS 这种服务时，无需配置就可以通过 API 直接操作。
+使用 COS, S3, dynamodb 这种服务时，无需配置就可以通过 API 直接操作。
 
 ### 2. 价格优势
 
