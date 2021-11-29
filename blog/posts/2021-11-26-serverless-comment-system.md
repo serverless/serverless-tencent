@@ -49,7 +49,7 @@ javascript + css ，将评论插入网页。
 
 ### 1. 本地开发与部署
 
-评论系统默认使用 AWS S3 或者 Tencent COS 作为数据存储插件 (欢迎[贡献其他插件](https://github.com/timqian/murmur#plugins))。
+评论系统默认使用 AWS S3 或者 Tencent COS 作为数据存储插件。
 以 Tencent COS 为例，在开启服务前，我们需要到腾讯云 COS 创建一个 Bucket 用于存储评论。
 
 随后将 `backend/.env.example` 重命名为 `backend/.env` 并且添加所需的环境变量。
@@ -91,6 +91,28 @@ npm i serverless -g
 cd backend
 serverless deploy
 ```
+
+### 关于存储服务的选择
+
+对于业务逻辑复杂的应用，通常需要使用 SQL 数据库方便实现复杂的查询。[腾讯云原生数据库 TDSQL-C](https://cloud.tencent.com/document/product/1003/30505) 已支持 Serverless MySQL 版本，做到按实际使用的计算和存储量计费。需要的读者可以参考[这篇文章](https://cloud.tencent.com/document/product/1154/51858)来配置 MySQL 数据库在 serverless 应用中使用。
+
+不过并不是所有应用都需要复杂的查询。比如对于本文描述的应用，简单的 Key-Value 存储和查询就可以满足要求，于是我们默认选择了 COS 作为我们的数据存储服务。
+
+使用 COS 作为数据存储服务有以下几个优点。
+
+#### 1. 配置和使用简单
+
+由于 Serverless 函数是按需创建和销毁的，没有固定的 IP 地址，在和 SQL 数据库连接时，无法简单通过 IP 白名单来限制函数的访问，必须配合 VPC 一起使用。
+
+使用 COS 这种服务时，无需配置就可以通过 API 直接操作。
+
+### 2. 价格优势
+
+使用 SQL 数据库作为存储服务时，虽然腾讯云 [TDSQL-C](https://cloud.tencent.com/document/product/1003/30505) 可以帮助我们按使用量自动伸缩数据库集群中的服务数量，但是还是至少需要有一到两个实例保证业务的可用。不论使用与否，都需要支付维持服务的成本。
+
+使用 COS 作为存储服务，无需预置实例，价格便宜。
+
+通常来讲，SQL 数据库是适合大多数场景的存储服务。不过如果你的应用存储逻辑简单，不妨也可以尝试使用 COS 作为存储。
 
 ## 参考资料
 
