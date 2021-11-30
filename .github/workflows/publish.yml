@@ -52,8 +52,20 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # 01dd......71cc
 
+      - name: Build standalone artifacts
+        run: npm run pkg:build
+
       - name: Publish release notes
         run: |
           TEMP_ARRAY=($(echo $GITHUB_REF | tr "/" "\n"))
           TAG=${TEMP_ARRAY[@]: -1}
           npx github-release-from-cc-changelog $TAG
+
+      - name: Publish binaries to COS
+        env:
+          TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
+          TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
+        run: |
+          TEMP_ARRAY=($(echo $GITHUB_REF | tr "/" "\n"))
+          TAG=${TEMP_ARRAY[@]: -1}
+          npm run pkg:upload -- $TAG
