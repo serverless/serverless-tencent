@@ -1,6 +1,6 @@
 {
   "name": "serverless-tencent",
-  "version": "3.16.3",
+  "version": "3.16.4",
   "description": "Serverless Tencent command line tool",
   "main": "./dist/index.js",
   "repository": "serverless/serverless-tencent",
@@ -22,11 +22,6 @@
     "pkg:build": "node ./scripts/pkg/build.js",
     "pkg:upload": "node ./scripts/pkg/upload/index.js"
   },
-  "pre-commit": [
-    "prettify",
-    "prettier-check:updated",
-    "lint"
-  ],
   "eslintConfig": {
     "extends": "@serverless/eslint-config/node",
     "root": true,
@@ -42,6 +37,19 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint"
+    ],
+    "*.{css,html,js,json,md,yaml,yml}": [
+      "prettier -c"
+    ]
   },
   "dependencies": {
     "@serverless/platform-client-china": "^2.3.2",
@@ -82,6 +90,7 @@
     "github-release-from-cc-changelog": "^2.2.0",
     "husky": "^7.0.0",
     "jest": "^27.3.1",
+    "lint-staged": "^12.1.2",
     "pkg": "^5.5.1",
     "prettier": "^2.4.1",
     "process-utils": "^4.0.0",

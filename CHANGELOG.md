@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.16.4](https://github.com/serverless/serverless-tencent/compare/v3.16.3....v3.16.4) (2021-11-30)
+
+- Test `generate standalone in Github CI` feature
+- Update `window-x64` program
+
 # [3.16.3](https://github.com/serverless/serverless-tencent/compare/v3.16.2....v3.16.3) (2021-11-16)
 
 - Update `name` and `app` fields for generate YML config

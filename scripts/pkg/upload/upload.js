@@ -56,7 +56,7 @@ module.exports = async (versionTag, { isLegacyVersion }) => {
 
     cos
       .putObjectAsync({
-        Key: `${versionTag}/serverless-tencent-win-x64`,
+        Key: `${versionTag}/serverless-tencent-win-x64.exe`,
         Body: fs.createReadStream(path.resolve(distPath, 'serverless-tencent-win.exe')),
         ...bucketConf,
       })
