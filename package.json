@@ -6,8 +6,8 @@
   "repository": "serverless/serverless-tencent",
   "author": "Serverless, Inc.",
   "bin": {
-    "slt": "./bin/bin",
-    "serverless-tencent": "./bin/bin"
+    "slt": "./bin/serverless-tencent",
+    "serverless-tencent": "./bin/serverless-tencent"
   },
   "scripts": {
     "lint": "eslint .",
@@ -18,7 +18,9 @@
     "prettify": "prettier --write --ignore-path .gitignore .github/workflows/**.yml tests/**/**.js src/**.js",
     "test": "jest ./tests --verbose -o",
     "test:coverage": "jest --silent --coverage --coverageReporters=\"text\" --coverageReporters=\"text-summary\"",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "pkg:build": "node ./scripts/pkg/build.js",
+    "pkg:upload": "node ./scripts/pkg/upload/index.js"
   },
   "pre-commit": [
     "prettify",
@@ -72,17 +74,20 @@
   },
   "devDependencies": {
     "@serverless/eslint-config": "^3.0.0",
+    "cos-nodejs-sdk-v5": "^2.11.3",
     "eslint": "^7.32.0",
     "eslint-plugin-import": "^2.22.1",
+    "essentials": "^1.1.1",
     "git-list-updated": "^1.2.1",
     "github-release-from-cc-changelog": "^2.2.0",
+    "husky": "^7.0.0",
     "jest": "^27.3.1",
+    "pkg": "^5.5.1",
     "prettier": "^2.4.1",
     "process-utils": "^4.0.0",
     "webpack": "^5.52.1",
     "webpack-cli": "^4.8.0",
-    "webpack-node-externals": "^3.0.0",
-    "husky": "^7.0.0"
+    "webpack-node-externals": "^3.0.0"
   },
   "engines": {
     "node": ">=10.0"
