@@ -101,45 +101,48 @@ const standaloneUpgrade = async (options) => {
   }
 
   if (semver.major(latestVersion) > semver.major(version) && !options.major) {
-    console.log(red('有大版本更新，无法自动升级'));
+    console.log(red('Serverless CLI 有新版本发布，无法自动升级，请手动安装最新版本。'));
     process.exit();
   }
 
-  // For auto upgrade situation, need users to confirm the upgrade, or it will skip after 5s
-  let answer;
-  const tid = setTimeout(() => {
-    if (answer === undefined) {
-      console.log('\n无应答，取消升级');
+  try {
+    // For auto upgrade situation, need users to confirm the upgrade, or it will skip after 5s
+    let answer;
+    const tid = setTimeout(() => {
+      if (answer === undefined) {
+        console.log('\n超时无响应，已取消升级。');
+        process.exit();
+      }
+    }, 5000);
+
+    answer = await confirm('Serverless CLI 有新版本更新，是否立即升级？', {
+      name: 'autoUpgradeCLI',
+    });
+    clearTimeout(tid);
+
+    if (!answer) {
+      return;
+    }
+
+    console.log(`正在升级 Serverless Tencent CLI ${latestTag}`);
+    const downloadUrl = resolveUrl(latestTag);
+    const standaloneResponse = await fetch(downloadUrl);
+    if (!standaloneResponse.ok) {
+      console.log(red(`升级失败：: ${standaloneResponse.status}`));
       process.exit();
     }
-  }, 5000);
 
-  answer = await confirm('监测到serverless-tencent CLI 独立版本有更新，是否需要升级?', {
-    name: 'autoUpgradeCLI',
-  });
-  clearTimeout(tid);
+    fse.ensureFileSync(BINARY_PATH);
+    await fse.remove(BINARY_TMP_PATH);
+    await pipeline(standaloneResponse.body, fs.createWriteStream(BINARY_TMP_PATH));
+    await fsp.rename(BINARY_TMP_PATH, BINARY_PATH);
+    await fsp.chmod(BINARY_PATH, 0o755);
 
-  if (!answer) {
-    return;
+    console.log('升级成功');
+  } catch (e) {
+    console.log(red(`升级失败: ${e.message}`));
+    process.exit(-1);
   }
-
-  console.log(`正在下载serverless-tencent CLI: ${latestTag}`);
-  const downloadUrl = resolveUrl(latestTag);
-  const standaloneResponse = await fetch(downloadUrl);
-  if (!standaloneResponse.ok) {
-    console.log(
-      red(`下载最新独立版本 serverless-tencent CLI 失败, 错误码: ${standaloneResponse.status}`)
-    );
-    process.exit();
-  }
-
-  fse.ensureFileSync(BINARY_PATH);
-  await fse.remove(BINARY_TMP_PATH);
-  await pipeline(standaloneResponse.body, fs.createWriteStream(BINARY_TMP_PATH));
-  await fsp.rename(BINARY_TMP_PATH, BINARY_PATH);
-  await fsp.chmod(BINARY_PATH, 0o755);
-
-  console.log(`成功升级 serverless-tencent CLI 独立版本为: ${latestTag}`);
 };
 
 const uninstall = async () => {
