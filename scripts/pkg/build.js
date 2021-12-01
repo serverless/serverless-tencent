@@ -8,7 +8,6 @@ require('essentials');
 
 const path = require('path');
 const spawn = require('child-process-ext/spawn');
-const fse = require('fs-extra');
 
 const serverlessPath = path.join(__dirname, '../..');
 const spawnOptions = { cwd: serverlessPath, stdio: 'inherit' };
@@ -28,6 +27,7 @@ const spawnOptions = { cwd: serverlessPath, stdio: 'inherit' };
       ],
       spawnOptions
     );
+    /* eslint-disable-next-line */
   } finally {
   }
 })();
