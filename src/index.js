@@ -3,6 +3,7 @@
 const commands = require('./commands');
 const buildConfig = require('./libs/config');
 const CLI = require('./libs/cli');
+const { standaloneUpgrade } = require('./libs/standalone');
 const { isProjectPath, loadTencentGlobalConfig, ServerlessCLIError } = require('./libs/utils');
 
 module.exports = async () => {
@@ -32,6 +33,11 @@ module.exports = async () => {
       await commands[command](config, cli, command);
     } else {
       await commands.run(config, cli, command);
+    }
+
+    // Do not check the CLI upgrade for deploy command
+    if (!['deploy'].includes(command)) {
+      await standaloneUpgrade(config);
     }
   } catch (error) {
     process.exitCode = 1;
