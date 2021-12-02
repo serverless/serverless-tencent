@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-# [3.17.0](https://github.com/serverless/serverless-tencent/compare/v3.16.4....v3.17.0) (2021-12-01)
+# [3.16.5](https://github.com/serverless/serverless-tencent/compare/v3.16.4....v3.16.5) (2021-12-01)
 
 - `serverless-tencent CLI` will inform for users to upgrade the standalone CLI if detect a new version except `deploy` commands
 

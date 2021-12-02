@@ -4,7 +4,6 @@ const ci = require('ci-info');
 const fsp = require('fs').promises;
 const path = require('path');
 const os = require('os');
-const fetch = require('node-fetch');
 const fs = require('fs');
 const { red } = require('chalk');
 const got = require('got');
@@ -16,8 +15,8 @@ const { promisify } = require('util');
 const pipeline = promisify(stream.pipeline);
 const confirm = require('@serverless/utils/inquirer/confirm');
 
-const BINARY_TMP_PATH = path.resolve(os.tmpdir(), 'serverless-binary-tmp');
-const BINARY_PATH = `${os.homedir()}/.serverless/bin/serverless-tencent`;
+const BINARY_TMP_PATH = path.resolve(os.tmpdir(), 'serverless-tencent-binary-tmp');
+const BINARY_PATH = `${os.homedir()}/.serverless-tencent/bin/serverless-tencent`;
 
 // If this process is called from standalone or npm script
 const isStandaloneExecutable = Boolean(
@@ -36,6 +35,8 @@ const resolveUrl = (tagName) => {
     switch (process.platform) {
       case 'darwin':
         return 'macos';
+      case 'win32':
+        return 'win';
       default:
         return process.platform;
     }
@@ -126,15 +127,10 @@ const standaloneUpgrade = async (options) => {
 
     console.log(`正在升级 Serverless Tencent CLI ${latestTag}`);
     const downloadUrl = resolveUrl(latestTag);
-    const standaloneResponse = await fetch(downloadUrl);
-    if (!standaloneResponse.ok) {
-      console.log(red(`升级失败：: ${standaloneResponse.status}`));
-      process.exit();
-    }
 
-    fse.ensureFileSync(BINARY_PATH);
+    await fse.ensureDir(path.dirname(BINARY_PATH));
     await fse.remove(BINARY_TMP_PATH);
-    await pipeline(standaloneResponse.body, fs.createWriteStream(BINARY_TMP_PATH));
+    await pipeline(got.stream(downloadUrl), fs.createWriteStream(BINARY_TMP_PATH));
     await fsp.rename(BINARY_TMP_PATH, BINARY_PATH);
     await fsp.chmod(BINARY_PATH, 0o755);
 

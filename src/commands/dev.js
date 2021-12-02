@@ -10,6 +10,7 @@ const ansiEscapes = require('ansi-escapes');
 const chokidar = require('chokidar');
 const { ServerlessSDK, utils: chinaUtils } = require('@serverless/platform-client-china');
 const { generatePayload, storeLocally } = require('../libs/telemtry');
+const { standaloneUpgrade } = require('../libs/standalone');
 const { v4: uuidv4 } = require('uuid');
 const utils = require('../libs/utils');
 const chalk = require('chalk');
@@ -213,9 +214,11 @@ module.exports = async (config, cli, command) => {
     const deployedInstance = await deploy(sdk, instanceYaml, instanceCredentials);
     if (await updateDeploymentStatus(cli, deployedInstance, false)) {
       cli.sessionStop('success', 'dev 模式已关闭');
+      await standaloneUpgrade(config);
       return null;
     }
     cli.sessionStop('error', '部署失败，请运行 “sls deploy” 进行重试');
+    await standaloneUpgrade(config);
     return null;
   };
 

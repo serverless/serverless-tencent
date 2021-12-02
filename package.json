@@ -1,6 +1,6 @@
 {
   "name": "serverless-tencent",
-  "version": "3.17.0",
+  "version": "3.16.5",
   "description": "Serverless Tencent command line tool",
   "main": "./dist/index.js",
   "repository": "serverless/serverless-tencent",
@@ -72,7 +72,6 @@
     "js-yaml": "^3.14.1",
     "memoizee": "^0.4.14",
     "minimist": "^1.2.5",
-    "node-fetch": "^2.2.6",
     "prettyoutput": "^1.2.0",
     "ramda": "^0.27.1",
     "semver": "^7.3.4",
