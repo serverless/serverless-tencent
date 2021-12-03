@@ -46,12 +46,7 @@ const resolveUrl = (tagName) => {
       case 'x32':
         return 'x86';
       case 'arm':
-        return 'armv6';
       case 'arm64':
-        if (process.platform === 'darwin') {
-          // Handle case of M1 Macs that are using x64 binary via Rosetta
-          return 'x64';
-        }
         return 'armv6';
       default:
         return process.arch;
