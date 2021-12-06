@@ -26,6 +26,19 @@
     "authorAvatar": "https://avatars.githubusercontent.com/u/2676686?v=44"
   },
   {
+    "title": "Serverless 评论系统",
+    "name": "timqian-murmur",
+    "description": "基于 Serverless 部署的评论系统，使用 COS/S3 存储评论",
+    "githubUrl": "https://github.com/timqian/murmur",
+    "platform": "tencent",
+    "component": "http",
+    "language": "Node.js",
+    "stack": ["Web框架"],
+    "authorLink": "https://github.com/timqian",
+    "authorName": "Tim Qian",
+    "authorAvatar": "https://avatars.githubusercontent.com/u/5512552?v=4"
+  },
+  {
     "title": "Django 框架示例应用",
     "name": "tencent-http-python-django-example",
     "description": "使用 http 组件开发 django 框架应用",
