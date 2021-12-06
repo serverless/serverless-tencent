@@ -54,6 +54,17 @@ module.exports = async (versionTag, { isLegacyVersion }) => {
         process.stdout.write(chalk.green("'serverless-tencent-macos-x64' uploaded to Tencent\n"));
       }),
 
+    // Right now wo provide a `mac_x64` standalone for `mac_arm64` users because we can not build a mac arm64 in github CI. We will upload an exact right mac arm64 standalone once github actions provide a mac arm64 environment, related discussions: https://github.com/serverless/serverless/pull/10305#discussion_r761849431, https://github.com/serverless/serverless-tencent/pull/86#discussion_r761861822
+    cos
+      .putObjectAsync({
+        Key: `${versionTag}/serverless-tencent-macos-armv6`,
+        Body: fs.createReadStream(path.resolve(distPath, 'serverless-tencent-macos')),
+        ...bucketConf,
+      })
+      .then(() => {
+        process.stdout.write(chalk.green("'serverless-tencent-macos-armv6' uploaded to Tencent\n"));
+      }),
+
     cos
       .putObjectAsync({
         Key: `${versionTag}/serverless-tencent-win-x64.exe`,
