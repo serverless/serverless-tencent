@@ -3,17 +3,14 @@
 const commands = require('./commands');
 const buildConfig = require('./libs/config');
 const CLI = require('./libs/cli');
+const { standaloneUpgrade } = require('./libs/standalone');
 const { isProjectPath, loadTencentGlobalConfig, ServerlessCLIError } = require('./libs/utils');
 
 module.exports = async () => {
   const config = buildConfig();
   const cli = new CLI(config);
 
-  if (process.argv.length === 2 && !(await isProjectPath(process.cwd()))) {
-    return require('./libs/auto')(config, cli);
-  }
   const command = config.command;
-
   try {
     try {
       loadTencentGlobalConfig(cli, config);
@@ -21,6 +18,10 @@ module.exports = async () => {
       throw new ServerlessCLIError(e.message, {
         step: '授权登录',
       });
+    }
+
+    if (process.argv.length === 2 && !(await isProjectPath(process.cwd()))) {
+      return require('./libs/auto')(config, cli);
     }
 
     if (!config.command) {
@@ -32,6 +33,14 @@ module.exports = async () => {
       await commands[command](config, cli, command);
     } else {
       await commands.run(config, cli, command);
+    }
+
+    /*
+     * 1. Do not check the CLI upgrade for deploy command
+     * 2. Process standaloneUpgrade function for dev command in the closeHandler callback
+     */
+    if (!['deploy', 'dev'].includes(command)) {
+      await standaloneUpgrade(config);
     }
   } catch (error) {
     process.exitCode = 1;

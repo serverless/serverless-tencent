@@ -9,6 +9,7 @@ const chalk = require('chalk');
 const inquirer = require('@serverless/utils/inquirer');
 const confirm = require('@serverless/utils/inquirer/confirm');
 const { ServerlessSDK } = require('@serverless/platform-client-china');
+const { standaloneUpgrade } = require('./standalone');
 const { v4: uuidv4 } = require('uuid');
 const { isProjectPath } = require('../libs/utils');
 const { initTemplateFromCli } = require('../commands/init');
@@ -259,13 +260,16 @@ module.exports = async () => {
         name: 'shouldDeployNewProject',
       }))
     ) {
+      await standaloneUpgrade(config);
       return null;
     }
     process.chdir(projectDir);
 
     // Proceed with a deployment
     process.argv.push('deploy');
-    return require('..')();
+    await require('..')();
+    await standaloneUpgrade(config);
+    return null;
   } catch (err) {
     telemtryData.outcome = 'failure';
     telemtryData.failure_reason = err.message;
