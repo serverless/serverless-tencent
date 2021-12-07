@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.16.7](https://github.com/serverless/serverless-tencent/compare/v3.16.6...v3.16.7) (2021-12-07)
+
+- Ignore upgrade feature for `version` command
+
 # [3.16.6](https://github.com/serverless/serverless-tencent/compare/v3.16.5...v3.16.6) (2021-12-06)
 
 - We consider `macos_x64` as `mac_arm64` right now and provide this standalone to `mac arm64` users, due to Github CI has not provide a `mac arm64` environment to build standalone
