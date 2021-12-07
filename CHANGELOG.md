@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.16.8](https://github.com/serverless/serverless-tencent/compare/v3.16.7...v3.16.8) (2021-12-07)
+
+- Show plain version message by `serverless-tencent version --plain`
+
 # [3.16.7](https://github.com/serverless/serverless-tencent/compare/v3.16.6...v3.16.7) (2021-12-07)
 
 - Ignore upgrade feature for `version` command
