@@ -37,9 +37,10 @@ module.exports = async () => {
 
     /*
      * 1. Do not check the CLI upgrade for deploy, version commands
-     * 2. Process standaloneUpgrade function for dev command in the closeHandler callback
+     * 2. Skip update with --skip-update option
+     * 3. Process standaloneUpgrade function for dev command in the closeHandler callback
      */
-    if (!['deploy', 'dev', 'version'].includes(command)) {
+    if (!config['skip-update'] && !['deploy', 'dev', 'version'].includes(command)) {
       await standaloneUpgrade(config);
     }
   } catch (error) {
