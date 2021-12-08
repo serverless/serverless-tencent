@@ -3,7 +3,12 @@
 /*
  * serverless-tencent: Command: RUN
  */
+const { version } = require('../../package.json');
 
-module.exports = (_, cli) => {
+module.exports = (config, cli) => {
+  if (config.plain) {
+    console.log(version);
+    return;
+  }
   cli.logVersion();
 };
