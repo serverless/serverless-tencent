@@ -26,7 +26,7 @@ const {
   ServerlessCLIError,
 } = require('../libs/utils');
 
-const globalTencentCredentials = path.join(os.homedir(), '.serverless/tencent/credentials');
+const globalTencentCredentials = path.join(os.homedir(), '.serverless-tencent/credentials');
 
 module.exports = async (config, cli) => {
   const subCommand = config.params[0];

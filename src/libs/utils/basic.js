@@ -776,7 +776,7 @@ const parseCliInputs = () => {
 const loadTencentGlobalConfig = (
   cli,
   config = {},
-  credentialsPath = path.join(os.homedir(), '.serverless/tencent/credentials')
+  credentialsPath = path.join(os.homedir(), '.serverless-tencent/credentials')
 ) => {
   // Users do not want to use global credentials
   if (config.login) {

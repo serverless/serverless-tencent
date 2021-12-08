@@ -555,7 +555,7 @@ inputs:
   return getEggYML();
 };
 
-const clientUidDefaultPath = path.join(os.homedir(), '.serverless/tencent/client_uid-credentials');
+const clientUidDefaultPath = path.join(os.homedir(), '.serverless-tencent/client_uid-credentials');
 // If current machine does not have an uuid, create and save it, or load  and finally return the value.
 const writeClientUid = async (p = clientUidDefaultPath, options = {}) => {
   let res = {};
