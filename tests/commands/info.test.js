@@ -3,6 +3,7 @@
 const overrideCwd = require('process-utils/override-cwd');
 const path = require('path');
 const inquirer = require('@serverless/utils/inquirer');
+const chalk = require('chalk');
 const utils = require('../../src/libs/utils');
 const infoCmd = require('../../src/commands/info');
 
@@ -67,7 +68,7 @@ describe('get instance info: src/commands/info', () => {
     restoreTempCwd();
   });
 
-  test('sls info for an inactive instance', async () => {
+  test('sls info for an un-deployed instance', async () => {
     try {
       await infoCmd({ target: './' }, cli, 'info');
     } catch (e) {
@@ -80,22 +81,22 @@ describe('get instance info: src/commands/info', () => {
   test('sls active info', async () => {
     process.env.status = 'active';
     await infoCmd({ target: './', debug: true }, cli, 'info');
-    expect(cli.log.mock.calls[4][0]).toMatch('\x1B[90m部署次数:\x1B[39m  10');
-    delete process.env.isActive;
+    expect(cli.log.mock.calls[4][0]).toMatch(`${chalk.grey('部署次数:')}  10`);
+    delete process.env.status;
   });
 
   test('sls inactive info', async () => {
     process.env.status = 'inactive';
     await infoCmd({ target: './', debug: true }, cli, 'info');
-    expect(cli.log.mock.calls[4][0]).toMatch('\x1B[90m部署次数:\x1B[39m  10');
-    delete process.env.isActive;
+    expect(cli.log.mock.calls[4][0]).toMatch(`${chalk.grey('部署次数:')}  10`);
+    delete process.env.status;
   });
 
   test('sls deploying info', async () => {
     process.env.status = 'deploying';
     await infoCmd({ target: './', debug: true }, cli, 'info');
-    expect(cli.log.mock.calls[4][0]).toMatch('\x1B[90m部署次数:\x1B[39m  10');
-    delete process.env.isActive;
+    expect(cli.log.mock.calls[4][0]).toMatch(`${chalk.grey('部署次数:')}  10`);
+    delete process.env.status;
   });
 
   test('sls info with error', async () => {
