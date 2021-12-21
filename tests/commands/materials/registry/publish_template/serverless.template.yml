@@ -1,0 +1,16 @@
+name: eggjs-starter
+displayName: Egg.js 项目模版
+author: Tencent Cloud, Inc.
+org: Tencent Cloud, Inc.
+description:  Deploy an egg.js app via SCF and Apigateway
+description-i18n:
+  zh-cn: 快速部署一个Egg.js 基础应用
+type: template 
+keywords: tencent, Egg, nodejs
+repo: https://github.com/serverless-components/tencent-examples/tree/master/eggjs-starter
+readme:  https://github.com/serverless-components/tencent-examples/blob/master/eggjs-starter/README.md
+license: MIT 
+src: 
+  src: ./src
+  exclude: 
+     - '**/node_modules'

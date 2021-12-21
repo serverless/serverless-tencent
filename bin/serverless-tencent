@@ -2,7 +2,7 @@
 
 'use strict';
 
-const cli = require('../src/');
+const cli = require('../dist/');
 
 // Run
 (async () => {
