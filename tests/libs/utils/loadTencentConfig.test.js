@@ -4,9 +4,9 @@ const overrideCwd = require('process-utils/override-cwd');
 const { utils: chinaUtils } = require('@serverless/platform-client-china');
 const path = require('path');
 const fs = require('fs');
-const { loadTencentInstanceConfig } = require('../../src/libs/utils/utils');
+const { loadTencentInstanceConfig } = require('../../../src/libs/utils/utils');
 
-const { writeYamlFile } = require('../testUtils');
+const { writeYamlFile } = require('../../testUtils');
 
 let restoreCwd;
 beforeAll(() => {

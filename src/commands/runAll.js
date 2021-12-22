@@ -3,20 +3,7 @@
 'use strict';
 
 const { ServerlessSDK, utils: tencentUtils } = require('@serverless/platform-client-china');
-const {
-  getOutputs,
-  getAllComponents,
-  setDependencies,
-  createGraph,
-  executeGraph,
-  writeJsonToCredentials,
-  writeClientUid,
-  login,
-  loadInstanceCredentials,
-  getTemplate,
-  handleDebugLogMessage,
-  clientUidDefaultPath,
-} = require('../libs/utils');
+const utils = require('../libs/utils');
 const { generatePayload, storeLocally, send: sendTelemtry } = require('../libs/telemtry');
 const generateNotificationsPayload = require('../libs/notifications/generate-payload');
 const { v4: uuidv4 } = require('uuid');
@@ -37,7 +24,7 @@ function translateCommand(command) {
 module.exports = async (config, cli, command) => {
   cli.sessionStart('正在初始化', { timer: true });
 
-  await login(config);
+  await utils.login(config);
 
   if (!config.debug) {
     cli.logLogo();
@@ -45,14 +32,14 @@ module.exports = async (config, cli, command) => {
     cli.log('正在dev环境执行命令');
   }
 
-  const templateYaml = await getTemplate(process.cwd());
+  const templateYaml = await utils.getTemplate(process.cwd());
 
   if (!templateYaml) {
     throw new Error('在子文件夹中没有发现组件信息');
   }
 
   // Load Instance Credentials
-  const credentials = await loadInstanceCredentials(templateYaml.stage);
+  const credentials = await utils.loadInstanceCredentials(templateYaml.stage);
 
   cli.sessionStatus('正在初始化', templateYaml.name);
 
@@ -78,7 +65,7 @@ module.exports = async (config, cli, command) => {
   // Connect to Serverless Platform Events, if in debug mode
   options.debug = config.debug;
 
-  const cliendUidResult = await writeClientUid();
+  const cliendUidResult = await utils.writeClientUid();
   if (!cliendUidResult[orgUid]) {
     options.client_uid = cliendUidResult.value;
   }
@@ -89,7 +76,7 @@ module.exports = async (config, cli, command) => {
         stageName: templateYaml.stage,
         appName: templateYaml.app,
       },
-      onEvent: handleDebugLogMessage(cli),
+      onEvent: utils.handleDebugLogMessage(cli),
     });
   }
 
@@ -108,7 +95,7 @@ module.exports = async (config, cli, command) => {
     cli.sessionStatus('正在部署', null, 'white');
   }
 
-  const allComponents = await getAllComponents(templateYaml);
+  const allComponents = await utils.getAllComponents(templateYaml);
 
   const telemtryData = await generatePayload({
     command,
@@ -118,10 +105,10 @@ module.exports = async (config, cli, command) => {
   });
 
   try {
-    const allComponentsWithDependencies = setDependencies(allComponents);
-    const graph = createGraph(allComponentsWithDependencies, command);
+    const allComponentsWithDependencies = utils.setDependencies(allComponents);
+    const graph = utils.createGraph(allComponentsWithDependencies, command);
 
-    const allComponentsWithOutputs = await executeGraph(
+    const allComponentsWithOutputs = await utils.executeGraph(
       allComponentsWithDependencies,
       command,
       graph,
@@ -148,7 +135,7 @@ module.exports = async (config, cli, command) => {
 
     // Insert appId into client_uid-credentials to avoid repeatly searching database, no matter the status of instance is succ or fail
     if (!cliendUidResult[orgUid] && command === 'deploy') {
-      writeJsonToCredentials(clientUidDefaultPath, {
+      utils.writeJsonToCredentials(utils.clientUidDefaultPath, {
         client_uid: { ...cliendUidResult, [orgUid]: true },
       });
     }
@@ -168,7 +155,7 @@ module.exports = async (config, cli, command) => {
 
     // don't show outputs if removing
     if (command !== 'remove') {
-      const outputs = getOutputs(allComponentsWithOutputs);
+      const outputs = utils.getOutputs(allComponentsWithOutputs);
 
       // log all outputs at once at the end only on debug mode
       // when not in debug, the graph handles logging outputs

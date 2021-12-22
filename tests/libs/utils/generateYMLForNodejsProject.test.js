@@ -5,7 +5,7 @@ const fs = require('fs');
 const overrideCwd = require('process-utils/override-cwd');
 const inquirer = require('@serverless/utils/inquirer');
 
-const { generateYMLForNodejsProject } = require('../../src/libs/utils');
+const { generateYMLForNodejsProject } = require('../../../src/libs/utils');
 
 const cli = {
   log: () => {},

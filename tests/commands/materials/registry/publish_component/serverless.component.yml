@@ -1,0 +1,348 @@
+name: scf
+version: 0.8.4
+author: Tencent Cloud, Inc.
+org: Tencent Cloud, Inc.
+description: 单函数组件，允许用户开发部署单个腾讯 SCF 函数实例。适合进行单一函数开发的场景。如：定时触发任务。
+keywords: tencent, serverless, SCF
+repo: https://github.com/serverless-components/tencent-scf
+readme: https://github.com/serverless-components/tencent-scf/tree/master/README.md
+license: MIT
+main: ./src
+webDeployable: true
+
+actions:
+  deploy:
+    definition: Deploy application to Tencent SCF
+    inputs:
+      src:
+        type: src
+        required: true
+        description: The folder containing the source code of application.
+      type:
+        type: string
+        allow:
+          - event
+          - web
+      name:
+        type: string
+        description: The name of Tencent SCF function.
+        regex: '^[A-Za-z][\w-_]{0,58}[A-Za-z0-9]$'
+      handler:
+        type: string
+        default: 'index.main_handler'
+        description: The handler of Tencent SCF function.
+      runtime:
+        type: string
+        description: SCF runtime
+        default: Nodejs10.15
+        allow: # The values that are allowed for this
+          - Python2.7
+          - Python3.6
+          - Nodejs6.10
+          - Nodejs8.9
+          - Nodejs10.15
+          - Nodejs12.16
+          - Php5
+          - Php7
+          - Go1
+          - Java8
+          - CustomRuntime
+      region:
+        type: string
+        default: ap-guangzhou
+        description: Region for SCF deployed to
+      memorySize:
+        type: number
+        description: SCF memory size
+        default: 128 # The default value
+        min: 64 # Minimum number allowed
+        max: 3072 # Maximum number allowed
+        allow: # The values that are allowed for this
+          - 64
+          - 128
+          - 256
+          - 384
+          - 512
+          - 640
+          - 768
+          - 896
+          - 1024
+          - 1152
+          - 1280
+          - 1408
+          - 1536
+          - 1664
+          - 1792
+          - 1920
+          - 2048
+          - 2176
+          - 2304
+          - 2432
+          - 2560
+          - 2688
+          - 2816
+          - 2944
+          - 3072
+      environment:
+        type: object
+        description: SCF environment
+        keys:
+          variables:
+            type: object
+      timeout:
+        type: number
+        min: 1
+      initTimeout:
+        type: number
+        min: 1
+      cfs:
+        type: array
+        items:
+          - type: object
+            keys:
+              cfsId:
+                type: string
+                required: true
+              mountInsId:
+                type: string
+              localMountDir:
+                type: string
+                required: true
+              remoteMountDir:
+                type: string
+                required: true
+      publicAccess:
+        type: boolean
+      eip:
+        type: boolean
+      installDependency:
+        type: boolean
+      asyncRunEnable:
+        type: boolean
+      l5Enable:
+        type: boolean
+      tags:
+        type: object
+      layers:
+        type: array
+        items:
+          - type: object
+            keys:
+              name:
+                type: string
+                required: true
+              version:
+                type: number
+                required: true
+      events:
+        type: array
+        items:
+          - type: object
+            keys:
+              timer:
+                type: object
+                keys:
+                  parameters:
+                    type: object
+                    keys:
+                      name:
+                        type: string
+                      enable:
+                        type: boolean
+                        default: true
+                      cronExpression:
+                        type: string
+                      argument:
+                        type: string
+              apigw:
+                type: object
+                keys:
+                  parameters:
+                    type: object
+                    keys:
+                      protocols:
+                        type: array
+                        items:
+                          - type: string
+                            allow:
+                              - http
+                              - https
+                      netTypes:
+                        type: array
+                        default:
+                          - OUTER
+                        items:
+                          - type: string
+                            allow:
+                              - OUTER
+                              - INNER
+                      description:
+                        type: string
+                      environment:
+                        type: string
+                        allow:
+                          - release
+                          - test
+                          - prepub
+                      endpoints:
+                        type: array
+                        items:
+                          - type: object
+                            keys:
+                              path:
+                                type: string
+                              method:
+                                type: string
+                              enableCORS:
+                                type: boolean
+                      serviceId:
+                        type: string
+                      serviceName:
+                        type: string
+                        regex: '^[a-zA-Z][a-zA-Z0-9(_)]{0,48}[a-zA-Z0-9]?$'
+              cos:
+                type: object
+                keys:
+                  parameters:
+                    type: object
+                    keys:
+                      enable:
+                        type: boolean
+                        default: true
+                      bucket:
+                        type: string
+                      filter:
+                        type: object
+                        keys:
+                          prefix:
+                            type: string
+                          suffix:
+                            type: string
+                      events:
+                        type: string
+                        allow:
+                          - 'cos:ObjectCreated:*'
+                          - 'cos:ObjectCreated:Put'
+                          - 'cos:ObjectCreated:Post'
+                          - 'cos:ObjectCreated:Copy'
+                          - 'cos:ObjectCreated:CompleteMultipartUpload'
+                          - 'cos:ObjectCreated:Origin'
+                          - 'cos:ObjectCreated:Replication'
+                          - 'cos:ObjectRemove:*'
+                          - 'cos:ObjectRemove:Delete'
+                          - 'cos:ObjectRemove:DeleteMarkerCreated'
+                          - 'cos:ObjectRestore:Post'
+                          - 'cos:ObjectRestore:Completed'
+
+              ckafka:
+                type: object
+                keys:
+                  parameters:
+                    type: object
+                    keys:
+                      enable:
+                        type: boolean
+                        default: true
+                      name:
+                        type: string
+                      topic:
+                        type: string
+                      retry:
+                        type: number
+                      maxMsgNum:
+                        type: number
+                        min: 1
+                        max: 10000
+                      offset:
+                        type: string
+                        allow:
+                          - latest
+                          - earliest
+                          - timestamp
+              cmq:
+                type: object
+                keys:
+                  parameters:
+                    type: object
+                    keys:
+                      enable:
+                        type: boolean
+                        default: true
+                      name:
+                        type: string
+              cls:
+                type: object
+                keys:
+                  parameters:
+                    type: object
+                    keys:
+                      enable:
+                        type: boolean
+                        default: true
+                      topicId:
+                        type: string
+                      maxWait:
+                        type: number
+                        min: 3
+                        max: 300
+              mps:
+                type: object
+                keys:
+                  parameters:
+                    type: object
+                    keys:
+                      enable:
+                        type: boolean
+                        default: true
+                      type:
+                        type: string
+                        allow:
+                          - WorkflowTask
+                          - EditMediaTask
+              clb:
+                type: object
+                keys:
+                  parameters:
+                    type: object
+                    keys:
+                      loadBalanceId:
+                        type: string
+                        required: true
+                      protocol:
+                        type: string
+                        required: true
+                        allow:
+                          - HTTP
+                          - HTTPS
+                      port:
+                        type: number
+                        required: true
+                      domain:
+                        type: string
+                        required: true
+                      url:
+                        type: string
+                        required: true
+                      weight:
+                        type: number
+                        min: 0
+                        max: 100
+
+  remove:
+    definition: Remove your Express.js application
+  list_alias:
+    definition: Show your aliases
+  create_alias:
+    definition: Create alias for function
+  update_alias:
+    definition: Update alias for function
+  delete_alias:
+    definition: Delete alias for function
+  publish_ver:
+    definition: Publish a new version of function
+  invoke:
+    definition: Invoke function synchronously
+  log:
+    definition: Get function logs in 1hour
+  metric:
+    definition: Get function metrics

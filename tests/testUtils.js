@@ -5,9 +5,11 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 const dotenv = require('dotenv');
 
-const addArgvToProcess = (argvs) => {
+const addArgvToProcess = (argvs = []) => {
+  const originArgs = [...process.argv];
   // clear the process.argv firstly
   process.argv = ['_', '_', ...argvs];
+  return () => (process.argv = [...originArgs]);
 };
 
 const addEnv = (envPath = '.env') => {
@@ -27,9 +29,15 @@ function writeYamlFile(filePath, content) {
   return data;
 }
 
+const writeFile = (fpath, content) => {
+  fs.writeFileSync(fpath, content);
+  return () => fs.unlinkSync(fpath);
+};
+
 module.exports = {
   addArgvToProcess,
   addEnv,
   readYamlFile,
+  writeFile,
   writeYamlFile,
 };
