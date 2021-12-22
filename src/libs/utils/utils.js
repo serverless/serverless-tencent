@@ -65,7 +65,9 @@ const checkBasicConfigValidation = async (dicPath) => {
     }
 
     if (!instanceFile) {
-      throw new Error('没有找到serverless配置文件，请检查。');
+      const newError = new Error('无法部署当前目录，请检查目录或添加 serverless.yml 应用配置文件后重试。');
+      newError.referral = 'https://cn.serverless.com/framework/docs-workflow';
+      throw newError;
     }
 
     if (!instanceFile.name) {
@@ -182,6 +184,7 @@ const login = async (config = {}) => {
     e.extraErrorInfo = {
       source: 'Tencent::Auth',
       step: '授权登陆',
+      referral: 'https://cloud.tencent.com/document/product/598/33168',
     };
     throw e;
   }
@@ -494,14 +497,18 @@ inputs:
   const packageObj = JSON.parse(packageJsonFile);
 
   if (!packageObj.dependencies) {
-    throw new Error('当前目录未检测到 Serverless 配置文件');
+    const newError = new Error('无法部署当前目录，请检查目录或添加 serverless.yml 应用配置文件后重试。');
+    newError.referral = 'https://cn.serverless.com/framework/docs-workflow';
+    throw newError;
   }
 
   const dependencies = Object.keys(packageObj.dependencies);
   const knownPackages = supportedComponents.filter((value) => dependencies.includes(value));
 
   if (knownPackages.length === 0) {
-    throw new Error('当前目录未检测到 Serverless 配置文件');
+    const newError = new Error('无法部署当前目录，请检查目录或添加 serverless.yml 应用配置文件后重试。');
+    newError.referral = 'https://cn.serverless.com/framework/docs-workflow';
+    throw newError;
   }
 
   // get yml type

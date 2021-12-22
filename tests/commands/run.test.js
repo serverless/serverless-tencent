@@ -137,7 +137,7 @@ describe('test command run: src/command/run', () => {
       try {
         await run(config, cli, 'deploy');
       } catch (e) {
-        expect(e.message).toBe('没有找到serverless配置文件，请检查。');
+        expect(e.message).toBe('无法部署当前目录，请检查目录或添加 serverless.yml 应用配置文件后重试。');
       }
     });
   });
