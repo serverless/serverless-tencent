@@ -224,7 +224,9 @@ inputs:
     try {
       await generateYMLForNodejsProject(cli);
     } catch (e) {
-      expect(e.message).toMatch('无法部署当前目录，请检查目录或添加 serverless.yml 应用配置文件后重试。');
+      expect(e.message).toMatch(
+        '无法部署当前目录，请检查目录或添加 serverless.yml 应用配置文件后重试。'
+      );
     }
   });
 
@@ -235,7 +237,9 @@ inputs:
     try {
       await generateYMLForNodejsProject(cli);
     } catch (e) {
-      expect(e.message).toMatch('无法部署当前目录，请检查目录或添加 serverless.yml 应用配置文件后重试。');
+      expect(e.message).toMatch(
+        '无法部署当前目录，请检查目录或添加 serverless.yml 应用配置文件后重试。'
+      );
     }
   });
 });

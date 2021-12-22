@@ -65,7 +65,9 @@ const checkBasicConfigValidation = async (dicPath) => {
     }
 
     if (!instanceFile) {
-      const newError = new Error('无法部署当前目录，请检查目录或添加 serverless.yml 应用配置文件后重试。');
+      const newError = new Error(
+        '无法部署当前目录，请检查目录或添加 serverless.yml 应用配置文件后重试。'
+      );
       newError.referral = 'https://cn.serverless.com/framework/docs-workflow';
       throw newError;
     }
@@ -497,7 +499,9 @@ inputs:
   const packageObj = JSON.parse(packageJsonFile);
 
   if (!packageObj.dependencies) {
-    const newError = new Error('无法部署当前目录，请检查目录或添加 serverless.yml 应用配置文件后重试。');
+    const newError = new Error(
+      '无法部署当前目录，请检查目录或添加 serverless.yml 应用配置文件后重试。'
+    );
     newError.referral = 'https://cn.serverless.com/framework/docs-workflow';
     throw newError;
   }
@@ -506,7 +510,9 @@ inputs:
   const knownPackages = supportedComponents.filter((value) => dependencies.includes(value));
 
   if (knownPackages.length === 0) {
-    const newError = new Error('无法部署当前目录，请检查目录或添加 serverless.yml 应用配置文件后重试。');
+    const newError = new Error(
+      '无法部署当前目录，请检查目录或添加 serverless.yml 应用配置文件后重试。'
+    );
     newError.referral = 'https://cn.serverless.com/framework/docs-workflow';
     throw newError;
   }
