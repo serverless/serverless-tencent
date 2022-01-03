@@ -71,7 +71,7 @@ NAME=scf-instance-name
 5. `../../.env.${stage}`
 6. `../../.env`
 
-> 为了方便进行多组件应用开发（详见[Serverless 项目结果](./project-structure)），可以将环境变量文件存储到一级或二级父目录中。
+> 为了方便进行多组件应用开发（详见[Serverless 项目结构](./project-structure)），可以将环境变量文件存储到一级或二级父目录中。
 
 ## 输出变量
 
