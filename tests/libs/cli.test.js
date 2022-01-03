@@ -105,7 +105,7 @@ describe('Test CLI functions', () => {
     const err = new Error('stack error');
     console.log = jest.fn();
     expect(cli.logErrorStackTrace(err.stack)).toBe(null);
-    expect(console.log.mock.calls[0][1]).toMatch('stack error');
+    expect(console.log.mock.calls[0][0]).toMatch('stack error');
     console.log.mockRestore();
   });
 
