@@ -216,7 +216,6 @@ module.exports = class CLI {
     // Add space
     console.log('');
 
-
     let basicInfo = `帮助文档:    https://cn.serverless.com/framework/docs
 BUG提交:     https://github.com/serverless/serverless-tencent/issues
 问答社区:    https://github.com/serverless/serverless-tencent/discussions`;
