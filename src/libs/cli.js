@@ -202,6 +202,9 @@ module.exports = class CLI {
       error = { message: error };
     }
 
+    // Render stack trace (if debug is on)
+    this.logErrorStackTrace(error.stack);
+
     // Clear any existing content
     process.stdout.write(ansiEscapes.eraseDown);
 
@@ -213,8 +216,6 @@ module.exports = class CLI {
     // Add space
     console.log('');
 
-    // Render stack trace (if debug is on)
-    this.logErrorStackTrace(error.stack);
 
     let basicInfo = `帮助文档:    https://cn.serverless.com/framework/docs
 BUG提交:     https://github.com/serverless/serverless-tencent/issues
@@ -304,7 +305,7 @@ TraceId:     ${traceId}`;
     process.stdout.write(ansiEscapes.eraseDown);
 
     // Render stack trace
-    console.log('', red(errorStack));
+    console.log(errorStack);
     // Put cursor to starting position for next view
     process.stdout.write(ansiEscapes.cursorLeft);
     // Add additional space
