@@ -195,7 +195,15 @@ module.exports = async (config, cli, command) => {
   let watcher;
 
   cliEventCallback = (msg, option) => {
-    cli.log(msg, option && option.type === 'error' ? 'red' : 'grey');
+    if (option && option.type === 'error') {
+      cli.logError({
+        message: msg , step: '获取实时日志', source: 'Tencent::Debug',
+      }, { command: 'dev'});
+      console.log('');
+      process.exit();
+    } else {
+      cli.log(msg, 'grey')
+    }
   };
   cliEventCallback.stdout = logForwardingOutput;
 
