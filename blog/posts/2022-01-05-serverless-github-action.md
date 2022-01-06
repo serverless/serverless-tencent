@@ -52,10 +52,6 @@ serverless deploy
 
 ### 2. 创建 GitHub Action
 
-我们将会创建这样一个工作流：每次用户对 `main` 分支推送更新时，Action 会自动帮我们部署最新版代码到腾讯 SCF。同时我们也可以手动执行这个工作流，方便在遇到问题时进行调试。
-
-#### 创建过程
-
 1. 首先我们在项目中创建一个 `.github/workflows` 目录，用来存放工作流
 2. 在 `.github/workflows` 目录中，创建一个名为 `deploy.yml` 的文件描述我们的工作流
 
@@ -96,11 +92,17 @@ jobs:
         run: serverless deploy
 ```
 
+当我们把上述代码推送到 GitHub 仓库之后，我们就创建了这样一个工作流：
+
+当 `main` 分支代码有更新时，Action 会自动帮我们部署最新版代码到腾讯 SCF。同时我们也可以手动执行这个工作流，方便在遇到问题时进行调试。
+
 <!-- 在上述工作流中，我们简要介绍了各个关键词的含义，关于 GitHub Action 工作流配置的详细介绍可以查看 [GitHub 官方文档](https://docs.github.com/cn/actions) -->
 
 #### 在 Github 上存储环境变量
 
-在我们的工作流中，我们引用了存储在 GitHub 项目上的环境变量（`${{ secrets.TENCENT_SECRET_ID }}`)。为了成功部署项目，我们需要进入项目的 **Setting** 页面，然后在该页面点击侧边栏的 **Secrets** 一栏。就可以在该页面填入我们用到的 `TENCENT_SECRET_ID` 和 `TENCENT_SECRET_KEY` 两个环境变量了。
+在我们的工作流中，我们引用了存储在 GitHub 项目上的环境变量（`${{ secrets.TENCENT_SECRET_ID }}`)。
+
+为了成功部署项目，我们需要进入项目的 **Setting** 页面，然后在该页面点击侧边栏的 **Secrets** 一栏。就可以在该页面填入我们用到的 `TENCENT_SECRET_ID` 和 `TENCENT_SECRET_KEY` 两个环境变量了。
 
 ![配置环境变量截图]()
 
