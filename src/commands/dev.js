@@ -196,13 +196,18 @@ module.exports = async (config, cli, command) => {
 
   cliEventCallback = (msg, option) => {
     if (option && option.type === 'error') {
-      cli.logError({
-        message: msg , step: '获取实时日志', source: 'Tencent::Debug',
-      }, { command: 'dev'});
+      cli.logError(
+        {
+          message: msg,
+          step: '获取实时日志',
+          source: 'Tencent::Debug',
+        },
+        { command: 'dev' }
+      );
       console.log('');
       process.exit();
     } else {
-      cli.log(msg, 'grey')
+      cli.log(msg, 'grey');
     }
   };
   cliEventCallback.stdout = logForwardingOutput;
