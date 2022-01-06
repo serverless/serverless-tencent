@@ -10,7 +10,7 @@ category:
   - guides-and-tutorials
 ---
 
-在这篇文章中，作者介绍了如何配置使用 Github Actions 部署 Serverless 应用程序。方便您的 CI/CD 流程。本文用到的所有代码可以[在这里获取](https://github.com/timqian/sls-action)
+在这篇文章中，作者介绍了如何配置和使用 Github Actions 来方便得部署 Serverless 应用程序。本文用到的所有代码可以[在这里获取](https://github.com/timqian/sls-action)
 
 ## 为什么选择 GitHub Action 部署 Serverless 应用
 
@@ -23,16 +23,16 @@ category:
 
 ### 1. 初始化 Serverless 应用
 
-首先，让我们使用以下命令创建一个托管在腾讯云 SCF 上的简单的 Node.js 应用
+首先，我们使用以下命令创建一个托管在腾讯云 SCF 上的简单的 Node.js 应用
 
 ```bash
 serverless init scf-starter --name sls-action
 cd sls-action
 ```
 
-该命令会新建一个名为 `sls-action` 的文件夹，并且初始化一个简单的 scf 函数。
+该命令会新建一个名为 `sls-action` 的文件夹，并且初始化一个简单的 SCF 函数。
 
-然后, 我们需要在文件夹内创建一个 `.env` 文件来存储腾讯云的 `SecretId` 和 `SecretKey` 信息。因为涉及密钥，这个文件不应该被推送到我们的 GitHub 仓库，可以在 `.gitignore` 文件中忽略这个文件。
+然后, 我们需要在文件夹内创建一个 `.env` 文件来存储腾讯云的 `SecretId` 和 `SecretKey` 信息。（因为涉及密钥，这个文件不应该被推送到的 GitHub 仓库，可以在 `.gitignore` 文件中忽略这个文件）
 
 ```
 SERVERLESS_PLATFORM_VENDOR=tencent
@@ -40,9 +40,7 @@ TENCENT_SECRET_ID=******
 TENCENT_SECRET_KEY=******
 ```
 
-`TENCENT_SECRET_ID` 和 `TENCENT_SECRET_KEY` 可以在腾讯云控制台的 [API 密钥管理](https://console.cloud.tencent.com/cam/capi) 中获取。关于密钥配置的具体步骤，可以参考我们的[文档](https://cn.serverless.com/framework/docs-guides-tencent-account)
-
-`SERVERLESS_PLATFORM_VENDOR` 这个环境变量用来制定部署应用的云服务商。
+`TENCENT_SECRET_ID` 和 `TENCENT_SECRET_KEY` 可以在腾讯云控制台的 [API 密钥管理](https://console.cloud.tencent.com/cam/capi) 中获取。关于密钥配置的更多细节可以参考我们的[相关文档](https://cn.serverless.com/framework/docs-guides-tencent-account)
 
 配置完毕之后，可以使用以下命令部署这个 serverless 应用
 
@@ -58,7 +56,7 @@ serverless deploy
 
 #### 创建过程
 
-1. 首先我们在项目根目录创建一个目录 `.github/workflows`，用来存放工作流
+1. 首先我们在项目中创建一个 `.github/workflows` 目录，用来存放工作流
 2. 在 `.github/workflows` 目录中，创建一个名为 `deploy.yml` 的文件描述我们的工作流
 
 ```yml
@@ -98,7 +96,7 @@ jobs:
         run: serverless deploy
 ```
 
-我们在工作流里面简要介绍了各个关键词的含义，关于 GitHub Action 工作流配置的详细介绍可以查看 [GitHub 官方文档](https://docs.github.com/cn/actions)
+<!-- 在上述工作流中，我们简要介绍了各个关键词的含义，关于 GitHub Action 工作流配置的详细介绍可以查看 [GitHub 官方文档](https://docs.github.com/cn/actions) -->
 
 #### 在 Github 上存储环境变量
 
