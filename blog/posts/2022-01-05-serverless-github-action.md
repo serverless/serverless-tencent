@@ -102,11 +102,25 @@ jobs:
 
 在我们的工作流中，我们引用了存储在 GitHub 项目上的环境变量（`${{ secrets.TENCENT_SECRET_ID }}`)。
 
-为了成功部署项目，我们需要进入项目的 **Setting** 页面，然后在该页面点击侧边栏的 **Secrets** 一栏。就可以在该页面填入我们用到的 `TENCENT_SECRET_ID` 和 `TENCENT_SECRET_KEY` 两个环境变量了。
+为了成功部署项目，我们需要进入项目的 **Setting** 页面，然后在该页面点击侧边栏的 **Secrets** 一栏。就可以在该页面填入我们用到的环境变量 `TENCENT_SECRET_ID` 和 `TENCENT_SECRET_KEY` 两个环境变量了。
 
-![配置环境变量截图]()
+![配置环境变量截图](https://sp-assets-1300963013.file.myqcloud.com/blog/posts/2022-01-05-serverless-github-action-1.png)
 
 ### 运行 workflow 并查看运行结果 
+
+1. 在我们的 GitHub 仓库，进入 action tab。
+
+![action tab](https://sp-assets-1300963013.file.myqcloud.com/blog/posts/2022-01-05-serverless-github-action-2.png)
+
+2. 从工作流运行列表中，单击要查看的 Action。
+
+3. 查看运行结果和日志，日志显示了每个步骤是如何处理的。我们可以展开任何步骤查看详细的日志。
+
+![日志](https://sp-assets-1300963013.file.myqcloud.com/blog/posts/2022-01-05-serverless-github-action-3.png)
+
+## 总结
+
+本文介绍了如何通过 GitHub Action 为 Serverless 应用配置一个简单的工作流，实现了当主分支代码更新时自动部署的功能。简单介绍了如何为 Action 配置必要的密钥信息，如何查看工作流运行日志等。
 
 
 
