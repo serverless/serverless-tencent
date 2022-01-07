@@ -122,5 +122,6 @@ jobs:
 
 本文介绍了如何通过 GitHub Action 为 Serverless 应用配置一个简单的工作流，实现了当主分支代码更新时自动部署的功能。简单介绍了如何为 Action 配置必要的密钥信息，如何查看工作流运行日志等。
 由于篇幅限制，很多地方只是粗略介绍，对于需要深入了解 Serverless 应用和 GitHub Action 的读者，可以参考以下链接：
+
 - [Tencent Serverless 简介和文档](https://cn.serverless.com/framework/docs)
 - [GitHub Action 官方介绍](https://docs.github.com/cn/actions)
