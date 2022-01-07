@@ -37,7 +37,7 @@ jest.mock('@serverless/platform-client-china', () => {
     utils: {
       startTencentRemoteLogAndDebug: async (info, region, cb) => {
         if (process.env.DEBUG_ERROR && cb) {
-          cb('error message', { type: 'error' })
+          cb('error message', { type: 'error' });
         } else if (cb) {
           cb('startTencentRemoteLogAndDebug message');
         }
@@ -66,11 +66,11 @@ describe('Test dev command', () => {
   let restoreCwd;
   let config = {};
   const cli = {
-    logLogo: () => { },
-    sessionStatus: () => { },
+    logLogo: () => {},
+    sessionStatus: () => {},
     logOutputs: (msg) => console.log(msg),
-    sessionStop: () => { },
-    sessionStart: () => { },
+    sessionStop: () => {},
+    sessionStart: () => {},
   };
 
   beforeAll(() => {
@@ -104,7 +104,7 @@ describe('Test dev command', () => {
       );
       expect(process.exit).toHaveBeenCalledWith();
       /* eslint-disable-next-line */
-    } catch (e) { }
+    } catch (e) {}
   });
 
   test('deploy with a node runtime', async () => {
@@ -134,14 +134,16 @@ describe('Test dev command', () => {
     config.target = './';
 
     await devCmd(config, cli, 'dev');
-    await new Promise(resolve => setTimeout(resolve, 10));
-    expect(cli.log.mock.calls.toString().includes('startTencentRemoteLogAndDebug message')).toBe(true); 
+    await new Promise((resolve) => setTimeout(resolve, 10));
+    expect(cli.log.mock.calls.toString().includes('startTencentRemoteLogAndDebug message')).toBe(
+      true
+    );
 
     process.env.DEBUG_ERROR = true;
     await devCmd(config, cli, 'dev');
-    await new Promise(resolve => setTimeout(resolve, 10));
+    await new Promise((resolve) => setTimeout(resolve, 10));
     expect(cli.logError.mock.calls[0][0].message).toMatch('error message');
-    delete process.env.DEBUG_ERROR
+    delete process.env.DEBUG_ERROR;
   });
 
   afterAll(async () => {
