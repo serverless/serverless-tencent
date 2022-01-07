@@ -42,7 +42,7 @@ layout: Doc
 
 #### you are not authorized to perform operation resource has no permission
 
-此错误通常是因为所使用的账号没有足够的权限完成相关操作导致的， 用户需要确认所使用的账户拥有`SLS_QcsRole`角色的访问权限。 请查看[腾讯授权权限]()了解进一步腾讯云账号和权限相关的信息。
+此错误通常是因为所使用的账号没有足够的权限完成相关操作导致的， 用户需要确认所使用的账户拥有`SLS_QcsRole`角色的访问权限。 请查看[腾讯授权权限](https://cn.serverless.com/framework/docs-guides-tencent-account#sls_qcsrole-%E8%A7%92%E8%89%B2%E6%9D%83%E9%99%90%E8%AF%B4%E6%98%8E)了解进一步腾讯云账号和权限相关的信息。
 
 Ref: 
 https://cloud.tencent.com/document/product/1154/51075
@@ -51,23 +51,23 @@ https://cloud.tencent.com/document/product/1154/51075
 
 #### The provided credentials could not be validated. Please check your signature is correct
 
-此错误通常是说使用的授权信息不正确，无法完成校验导致的，建议重新授权后重试，或检查配置的授权信息是否还有效，如果失效需要更新新的有效的授权信息。请查看[腾讯云身份授权]()了解进一步腾讯云账号和权限相关的信息。
+此错误通常是说使用的授权信息不正确，无法完成校验导致的，建议重新授权后重试，或检查配置的授权信息是否还有效，如果失效需要更新新的有效的授权信息。请查看[腾讯云身份授权](https://cn.serverless.com/framework/docs-guides-tencent-account)了解进一步腾讯云账号和权限相关的信息。
 
 <span id="network-1"></span>
 
 #### socket hang up
 
-此错误是 websocket 链接中断导致的，通常是网络不稳定导致的，建议重试，如果这个问题持续发生，请向我们[提交BUG反馈](), 并请再 BUG 反馈中提供尽可能多的信息（复现步骤，源代码包，requestId 等），以便我们进一步定位并解决相关问题。
+此错误是 websocket 链接中断导致的，通常是网络不稳定导致的，建议重试，如果这个问题持续发生，请向我们[提交BUG反馈](https://github.com/serverless/serverless-tencent/issues/new?assignees=&labels=&template=BUG.md), 并请再 BUG 反馈中提供尽可能多的信息（复现步骤，源代码包，requestId 等），以便我们进一步定位并解决相关问题。
 
 <span id="network-2"></span>
 
 #### timeout 30000ms, https://cam.tencentcloudapi.com/
 
-此错误是与腾讯 CAM 服务链接超市导致的，通常是网络不稳定导致的，建议重试，如果这个问题持续发生，请向腾讯[提交问题工单](), 寻求腾讯云的帮助来解决相关问题。
+此错误是与腾讯 CAM 服务链接超时导致的，通常是网络不稳定导致的，建议重试，如果这个问题持续发生，请向腾讯[提交问题工单](https://console.cloud.tencent.com/workorder/category?level1_id=876&level2_id=1123&source=0&data_title=Serverless%20Framework&step=1), 寻求腾讯云的帮助来解决相关问题。
 
 
 <span id="other-1"></span>
 
 #### An internal error has occurred. Retry your request, but if the problem persists, contact us
 
-此错误通常是我们的 SDK 内部功能或执行发生的错误，如果遇到这个错误，请向我们[提交BUG反馈](), 并请再 BUG 反馈中提供尽可能多的信息（复现步骤，源代码包，requestId 等），以便我们进一步定位并解决相关问题。
+此错误通常是我们的 SDK 内部功能或执行发生的错误，如果遇到这个错误，请向我们[提交BUG反馈](https://github.com/serverless/serverless-tencent/issues/new?assignees=&labels=&template=BUG.md), 并请再 BUG 反馈中提供尽可能多的信息（复现步骤，源代码包，requestId 等），以便我们进一步定位并解决相关问题。

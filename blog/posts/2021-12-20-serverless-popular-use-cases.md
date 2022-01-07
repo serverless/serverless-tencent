@@ -58,7 +58,7 @@ Serverless 可以方便的开发这种简单任务的脚本，并且可以轻松
 
 同时因为使用 Serverless 开发定时任务脚本，还可以获得以下额外的优势：
 
-* 按量付费，根据实际使用函数时间和内存进行几计费，不实用不计费。
+* 按量付费，根据实际使用函数时间和内存进行计费，不实用不计费。
 * 使用任意支持语言，不受开发语言和框架的限制。
 * 免运费，在完成部署之后无需对基础设施进行维护和管理，减少工作量。 
 * 方便测试查看，可以轻松在线上生产环境中进行测试
@@ -67,7 +67,7 @@ Serverless 可以方便的开发这种简单任务的脚本，并且可以轻松
 
 当想要获得无服务器架构的优势而又对于现有应用的的复杂度和迁移的工作量刚到头痛时，这时 Serverless 的 http 组件为开发者提供了简单的框架应用迁移方案来完成传统框架应用到 Serverless 应用的快速迁移，而这一切仅仅需要添加一个 serverless.yml 配置文件。
 
-Serverless 的 http 组件支持的 WEV 框架有：Express, Koa, egg.js, Next.js, Nuxt.js, nest, Flask, Django, Laravel, ThinkPHP。 用可以轻松的将传统的 WEB 框架应用改造为 Serverless 应用。
+Serverless 的 http 组件支持的 WEB 框架有：Express, Koa, egg.js, Next.js, Nuxt.js, nest, Flask, Django, Laravel, ThinkPHP。 用可以轻松的将传统的 WEB 框架应用改造为 Serverless 应用。
 
 同时因为使用 Serverless 开发定时任务脚本，还可以获得以下额外的优势：
 
