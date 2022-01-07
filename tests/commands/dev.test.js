@@ -36,8 +36,10 @@ jest.mock('@serverless/platform-client-china', () => {
 
     utils: {
       startTencentRemoteLogAndDebug: async (info, region, cb) => {
-        if (cb.stdout) {
-          cb.stdout.write(region);
+        if (process.env.DEBUG_ERROR && cb) {
+          cb('error message', { type: 'error' })
+        } else if (cb) {
+          cb('startTencentRemoteLogAndDebug message');
         }
         return {};
       },
@@ -64,15 +66,16 @@ describe('Test dev command', () => {
   let restoreCwd;
   let config = {};
   const cli = {
-    logLogo: () => {},
-    sessionStatus: () => {},
+    logLogo: () => { },
+    sessionStatus: () => { },
     logOutputs: (msg) => console.log(msg),
-    sessionStop: () => {},
-    sessionStart: () => {},
+    sessionStop: () => { },
+    sessionStart: () => { },
   };
 
   beforeAll(() => {
     cli.log = jest.fn();
+    cli.logError = jest.fn();
     jest.spyOn(chokidar, 'watch').mockImplementation(() => ({
       on: async (_, cb) => {
         await cb();
@@ -101,7 +104,7 @@ describe('Test dev command', () => {
       );
       expect(process.exit).toHaveBeenCalledWith();
       /* eslint-disable-next-line */
-    } catch (e) {}
+    } catch (e) { }
   });
 
   test('deploy with a node runtime', async () => {
@@ -116,6 +119,29 @@ describe('Test dev command', () => {
     });
     config.target = './';
     await devCmd(config, cli, 'dev');
+  });
+
+  test('get log error', async () => {
+    writeYamlFile('serverless.yml', {
+      component: 'scf',
+      filter: 'app',
+      name: 'test',
+      org: 'test',
+      inputs: {
+        runtime: 'nodejs12.15',
+      },
+    });
+    config.target = './';
+
+    await devCmd(config, cli, 'dev');
+    await new Promise(resolve => setTimeout(resolve, 10));
+    expect(cli.log.mock.calls.toString().includes('startTencentRemoteLogAndDebug message')).toBe(true); 
+
+    process.env.DEBUG_ERROR = true;
+    await devCmd(config, cli, 'dev');
+    await new Promise(resolve => setTimeout(resolve, 10));
+    expect(cli.logError.mock.calls[0][0].message).toMatch('error message');
+    delete process.env.DEBUG_ERROR
   });
 
   afterAll(async () => {
