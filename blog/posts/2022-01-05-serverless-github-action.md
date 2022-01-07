@@ -124,8 +124,3 @@ jobs:
 由于篇幅限制，很多地方只是粗略介绍，对于需要深入了解 Serverless 应用和 GitHub Action 的读者，可以参考以下链接：
 - [⚡️ Tencent Serverless 简介和文档](https://cn.serverless.com/framework/docs)
 - [GitHub Action 官方介绍](https://docs.github.com/cn/actions)
-
-
-
-
-
