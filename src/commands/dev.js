@@ -199,8 +199,8 @@ module.exports = async (config, cli, command) => {
       cli.logError(
         {
           message: msg,
-          step: '获取实时日志',
-          source: 'Tencent::Debug',
+          step: '远程开发监听',
+          source: 'Tencent::Scf',
         },
         { command: 'dev' }
       );
