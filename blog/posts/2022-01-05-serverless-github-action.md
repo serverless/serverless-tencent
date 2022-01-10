@@ -3,7 +3,7 @@ title: 使用 GitHub Action 部署 Serverless 应用
 description: 介绍如何在 GitHub Action 中配置 Serverless 应用的部署方式
 date: 2022-01-05
 layout: Post
-thumbnail: 
+thumbnail: https://sp-assets-1300963013.file.myqcloud.com/blog/thumbnails/2022-01-05-serverless-github-action.png
 authors:
   - TimQian
 category:
