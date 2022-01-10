@@ -10,15 +10,15 @@ describe('generate notify payload', () => {
         component: 'scf',
       })
     ).toEqual({
-      cliName: '@serverless/components',
+      cliName: '@serverless/serverless-tencent',
       config: { component: 'scf' },
-      versions: { '@serverless/components': version },
+      versions: { '@serverless/serverless-tencent': version },
       isStandalone: false,
       isDashboardEnabled: false,
     });
   });
 
-  test('alone component config', () => {
+  test('multiple component configs', () => {
     expect(
       generate({
         scf: {
@@ -29,9 +29,9 @@ describe('generate notify payload', () => {
         },
       })
     ).toEqual({
-      cliName: '@serverless/components',
+      cliName: '@serverless/serverless-tencent',
       config: { components: [{ component: 'scf' }, { component: 'koa' }] },
-      versions: { '@serverless/components': version },
+      versions: { '@serverless/serverless-tencent': version },
       isStandalone: false,
       isDashboardEnabled: false,
     });

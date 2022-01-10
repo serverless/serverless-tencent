@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.16.11](https://github.com/serverless/serverless-tencent/compare/v3.16.10...v3.16.11) (2022-01-10)
+
+- Add questionnaire notify for users
+- Add `CLI upgrade` notify for **npm installation**
+
 # [3.16.10](https://github.com/serverless/serverless-tencent/compare/v3.16.9...v3.16.10) (2021-12-21)
 
 - Add unit tests for Tencent CLI
