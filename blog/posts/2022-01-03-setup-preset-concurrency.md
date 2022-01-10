@@ -3,6 +3,7 @@ title: 如何快速为腾讯云云函数配置合适的预置并发数量
 description: 可以在腾讯云使用基于云函数自身的并发请求数据，快速为云函数计算出一个合适的预置并发配置的数量
 date: 2022-01-03
 layout: Post
+thumbnail: https://sp-assets-1300963013.file.myqcloud.com/blog/thumbnails/2022-01-03-setup-preset-concurrency.png
 authors:
   - ZongMeng
 category:
