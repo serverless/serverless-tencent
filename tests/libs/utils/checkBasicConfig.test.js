@@ -30,7 +30,9 @@ describe('Check basic fields from configuraton', () => {
     try {
       await checkBasicConfigValidation(emptyPath);
     } catch (e) {
-      expect(e.message).toEqual('没有找到serverless配置文件，请检查。');
+      expect(e.message).toEqual(
+        '无法部署当前目录，请检查目录或添加 serverless.yml 应用配置文件后重试。'
+      );
     }
   });
 

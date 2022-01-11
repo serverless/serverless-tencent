@@ -16,10 +16,10 @@ module.exports = (serviceConfig) => {
     }
   }
   return {
-    cliName: '@serverless/components',
+    cliName: '@serverless/serverless-tencent',
     config,
     versions: {
-      '@serverless/components': version,
+      '@serverless/serverless-tencent': version,
     },
     isStandalone: Boolean(process.pkg),
     isDashboardEnabled: Boolean(serviceConfig.org),
