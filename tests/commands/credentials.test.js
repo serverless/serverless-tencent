@@ -61,7 +61,7 @@ describe('Test for credentials command: src/commands/credentials', () => {
         n: 'default',
       };
 
-      await credentialsCmd(config, cli, credentialsPath);
+      await credentialsCmd(config, cli, 'credentials', credentialsPath);
       expect(cli.log.mock.calls[0][0]).toMatch('请确认当前电脑不是公用电脑或与他人共享');
     });
 
@@ -73,14 +73,14 @@ describe('Test for credentials command: src/commands/credentials', () => {
       };
 
       // can not overwirte content without --overwrite option
-      await credentialsCmd(config, cli, credentialsPath);
+      await credentialsCmd(config, cli, 'credentials', credentialsPath);
 
       expect(cli.log.mock.calls[0][0]).toMatch('已存在，请使用 --overwrite 进行覆写');
       cli.log.mockClear();
 
       config.o = true;
       // overwrite with -o | --overwrite
-      await credentialsCmd(config, cli, credentialsPath);
+      await credentialsCmd(config, cli, 'credentials', credentialsPath);
       expect(cli.log.mock.calls[0][0]).toMatch('更新成功');
     });
   });
@@ -103,7 +103,7 @@ describe('Test for credentials command: src/commands/credentials', () => {
     test('remove with wrong profile', async () => {
       config.profile = 'wrong';
 
-      await credentialsCmd(config, cli, credentialsPath);
+      await credentialsCmd(config, cli, 'credentials', credentialsPath);
 
       expect(cli.log.mock.calls[0][0]).toMatch(
         '不存在，请通过 serverless credentials list 查看当前授权信息'
@@ -112,14 +112,19 @@ describe('Test for credentials command: src/commands/credentials', () => {
 
     test('remove in a non-exist credentials file', async () => {
       config.profile = 'default';
-      await credentialsCmd(config, cli, path.resolve(process.cwd(), 't_credentials'));
+      await credentialsCmd(
+        config,
+        cli,
+        'credentials',
+        path.resolve(process.cwd(), 't_credentials')
+      );
 
       expect(cli.log.mock.calls[0][0]).toMatch('法找到全局认证配置文件');
     });
 
     test('remove successfully', async () => {
       config.profile = 'default';
-      await credentialsCmd(config, cli, credentialsPath);
+      await credentialsCmd(config, cli, 'credentials', credentialsPath);
 
       expect(cli.log.mock.calls[0][0]).toMatch(
         '如果需要删除相关授权用户请前往 腾讯云-用户控制台 删除相关用户'
@@ -129,7 +134,7 @@ describe('Test for credentials command: src/commands/credentials', () => {
 
   test('list credentials', async () => {
     jest.clearAllMocks();
-    await credentialsCmd({ params: ['list'] }, cli, credentialsPath);
+    await credentialsCmd({ params: ['list'] }, cli, 'credentials', credentialsPath);
 
     expect(cli.log.mock.calls[0][0]).toBe('Serverless: 当前已有用户授权信息名称：\n');
   });
