@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.16.12](https://github.com/serverless/serverless-tencent/compare/v3.16.11...v3.16.12) (2022-01-11)
+
+- Exit process and format msg for errors in dev mode
+- Fix credentials command
+
 # [3.16.11](https://github.com/serverless/serverless-tencent/compare/v3.16.10...v3.16.11) (2022-01-10)
 
 - Add questionnaire notify for users
