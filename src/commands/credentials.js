@@ -15,8 +15,6 @@
  */
 'use strict';
 
-const path = require('path');
-const os = require('os');
 const fse = require('fs-extra');
 const chalk = require('chalk');
 const {
@@ -24,11 +22,12 @@ const {
   loadCredentialsToJson,
   writeJsonToCredentials,
   ServerlessCLIError,
+  getDefaultCredentialsPath,
 } = require('../libs/utils');
 
-const defaultPath = path.join(os.homedir(), '.serverless-tencent/credentials');
+const defaultPath = getDefaultCredentialsPath();
 
-module.exports = async (config, cli, globalTencentCredentials = defaultPath) => {
+module.exports = async (config, cli, command, globalTencentCredentials = defaultPath) => {
   const subCommand = config.params[0];
 
   if (subCommand === 'set') {
