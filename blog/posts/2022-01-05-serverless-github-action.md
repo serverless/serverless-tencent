@@ -34,7 +34,7 @@ cd sls-action
 
 然后, 我们需要在文件夹内创建一个 `.env` 文件来存储腾讯云的 `SecretId` 和 `SecretKey` 信息。（因为涉及密钥，这个文件不应该被推送到的 GitHub 仓库，可以在 `.gitignore` 文件中忽略这个文件）
 
-```
+```bash
 SERVERLESS_PLATFORM_VENDOR=tencent
 TENCENT_SECRET_ID=******
 TENCENT_SECRET_KEY=******
