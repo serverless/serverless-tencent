@@ -29,9 +29,9 @@ describe('Test loading global credentials', () => {
   test('import credentials and override existed ENVs', () => {
     loadTencentGlobalConfig(cli, {}, credentialsPath);
     expect(process.env.TENCENT_SECRET_KEY).toBe('default_key');
-    loadTencentGlobalConfig(cli, { profile: 'test'}, credentialsPath);
+    loadTencentGlobalConfig(cli, { profile: 'test' }, credentialsPath);
     expect(process.env.TENCENT_SECRET_KEY).toBe('default_key');
-    loadTencentGlobalConfig(cli, { profile: 'test', override: true}, credentialsPath);
+    loadTencentGlobalConfig(cli, { profile: 'test', override: true }, credentialsPath);
     expect(process.env.TENCENT_SECRET_KEY).toBe('test_key');
   });
 
