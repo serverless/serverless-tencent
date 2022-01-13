@@ -374,7 +374,7 @@ const handleDebugLogMessage = (cli) => {
 };
 
 const parseYaml = async (yamlPath) => {
-  let yamlObj = YAML.safeLoad(await fse.readFile(yamlPath));
+  let yamlObj = YAML.load(await fse.readFile(yamlPath));
   if (!yamlObj) {
     yamlObj = {};
   }
@@ -386,7 +386,7 @@ const saveYaml = async (yamlPath, yamlObj) => {
     await fse.remove(yamlPath);
     return;
   }
-  const yamlContent = YAML.safeDump(yamlObj);
+  const yamlContent = YAML.dump(yamlObj);
   await fse.writeFile(yamlPath, yamlContent);
 };
 
