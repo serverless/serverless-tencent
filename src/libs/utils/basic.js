@@ -805,7 +805,7 @@ const loadTencentGlobalConfig = (
     }
 
     if (cli && cli.log) {
-      // only show tip messgae for commands need login credentials info
+      // only show tip message for commands need login credentials info
       if (!process.env.TENCENT_SECRET_KEY && !process.env.TENCENT_SECRET_ID) {
         config.useTencentCredential = profile;
       }
@@ -813,7 +813,7 @@ const loadTencentGlobalConfig = (
 
     for (const [key, value] of Object.entries(envToInsert)) {
       // it will not override exsting env variables
-      if (!process.env[key]) {
+      if (!process.env[key] || config.override) {
         process.env[key] = value;
       }
     }

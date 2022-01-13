@@ -11,13 +11,14 @@ const confirm = require('@serverless/utils/inquirer/confirm');
 const { ServerlessSDK } = require('@serverless/platform-client-china');
 const { standaloneUpgrade } = require('./standalone');
 const { v4: uuidv4 } = require('uuid');
-const { isProjectPath } = require('../libs/utils');
+const { isProjectPath, loadInstanceCredentials, loadCredentialsToJson, getDefaultCredentialsPath, fileExistsSync, loadTencentGlobalConfig } = require('../libs/utils');
 const { initTemplateFromCli } = require('../commands/init');
 const { generatePayload, storeLocally } = require('../libs/telemtry');
 const buildConfig = require('./config');
 const CLI = require('./cli');
 
 const isValidProjectName = RegExp.prototype.test.bind(/^[a-zA-Z][a-zA-Z0-9-]{0,100}$/);
+const isValidInstanceName = isValidProjectName;
 
 // Add search for user to choice different project templates
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
@@ -80,14 +81,14 @@ const projectNameInput = async (workingDir) =>
             '   项目名称只能包含字母和连字符；\n' +
             // EN: - It should start with an alphabetic character
             '   并且需要以字母开头；\n' +
-            // EN: - Shouldn't exceed 128 characters
-            '   项目名称不超过 128 个字符。'
+            // EN: - Shouldn't exceed 100 characters
+            '   项目名称不超过 100 个字符。'
           );
         }
         const projectPath = path.join(workingDir, input);
         return (await isProjectPath(projectPath))
           ? // EN: Serverless project already found at ${input} directory
-            `您的 ${input} 目录中已经存在 Serverless 项目`
+          `您的 ${input} 目录中已经存在 Serverless 项目`
           : true;
       },
     })
@@ -167,6 +168,43 @@ const getTemplatesFromRegistry = async (sdk) => {
   }
 };
 
+const getCredentialProfileChoise = async (profiles) => (await inquirer.prompt({
+  message: '请选择你要部署的授权信息',
+  type: 'list',
+  name: 'chosenProfile',
+  choices: profiles,
+})).chosenProfile;
+
+const getAppNameChoice = async (appNames) => (await inquirer.prompt({
+  message: '请选择你希望关联的 Serverless 应用',
+  type: 'list',
+  name: 'chosenAppName',
+  choices: appNames,
+})).chosenAppName;
+
+const inputInstanceName = async (workingDir) => (await inquirer.prompt({
+  message: '请输入实例名称',
+  type: 'input',
+  name: 'instanceName',
+  default: 'demo',
+  validate: async (input) => {
+    input = input.trim();
+    if (!isValidInstanceName(input)) {
+      return (
+        '实例名称校验失败:\n' +
+        '   实例名称只能包含字母和连字符；\n' +
+        '   并且需要以字母开头；\n' +
+        '   实例名称不超过 100 个字符。'
+      );
+    }
+    const projectPath = path.join(workingDir, input);
+    return (await isProjectPath(projectPath))
+      ? // EN: Serverless project already found at ${input} directory
+      `您的 ${input} 目录中已经存在 Serverless 实例`
+      : true;
+  },
+})).instanceName.trim();
+
 module.exports = async () => {
   if (await isProjectPath(process.cwd())) {
     throw new Error(
@@ -187,6 +225,7 @@ module.exports = async () => {
     return null;
   }
   const sdk = new ServerlessSDK({ context: { traceId: uuidv4() } });
+
   let telemtryData = await generatePayload({ command: 'auto' });
   // Fetch latest templates from registry
   try {
@@ -219,8 +258,59 @@ module.exports = async () => {
       name = multiScfName;
     }
 
-    const projectName = await projectNameInput(workingDir);
-    const projectDir = path.join(workingDir, projectName);
+    let isLinkingInstance = false;
+    let chosenAppName;
+    let instanceName;
+    const currentCredentials = loadInstanceCredentials();
+
+    if (currentCredentials) {
+      if (await confirm('是否关联到已有应用？')) {
+        const credentialsPath = getDefaultCredentialsPath();
+        // Choose credential profile
+        if (fileExistsSync(credentialsPath)) {
+          const credentialsObj = loadCredentialsToJson(credentialsPath);
+          const profiles = typeof credentialsObj === 'object' && Object.keys(credentialsObj);
+          let chosenProfile;
+          if (profiles && profiles.length > 1) {
+            chosenProfile = await getCredentialProfileChoise(profiles);
+          } else {
+            chosenProfile = profiles[0];
+          }
+          loadTencentGlobalConfig(credentialsPath, { profile: chosenProfile, override: true });
+        }
+
+        const { instances } = await sdk.listInstances();
+        if (Array.isArray(instances) && instances.length > 0) {
+          isLinkingInstance = true
+          const appNames = instances.reduce((acc, cur) => {
+            if (cur.appName && !acc.includes(cur.appName)) {
+              acc.push(cur.appName);
+            }
+            return acc;
+          }, []);
+
+          chosenAppName = await getAppNameChoice(appNames);
+          instanceName = await inputInstanceName(workingDir);
+
+        } else {
+          // Ask user to create new app if there's no app to link
+          cli.log(
+            `Serverless: ${chalk.yellow('当前账户下未发现 Serverless 项目，请创建新项目')}`
+          );
+        }
+      }
+    }
+
+    let projectDir;
+    let projectName;
+
+    if (chosenAppName) {
+      projectName = chosenAppName;
+      projectDir = path.join(workingDir, instanceName);
+    } else {
+      projectName = await projectNameInput(workingDir);
+      projectDir = path.join(workingDir, projectName);
+    }
 
     cli.log(
       // EN: Downloading ${projectType.name} app...
@@ -233,16 +323,19 @@ module.exports = async () => {
     // Start CLI persistance status
     cli.sessionStart('Installing', { timer: false });
     // Start initialing the template on cli
-    const ymlParsed = await initTemplateFromCli(
-      projectDir,
+    const ymlParsed = await initTemplateFromCli({
+      targetPath: projectDir,
       packageName,
       registryPackage,
       cli,
-      projectName
-    );
+      appName: projectName,
+      // Not adding suffix to app if user choose to link instance
+      reserveAppName: isLinkingInstance,
+      instanceName,
+    });
 
-    cli.log(`- 项目 "${projectName}" 已在当前目录成功创建`);
-    cli.log(`- 执行 "cd ${projectName} && serverless deploy" 部署应用`);
+    cli.log(`- 项目 "${chosenAppName ? instanceName : projectName}" 已在当前目录成功创建`);
+    cli.log(`- 执行 "cd ${chosenAppName ? instanceName : projectName}} && serverless deploy" 部署应用`);
 
     cli.sessionStop('success', '创建成功');
 
