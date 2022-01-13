@@ -278,8 +278,12 @@ module.exports = async () => {
     let chosenAppName;
     let instanceName;
     const currentCredentials = loadInstanceCredentials();
-
-    if (currentCredentials) {
+    if (
+      currentCredentials &&
+      currentCredentials.tencent &&
+      currentCredentials.tencent.SecretId &&
+      currentCredentials.tencent.SecretKey
+    ) {
       if (await confirm('是否关联到已有应用？')) {
         const credentialsPath = getDefaultCredentialsPath();
         // Choose credential profile
