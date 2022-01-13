@@ -11,7 +11,14 @@ const confirm = require('@serverless/utils/inquirer/confirm');
 const { ServerlessSDK } = require('@serverless/platform-client-china');
 const { standaloneUpgrade } = require('./standalone');
 const { v4: uuidv4 } = require('uuid');
-const { isProjectPath, loadInstanceCredentials, loadCredentialsToJson, getDefaultCredentialsPath, fileExistsSync, loadTencentGlobalConfig } = require('../libs/utils');
+const {
+  isProjectPath,
+  loadInstanceCredentials,
+  loadCredentialsToJson,
+  getDefaultCredentialsPath,
+  fileExistsSync,
+  loadTencentGlobalConfig,
+} = require('../libs/utils');
 const { initTemplateFromCli } = require('../commands/init');
 const { generatePayload, storeLocally } = require('../libs/telemtry');
 const buildConfig = require('./config');
@@ -88,7 +95,7 @@ const projectNameInput = async (workingDir) =>
         const projectPath = path.join(workingDir, input);
         return (await isProjectPath(projectPath))
           ? // EN: Serverless project already found at ${input} directory
-          `您的 ${input} 目录中已经存在 Serverless 项目`
+            `您的 ${input} 目录中已经存在 Serverless 项目`
           : true;
       },
     })
@@ -168,42 +175,51 @@ const getTemplatesFromRegistry = async (sdk) => {
   }
 };
 
-const getCredentialProfileChoise = async (profiles) => (await inquirer.prompt({
-  message: '请选择你要部署的授权信息',
-  type: 'list',
-  name: 'chosenProfile',
-  choices: profiles,
-})).chosenProfile;
+const getCredentialProfileChoise = async (profiles) =>
+  (
+    await inquirer.prompt({
+      message: '请选择你要部署的授权信息',
+      type: 'list',
+      name: 'chosenProfile',
+      choices: profiles,
+    })
+  ).chosenProfile;
 
-const getAppNameChoice = async (appNames) => (await inquirer.prompt({
-  message: '请选择你希望关联的 Serverless 应用',
-  type: 'list',
-  name: 'chosenAppName',
-  choices: appNames,
-})).chosenAppName;
+const getAppNameChoice = async (appNames) =>
+  (
+    await inquirer.prompt({
+      message: '请选择你希望关联的 Serverless 应用',
+      type: 'list',
+      name: 'chosenAppName',
+      choices: appNames,
+    })
+  ).chosenAppName;
 
-const inputInstanceName = async (workingDir) => (await inquirer.prompt({
-  message: '请输入实例名称',
-  type: 'input',
-  name: 'instanceName',
-  default: 'demo',
-  validate: async (input) => {
-    input = input.trim();
-    if (!isValidInstanceName(input)) {
-      return (
-        '实例名称校验失败:\n' +
-        '   实例名称只能包含字母和连字符；\n' +
-        '   并且需要以字母开头；\n' +
-        '   实例名称不超过 100 个字符。'
-      );
-    }
-    const projectPath = path.join(workingDir, input);
-    return (await isProjectPath(projectPath))
-      ? // EN: Serverless project already found at ${input} directory
-      `您的 ${input} 目录中已经存在 Serverless 实例`
-      : true;
-  },
-})).instanceName.trim();
+const inputInstanceName = async (workingDir) =>
+  (
+    await inquirer.prompt({
+      message: '请输入实例名称',
+      type: 'input',
+      name: 'instanceName',
+      default: 'demo',
+      validate: async (input) => {
+        input = input.trim();
+        if (!isValidInstanceName(input)) {
+          return (
+            '实例名称校验失败:\n' +
+            '   实例名称只能包含字母和连字符；\n' +
+            '   并且需要以字母开头；\n' +
+            '   实例名称不超过 100 个字符。'
+          );
+        }
+        const projectPath = path.join(workingDir, input);
+        return (await isProjectPath(projectPath))
+          ? // EN: Serverless project already found at ${input} directory
+            `您的 ${input} 目录中已经存在 Serverless 实例`
+          : true;
+      },
+    })
+  ).instanceName.trim();
 
 module.exports = async () => {
   if (await isProjectPath(process.cwd())) {
@@ -281,7 +297,7 @@ module.exports = async () => {
 
         const { instances } = await sdk.listInstances();
         if (Array.isArray(instances) && instances.length > 0) {
-          isLinkingInstance = true
+          isLinkingInstance = true;
           const appNames = instances.reduce((acc, cur) => {
             if (cur.appName && !acc.includes(cur.appName)) {
               acc.push(cur.appName);
@@ -291,12 +307,9 @@ module.exports = async () => {
 
           chosenAppName = await getAppNameChoice(appNames);
           instanceName = await inputInstanceName(workingDir);
-
         } else {
           // Ask user to create new app if there's no app to link
-          cli.log(
-            `Serverless: ${chalk.yellow('当前账户下未发现 Serverless 项目，请创建新项目')}`
-          );
+          cli.log(`Serverless: ${chalk.yellow('当前账户下未发现 Serverless 项目，请创建新项目')}`);
         }
       }
     }
@@ -335,7 +348,9 @@ module.exports = async () => {
     });
 
     cli.log(`- 项目 "${chosenAppName ? instanceName : projectName}" 已在当前目录成功创建`);
-    cli.log(`- 执行 "cd ${chosenAppName ? instanceName : projectName}} && serverless deploy" 部署应用`);
+    cli.log(
+      `- 执行 "cd ${chosenAppName ? instanceName : projectName}} && serverless deploy" 部署应用`
+    );
 
     cli.sessionStop('success', '创建成功');
 

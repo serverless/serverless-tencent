@@ -91,10 +91,7 @@ const initTemplateFromCli = async ({
   let newYmlContent;
   if (appName && ymlParsed.app) {
     if (reserveAppName) {
-      newYmlContent = ymlOriginal.replace(
-        /^app:\s\S*/m,
-        `app: ${appName}`
-      );
+      newYmlContent = ymlOriginal.replace(/^app:\s\S*/m, `app: ${appName}`);
     } else {
       newYmlContent = ymlOriginal.replace(
         /^app:\s\S*/m,
@@ -104,10 +101,7 @@ const initTemplateFromCli = async ({
   }
 
   if (instanceName && ymlParsed.name) {
-    newYmlContent = newYmlContent.replace(
-      /^name:\s\S*/m,
-      `name: ${instanceName}`
-    )
+    newYmlContent = newYmlContent.replace(/^name:\s\S*/m, `name: ${instanceName}`);
   }
 
   if (newYmlContent) await fse.writeFile(serverlessFilePath, newYmlContent, 'utf8');
@@ -185,8 +179,9 @@ const init = async (config, cli) => {
     if (registryPackage.type !== 'template') {
       await fse.mkdir(targetPath);
       const envDestination = path.resolve(targetPath, 'serverless.yml');
-      const envConfig = `component: ${packageName}\nname: ${targetName}\napp: ${targetName}-${uuidv4().split('-')[0]
-        }\ninputs:\n`;
+      const envConfig = `component: ${packageName}\nname: ${targetName}\napp: ${targetName}-${
+        uuidv4().split('-')[0]
+      }\ninputs:\n`;
       try {
         await fse.writeFile(envDestination, envConfig);
       } catch (e) {
