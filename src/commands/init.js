@@ -156,6 +156,14 @@ const init = async (config, cli) => {
 
     const targetName = config.name || packageName;
     const targetPath = path.resolve(targetName);
+    const isPathExists = await fse.pathExists(targetPath);
+
+    if (isPathExists) {
+      telemtryData.outcome = 'failure';
+      telemtryData.failure_reason = `尝试创建的文件夹 "${targetPath}" 已存在.`;
+      await storeLocally(telemtryData);
+      throw new Error(`文件夹 ${targetName} 已经存在，请修改后重试`)
+    }
 
     if (registryPackage.type !== 'template') {
       await fse.mkdir(targetPath);
