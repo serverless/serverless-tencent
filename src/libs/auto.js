@@ -300,7 +300,7 @@ module.exports = async () => {
         }
 
         const { instances } = await sdk.listInstances();
-        if (Array.isArray(instances) && instances.length < 0) {
+        if (Array.isArray(instances) && instances.length > 0) {
           isLinkingInstance = true;
           const appNames = instances.reduce((acc, cur) => {
             if (cur.appName && !acc.includes(cur.appName)) {
