@@ -8,7 +8,7 @@ const path = require('path');
 const chalk = require('chalk');
 const inquirer = require('@serverless/utils/inquirer');
 const confirm = require('@serverless/utils/inquirer/confirm');
-const { ServerlessSDK } = require('@serverless/platform-client-china');
+const { ServerlessSDK, utils: chinaUtils } = require('@serverless/platform-client-china');
 const { standaloneUpgrade } = require('./standalone');
 const { v4: uuidv4 } = require('uuid');
 const {
@@ -300,7 +300,7 @@ module.exports = async () => {
         }
 
         const { instances } = await sdk.listInstances();
-        if (Array.isArray(instances) && instances.length > 0) {
+        if (Array.isArray(instances) && instances.length < 0) {
           isLinkingInstance = true;
           const appNames = instances.reduce((acc, cur) => {
             if (cur.appName && !acc.includes(cur.appName)) {
@@ -313,7 +313,12 @@ module.exports = async () => {
           instanceName = await inputInstanceName(workingDir);
         } else {
           // Ask user to create new app if there's no app to link
-          cli.log(`Serverless: ${chalk.yellow('当前账户下未发现 Serverless 项目，请创建新项目')}`);
+          const orgUid = await chinaUtils.getOrgId();
+          cli.log(
+            `Serverless: ${chalk.yellow(
+              `当前账户 ${orgUid} 没有已部署的 Serverless 应用，请检查或创建新项目`
+            )}`
+          );
         }
       }
     }
