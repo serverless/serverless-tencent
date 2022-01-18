@@ -50,36 +50,16 @@ $ sls deploy
 
 ## CLI 命令
 
-- [Init 创建](#init)
-- [Deploy 部署](#deploy)
-- [Info 详情](#info)
-- [Dev 远程开发](#dev)
-- [Logs 日志](#logs)
-- [Remove 移除](#remove)
-- [Credentials 授权](#credentials)
-- [Registry 注册中心](#registry)
-- [Invoke 远程调用](#invoke)
-- [Invoke Local 本地调用](#invoke-local)
-
-### <a name="init">Init 创建</a>
-
-### <a name="deploy">Deploy 部署</a>
-
-### <a name="info">Info 详情</a>
-
-### <a name="dev">Dev 远程开发</a>
-
-### <a name="logs">Logs 日志</a>
-
-### <a name="remove">Remove 移除</a>
-
-### <a name="credentials">Credentials 授权</a>
-
-### <a name="registry">Registry 注册中心</a>
-
-### <a name="invoke">Invoke 远程调用</a>
-
-### <a name="invoke-local">Invoke Local 本地调用</a>
+- [Init 创建](/docs/commands/init.md)
+- [Deploy 部署](/docs/commands/deploy.md)
+- [Info 详情](/docs/commands/info.md)
+- [Dev 远程开发](/docs/commands/dev.md)
+- [Logs 日志](/docs/commands/logs.md)
+- [Remove 移除](/docs/commands/remove.md)
+- [Credentials 授权](/docs/commands/credentials.md)
+- [Registry 注册中心](/docs/commands/registry.md)
+- [Invoke 远程调用](/docs/commands/invoke.md)
+- [Invoke Local 本地调用](/docs/commands/invoke-local.md)
 
 ## 代码发布
 
