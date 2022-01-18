@@ -3,7 +3,7 @@
 const overrideCwd = require('process-utils/override-cwd');
 const path = require('path');
 const fse = require('fs-extra');
-const { init: initCmd } = require('../../src/commands/init');
+const { init: initCmd, initTemplateFromCli } = require('../../src/commands/init');
 const got = require('got');
 const { readYamlFile } = require('../testUtils');
 
@@ -14,6 +14,7 @@ jest.mock('../../src/libs/telemtry', () => {
     generatePayload: async () => ({ components: [] }),
   };
 });
+
 jest.mock('@serverless/platform-client-china', () => {
   return {
     ServerlessSDK: class {
@@ -38,6 +39,7 @@ jest.mock('@serverless/platform-client-china', () => {
     },
   };
 });
+
 describe('sls init command: src/commands/init', () => {
   let restoreCwd;
   const cli = {
@@ -75,7 +77,7 @@ describe('sls init command: src/commands/init', () => {
     delete process.env.notFound;
   });
 
-  test('sls init component proejct', async () => {
+  test('sls init component project', async () => {
     await initCmd({ params: ['scf'] }, cli);
     const content = readYamlFile('./scf/serverless.yml');
     expect(content.component).toBe('scf');
@@ -102,6 +104,51 @@ describe('sls init command: src/commands/init', () => {
     }
     delete process.env.isEmpty;
   });
+
+  test('initTemplateFromCli reserveAppName and instanceName options', async () => {
+    process.env.isTemplate = true;
+    const packageName = 'scf-starter';
+    const targetPath = path.resolve(packageName);
+
+    await initTemplateFromCli({
+      targetPath,
+      packageName,
+      registryPackage: {
+        type: 'template',
+        downloadKey: 'scf-starter.zip',
+        downloadUrl: new URL(`file://${process.cwd()}/materials/scf-starter.zip`),
+      },
+      cli,
+      appName: 'demoAPP',
+      reserveAppName: true,
+      instanceName: 'demoInstance',
+    });
+    const content = readYamlFile(path.resolve(targetPath, 'serverless.yml'));
+    expect(content.app).toBe('demoAPP');
+    expect(content.name).toBe('demoInstance');
+
+    await fse.remove('./scf-starter');
+
+    await initTemplateFromCli({
+      targetPath,
+      packageName,
+      registryPackage: {
+        type: 'template',
+        downloadKey: 'scf-starter.zip',
+        downloadUrl: new URL(`file://${process.cwd()}/materials/scf-starter.zip`),
+      },
+      cli,
+      appName: 'demoAPP',
+    });
+    const content2 = readYamlFile(path.resolve(targetPath, 'serverless.yml'));
+    expect(content2.app).not.toBe('demoAPP');
+    expect(content2.app.includes('demoAPP')).toBe(true);
+
+    await fse.remove('./scf-starter');
+
+    delete process.env.isTemplate;
+  });
+
   afterAll(() => {
     restoreCwd();
   });
