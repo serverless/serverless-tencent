@@ -49,7 +49,15 @@ async function unpack(cli, dir) {
   return null;
 }
 
-const initTemplateFromCli = async (targetPath, packageName, registryPackage, cli, appName) => {
+const initTemplateFromCli = async ({
+  targetPath,
+  packageName,
+  registryPackage,
+  cli,
+  appName,
+  reserveAppName = false,
+  instanceName,
+}) => {
   cli.sessionStatus('Fetching template from registry', packageName);
   try {
     const tmpFilename = path.resolve(path.basename(registryPackage.downloadKey));
@@ -80,14 +88,25 @@ const initTemplateFromCli = async (targetPath, packageName, registryPackage, cli
   const ymlOriginal = await fse.readFile(serverlessFilePath, 'utf8');
   const ymlParsed = await parseYaml(serverlessFilePath);
 
+  let newYmlContent;
   if (appName && ymlParsed.app) {
-    const newYmlContent = ymlOriginal.replace(
-      /^app:\s\S*/m,
-      `app: ${appName}-${uuidv4().split('-')[0]}`
-    );
-    await fse.writeFile(serverlessFilePath, newYmlContent, 'utf8');
+    if (reserveAppName) {
+      newYmlContent = ymlOriginal.replace(/^app:\s\S*/m, `app: ${appName}`);
+    } else {
+      newYmlContent = ymlOriginal.replace(
+        /^app:\s\S*/m,
+        `app: ${appName}-${uuidv4().split('-')[0]}`
+      );
+    }
   }
 
+  if (instanceName && ymlParsed.name) {
+    newYmlContent = newYmlContent.replace(/^name:\s\S*/m, `name: ${instanceName}`);
+  }
+
+  if (newYmlContent) await fse.writeFile(serverlessFilePath, newYmlContent, 'utf8');
+
+  // For template with unspcified `app`, usually created by the community
   if (appName && !ymlParsed.app) {
     ymlParsed.app = appName;
     await saveYaml(serverlessFilePath, ymlParsed);
@@ -179,13 +198,13 @@ const init = async (config, cli) => {
 
       telemtryData.components.push(packageName);
     } else {
-      const ymlParsed = await initTemplateFromCli(
+      const ymlParsed = await initTemplateFromCli({
         targetPath,
         packageName,
         registryPackage,
         cli,
-        targetName
-      );
+        appName: targetName,
+      });
       telemtryData = await generatePayload({
         command: 'init',
         rootConfig: ymlParsed,

@@ -26,6 +26,15 @@ describe('Test loading global credentials', () => {
     expect(process.env.TENCENT_SECRET_ID).toBe('test_id');
   });
 
+  test('import credentials and override existed ENVs', () => {
+    loadTencentGlobalConfig(cli, {}, credentialsPath);
+    expect(process.env.TENCENT_SECRET_KEY).toBe('default_key');
+    loadTencentGlobalConfig(cli, { profile: 'test' }, credentialsPath);
+    expect(process.env.TENCENT_SECRET_KEY).toBe('default_key');
+    loadTencentGlobalConfig(cli, { profile: 'test', override: true }, credentialsPath);
+    expect(process.env.TENCENT_SECRET_KEY).toBe('test_key');
+  });
+
   test('import credentials with the non-existed profile', () => {
     const mockExit = jest.spyOn(process, 'exit').mockImplementation(() => {});
     cli.log = jest.fn();
