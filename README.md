@@ -22,17 +22,13 @@
 
 ## 快速开始
 
-> 🚧 🚧 🚧 此插件为 Serverless Frameowrk CLI v3.0 重构测试继承使用，请不要在生产环境中使用此 CLI。 目前生产开发用的 CLI 工具请按照[帮助文档](https://cn.serverless.com/cn/framework/docs/quickstart/installation/)中的说明内容安装使用。
-
 ### 前置条件
 
-1. Nodejs 10.x 及以上版本
-2. Serverless CLI `v2.0+`, 如果没有安装可以使用 `npm i -g serverless` 命令安装
+1. Nodejs 12.x 及以上版本
+2. Serverless CLI `v3.0+`, 如果没有安装可以使用 `npm i -g serverless` 命令安装
 3. [注册](https://cloud.tencent.com/register)腾讯云账号并[开通相关权限](https://cloud.tencent.com/document/product/1154/43006)
 
 ### 安装使用
-
-> 🚧 🚧 🚧 此 CLI 为 Serverless Frameowrk CLI v3.0 重构测试继承使用，请不要在生产环境中使用此插件。 目前生产开发用的 CLI 工具请按照[帮助文档](https://cn.serverless.com/cn/framework/docs/quickstart/installation/)中的说明内容安装使用。
 
 #### 直接使用 serverless-tencent CLI
 
@@ -43,13 +39,18 @@ $ cd example
 $ slt deploy
 ```
 
-#### Serverless Framework CLI 集成使用- 开发中
+#### Serverless Framework CLI 集成使用
+
+```sh
+$ npm i -g serverless
+$ sls init express-starter --name example
+$ cd example
+$ sls deploy
+```
 
 ## CLI 命令
 
-> 🚧 🚧 🚧 此 CLI 为 Serverless Frameowrk CLI v3.0 重构测试继承使用，请不要在生产环境中使用此插件。 目前生产开发用的 CLI 工具请按照[帮助文档](https://cn.serverless.com/cn/framework/docs/quickstart/installation/)中的说明内容安装使用。
-
-<!-- - [Init 创建](#init)
+- [Init 创建](#init)
 - [Deploy 部署](#deploy)
 - [Info 详情](#info)
 - [Dev 远程开发](#dev)
@@ -78,7 +79,7 @@ $ slt deploy
 
 ### <a name="invoke">Invoke 远程调用</a>
 
-### <a name="invoke-local">Invoke Local 本地调用</a> -->
+### <a name="invoke-local">Invoke Local 本地调用</a>
 
 ## 代码发布
 
