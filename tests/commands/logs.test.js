@@ -1,6 +1,6 @@
 'use strict';
 
-const path = require('path');
+const path = require('node:path');
 const overrideCwd = require('process-utils/override-cwd');
 const logsCmd = require('../../src/commands/logs');
 const utils = require('../../src/libs/utils');
