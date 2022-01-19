@@ -20,7 +20,15 @@
 
 > 此插件提供了 [Serverless](https://cn.serverless.com/) 在腾讯云上进行开发和调试的相关功能，并优化了使用流程和体验。
 
-## 快速开始
+## 目录
+
+- [快速开始](#quickstart)
+- [示例](https://cn.serverless.com/examples)
+- [支持的命令](#commands)
+- [功能特点](#features)
+- [贡献代码](#contribute)
+
+## <a name="quickstart"></a>快速开始
 
 ### 前置条件
 
@@ -48,7 +56,7 @@ $ cd example
 $ sls deploy
 ```
 
-## CLI 命令
+## <a name="commands"></a>支持的命令
 
 - [Init 创建](/docs/commands/init.md)
 - [Deploy 部署](/docs/commands/deploy.md)
@@ -61,11 +69,37 @@ $ sls deploy
 - [Invoke 远程调用](/docs/commands/invoke.md)
 - [Invoke Local 本地调用](/docs/commands/invoke-local.md)
 
-## 代码发布
+## <a name="features"></a>功能特点
+
+- 支持 `Node.js, Python, Java, Go, Php, `, 也可以使用[自定义运行环境](https://cloud.tencent.com/document/product/583/47274)
+- 可以通过**serverless-tencent CLI**管理你的 serverless 项目的整个生命周期:
+  - 部署: `sls deploy`
+  - 调用: `sls invoke`
+  - 本地调用: `sls invoke local`, 当前支持`Node.js, Python, Php` 项目
+  - 日志查看: `sls logs`
+  - 实例信息查看: `sls info`
+  - 实例删除: `sls remove`
+  - 实时调试: `sls dev`
+- 丰富的[官方组件支持, 下面所列出仅为一部分](https://github.com/orgs/serverless-components/repositories?language=&q=tencent&sort=&type=all)
+  - [scf](https://github.com/serverless-components/tencent-scf)
+  - [http](https://github.com/serverless-components/tencent-http)
+  - [multi-scf](https://github.com/serverless-components/tencent-multi-scf)
+  - [website](https://github.com/serverless-components/tencent-website)
+  - [DiscusQ](https://github.com/serverless-components/tencent-discuzq)
+- 对不同组件的配置文件字段进行校验, 包括*字段类型，字段值的范围，字段可取限制等*，为用户提供更友好的开发体验和错误排查。 当前支持对`scf, multi-scf, http, website`组件的配置文件进行校验
+
+## <a name="contribute"></a>贡献代码
+
+_serverless-tencent_ 是一个包容友好的开源项目，欢迎不同的代码贡献者
+
+### 单元测试补充
+
+1. 我们的单元测试代码位于 `tests/` 目录之下，使用[jest](https://jestjs.io/) 作为测试工具，`npm run test` 运行所有的单元测试
+2. 您需要为你提交的功能代码补充对应的单元测试, 并且不可以破坏已有的其他模版对应的单元测试。 这是我们保证*serverless-tencent* 代码健壮性的基本条件
 
 ### Canary 测试版本
 
-提交代码到 `master` 分支，自动发布插件的 `canary` 版本，可以通过 `npm i -g serverless-tencent@canary` 安装测试
+提交代码到 `master` 分支，合并之后会自动发布项目的 `canary` 版本，可以通过 `npm i -g serverless-tencent@canary` 安装测试
 
 ### 发布正式版本
 
