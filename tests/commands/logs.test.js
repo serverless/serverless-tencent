@@ -1,6 +1,6 @@
 'use strict';
 
-const path = require('node:path');
+const path = require('path');
 const overrideCwd = require('process-utils/override-cwd');
 const logsCmd = require('../../src/commands/logs');
 const utils = require('../../src/libs/utils');
@@ -27,7 +27,7 @@ jest.mock('@serverless/platform-client-china', () => {
 
 jest.mock('../../src/libs/telemtry', () => {
   return {
-    storeLocally: async () => {},
+    storeLocally: async () => { },
     generatePayload: async () => ({}),
   };
 });
@@ -36,16 +36,16 @@ describe('Test getLogs: src/commands/getLogs', () => {
   let restoreCwd;
   const cli = {
     log: jest.fn(),
-    logLogo: () => {},
-    sessionStart: () => {},
-    sessionStop: () => {},
+    logLogo: () => { },
+    sessionStart: () => { },
+    sessionStop: () => { },
   };
 
   beforeAll(() => {
     restoreCwd = overrideCwd(
       path.resolve(process.cwd(), 'tests/commands/materials/component')
     ).restoreCwd;
-    jest.spyOn(utils, 'login').mockImplementation(async () => {});
+    jest.spyOn(utils, 'login').mockImplementation(async () => { });
     jest.spyOn(process, 'exit').mockImplementation(() => {
       throw new Error('process exit');
     });
@@ -71,8 +71,11 @@ describe('Test getLogs: src/commands/getLogs', () => {
   });
 
   test('test logs with interval', async () => {
+    const tailLogs = logsCmd({ t: true }, cli);
+    const sleep500 = new Promise(resolve => setTimeout(resolve, 500, 'one'))
     jest.useFakeTimers();
-    await logsCmd({ t: true }, cli);
+    const value = await Promise.race([tailLogs, sleep500])
+    expect(value).toBe('one')
     jest.runOnlyPendingTimers();
   });
 
