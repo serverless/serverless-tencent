@@ -181,7 +181,12 @@ const init = async (config, cli) => {
       telemtryData.outcome = 'failure';
       telemtryData.failure_reason = `尝试创建的文件夹 "${targetPath}" 已存在.`;
       await storeLocally(telemtryData);
-      throw new Error(`文件夹 ${targetName} 已经存在，请修改后重试`);
+      const error = new Error(`文件夹 ${targetName} 已经存在，请修改后重试`);
+      error.extraErrorInfo = {
+        step: '初始化命令',
+        source: 'Serverless::CLI',
+      };
+      throw error;
     }
 
     if (registryPackage.type !== 'template') {
