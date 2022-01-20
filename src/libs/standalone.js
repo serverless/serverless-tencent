@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 'use strict';
 
+const dayjs = require('dayjs');
 const ci = require('ci-info');
 const fsp = require('fs').promises;
 const path = require('path');
@@ -16,8 +17,11 @@ const { promisify } = require('util');
 const pipeline = promisify(stream.pipeline);
 const confirm = require('@serverless/utils/inquirer/confirm');
 
+const UPGRADE_EXPIRE_FILE = `${os.homedir}/.serverless-tencent/upgrade_expire.txt`;
 const BINARY_TMP_PATH = path.resolve(os.tmpdir(), 'serverless-tencent-binary-tmp');
-const BINARY_PATH = `${os.homedir()}/.serverless-tencent/bin/serverless-tencent`;
+const BINARY_PATH = `${os.homedir()}/.serverless-tencent/bin/serverless-tencent${
+  process.platform === 'win32' ? '.exe' : ''
+}`;
 
 // If this process is called from standalone or npm script
 const isStandaloneExecutable = Boolean(
@@ -65,6 +69,14 @@ const standaloneUpgrade = async (options) => {
     return;
   }
 
+  if (fse.existsSync(UPGRADE_EXPIRE_FILE)) {
+    const expireTime = dayjs(Number((await fse.readFile(UPGRADE_EXPIRE_FILE)).toString()));
+    const currentTime = dayjs(Date.now());
+    if (currentTime.diff(expireTime, 'days') < 7) {
+      return;
+    }
+  }
+
   const ciName = (() => {
     if (process.env.SERVERLESS_CI_CD) {
       return 'Serverless CI/CD';
@@ -102,11 +114,18 @@ const standaloneUpgrade = async (options) => {
     process.exit();
   }
 
+  const getCliProgressFooter = require('cli-progress-footer');
+  const cliProgressFooter = getCliProgressFooter();
+  cliProgressFooter.shouldAddProgressAnimationPrefix = true;
+  cliProgressFooter.progressAnimationPrefixFrames =
+    cliProgressFooter.progressAnimationPrefixFrames.map((frame) => `\x1b[93m${frame}\x1b[39m`);
+
   try {
     // For auto upgrade situation, need users to confirm the upgrade, or it will skip after 5s
     let answer;
     const tid = setTimeout(() => {
       if (answer === undefined) {
+        fse.writeFileSync(UPGRADE_EXPIRE_FILE, Date.now().toString());
         console.log('\n超时无响应，已取消升级。');
         process.exit();
       }
@@ -118,22 +137,29 @@ const standaloneUpgrade = async (options) => {
     clearTimeout(tid);
 
     if (!answer) {
+      fse.writeFileSync(UPGRADE_EXPIRE_FILE, Date.now().toString());
       return;
     }
 
-    console.log(`正在升级 Serverless Tencent CLI ${latestTag}`);
+    cliProgressFooter.updateProgress(`正在升级 Serverless Tencent CLI ${latestTag}`);
     const downloadUrl = resolveUrl(latestTag);
 
     await fse.ensureDir(path.dirname(BINARY_PATH));
     await fse.remove(BINARY_TMP_PATH);
     await pipeline(got.stream(downloadUrl), fs.createWriteStream(BINARY_TMP_PATH));
+    if (process.platform === 'win32') {
+      const oldWinBinaryPath = `${os.homedir}/.serverless-tencent/bin/serverless-tencent.old.exe`;
+      await fsp.rename(BINARY_PATH, oldWinBinaryPath);
+    }
     await fsp.rename(BINARY_TMP_PATH, BINARY_PATH);
     await fsp.chmod(BINARY_PATH, 0o755);
 
-    console.log('升级成功');
+    console.log('\n升级成功');
   } catch (e) {
     console.log(red(`升级失败: ${e.message}`));
     process.exit(-1);
+  } finally {
+    cliProgressFooter.updateProgress();
   }
 };
 
