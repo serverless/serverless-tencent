@@ -55,7 +55,7 @@ const resolveUrl = (tagName) => {
   })();
 
   return `https://slt-binary-sv-1300963013.cos.accelerate.myqcloud.com/${tagName}/serverless-tencent-${platform}-${arch}${
-    platform === 'win32' ? '.exe' : ''
+    process.platform === 'win32' ? '.exe' : ''
   }`;
 };
 
