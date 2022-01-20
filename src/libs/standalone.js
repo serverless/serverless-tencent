@@ -69,6 +69,7 @@ const standaloneUpgrade = async (options) => {
     return;
   }
 
+  // Do not remind user to upgrade within 7days since they choose `do not upgrade`
   if (fse.existsSync(UPGRADE_EXPIRE_FILE)) {
     const expireTime = dayjs(Number((await fse.readFile(UPGRADE_EXPIRE_FILE)).toString()));
     const currentTime = dayjs(Date.now());
@@ -125,7 +126,7 @@ const standaloneUpgrade = async (options) => {
     let answer;
     const tid = setTimeout(() => {
       if (answer === undefined) {
-        fse.writeFileSync(UPGRADE_EXPIRE_FILE, Date.now().toString());
+        fse.writeFileSync(UPGRADE_EXPIRE_FILE, Date.now().toString()); // record the date that users choose don't upgrade
         console.log('\n超时无响应，已取消升级。');
         process.exit();
       }
@@ -137,7 +138,7 @@ const standaloneUpgrade = async (options) => {
     clearTimeout(tid);
 
     if (!answer) {
-      fse.writeFileSync(UPGRADE_EXPIRE_FILE, Date.now().toString());
+      fse.writeFileSync(UPGRADE_EXPIRE_FILE, Date.now().toString()); // record the date that users choose don't upgrade
       return;
     }
 
@@ -147,6 +148,11 @@ const standaloneUpgrade = async (options) => {
     await fse.ensureDir(path.dirname(BINARY_PATH));
     await fse.remove(BINARY_TMP_PATH);
     await pipeline(got.stream(downloadUrl), fs.createWriteStream(BINARY_TMP_PATH));
+    /*
+     * We can not directly overrite a running exe process on windows(but we can do it on linux and mac), so we need to rename it
+     * to another specical name: serverless-tencent.old.exe, and then we can name the latest standalone as serverless-tencent.exe
+     * Detail: https://stackoverflow.com/questions/55247194/how-to-self-update-application-while-running/55247459#55247459
+     */
     if (process.platform === 'win32') {
       const oldWinBinaryPath = `${os.homedir}/.serverless-tencent/bin/serverless-tencent.old.exe`;
       await fsp.rename(BINARY_PATH, oldWinBinaryPath);
