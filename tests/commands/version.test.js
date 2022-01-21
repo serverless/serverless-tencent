@@ -13,7 +13,7 @@ describe('Test sls version command: src/commands/version', () => {
   });
   test('output plain version', () => {
     versionCmd({ plain: true }, {});
-    expect(console.log.mock.calls[0][0]).toBe(version);
+    expect(console.log.mock.calls[0][0]).toBe(`${version}(${process.pkg ? 'Binary' : 'npm'})`);
   });
   test('output more content version', () => {
     const cli = new CLI({});
@@ -23,6 +23,8 @@ describe('Test sls version command: src/commands/version', () => {
       (data) => (stdoutData += data),
       () => versionCmd({}, cli)
     );
-    expect(stdoutData).toMatch(`serverless - tencent version: ${version}`);
+    expect(stdoutData).toMatch(
+      `serverless - tencent version: ${version}(${process.pkg ? 'Binary' : 'npm'})`
+    );
   });
 });

@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file. See [standa
 - Improve standalone ugprade animation
 - The user will not be reminded to upgrade again within seven days after the user chooses not to upgrade.
 - Fix standalone upgrade issue on windows
+- Output detail for `version` command with `binary` or `npm`
 
 # [3.19.2](https://github.com/serverless/serverless-tencent/compare/v3.19.1...v3.19.2) (2022-01-20)
 
