@@ -471,7 +471,7 @@ TraceId:     ${traceId}`;
   logVersion() {
     this.logLogo();
     this.log();
-    this.log(`serverless - tencent version: ${version} `);
+    this.log(`serverless - tencent version: ${version}(${process.pkg ? 'Binary' : 'npm'})`);
     this.log();
   }
 

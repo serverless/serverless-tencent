@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 'use strict';
 
+const dayjs = require('dayjs');
 const ci = require('ci-info');
 const fsp = require('fs').promises;
 const path = require('path');
@@ -15,9 +16,12 @@ const { promisify } = require('util');
 
 const pipeline = promisify(stream.pipeline);
 const confirm = require('@serverless/utils/inquirer/confirm');
+const { readAndParseSync, USER_PERFERENCE_FILE, writePerference } = require('./utils');
 
 const BINARY_TMP_PATH = path.resolve(os.tmpdir(), 'serverless-tencent-binary-tmp');
-const BINARY_PATH = `${os.homedir()}/.serverless-tencent/bin/serverless-tencent`;
+const BINARY_PATH = `${os.homedir()}/.serverless-tencent/bin/serverless-tencent${
+  process.platform === 'win32' ? '.exe' : ''
+}`;
 
 // If this process is called from standalone or npm script
 const isStandaloneExecutable = Boolean(
@@ -65,6 +69,18 @@ const standaloneUpgrade = async (options) => {
     return;
   }
 
+  // Do not remind user to upgrade within 7days since they choose `do not upgrade`
+  if (fse.existsSync(USER_PERFERENCE_FILE)) {
+    const { standaloneUpgradeExpireDate } = readAndParseSync(USER_PERFERENCE_FILE);
+    if (standaloneUpgradeExpireDate) {
+      const expireTime = dayjs(Number(standaloneUpgradeExpireDate));
+      const currentTime = dayjs(Date.now());
+      if (currentTime.diff(expireTime, 'days') < 7) {
+        return;
+      }
+    }
+  }
+
   const ciName = (() => {
     if (process.env.SERVERLESS_CI_CD) {
       return 'Serverless CI/CD';
@@ -102,11 +118,18 @@ const standaloneUpgrade = async (options) => {
     process.exit();
   }
 
+  const getCliProgressFooter = require('cli-progress-footer');
+  const cliProgressFooter = getCliProgressFooter();
+  cliProgressFooter.shouldAddProgressAnimationPrefix = true;
+  cliProgressFooter.progressAnimationPrefixFrames =
+    cliProgressFooter.progressAnimationPrefixFrames.map((frame) => `\x1b[93m${frame}\x1b[39m`);
+
   try {
     // For auto upgrade situation, need users to confirm the upgrade, or it will skip after 5s
     let answer;
-    const tid = setTimeout(() => {
+    const tid = setTimeout(async () => {
       if (answer === undefined) {
+        await writePerference({ standaloneUpgradeExpireDate: Date.now() }); // record the date that users choose don't upgrade
         console.log('\n超时无响应，已取消升级。');
         process.exit();
       }
@@ -118,22 +141,34 @@ const standaloneUpgrade = async (options) => {
     clearTimeout(tid);
 
     if (!answer) {
+      await writePerference({ standaloneUpgradeExpireDate: Date.now() }); // record the date that users choose don't upgrade
       return;
     }
 
-    console.log(`正在升级 Serverless Tencent CLI ${latestTag}`);
+    cliProgressFooter.updateProgress(`正在升级 Serverless Tencent CLI ${latestTag}`);
     const downloadUrl = resolveUrl(latestTag);
 
     await fse.ensureDir(path.dirname(BINARY_PATH));
     await fse.remove(BINARY_TMP_PATH);
     await pipeline(got.stream(downloadUrl), fs.createWriteStream(BINARY_TMP_PATH));
+    /*
+     * We can not directly overrite a running exe process on windows(but we can do it on linux and mac), so we need to rename it
+     * to another specical name: serverless-tencent.old.exe, and then we can name the latest standalone as serverless-tencent.exe
+     * Detail: https://stackoverflow.com/questions/55247194/how-to-self-update-application-while-running/55247459#55247459
+     */
+    if (process.platform === 'win32') {
+      const oldWinBinaryPath = `${os.homedir}/.serverless-tencent/bin/serverless-tencent.old.exe`;
+      await fsp.rename(BINARY_PATH, oldWinBinaryPath);
+    }
     await fsp.rename(BINARY_TMP_PATH, BINARY_PATH);
     await fsp.chmod(BINARY_PATH, 0o755);
 
-    console.log('升级成功');
+    console.log('\n升级成功');
   } catch (e) {
     console.log(red(`升级失败: ${e.message}`));
     process.exit(-1);
+  } finally {
+    cliProgressFooter.updateProgress();
   }
 };
 

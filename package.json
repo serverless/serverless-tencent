@@ -1,6 +1,6 @@
 {
   "name": "serverless-tencent",
-  "version": "3.19.2",
+  "version": "3.19.3",
   "description": "Serverless Tencent command line tool",
   "main": "./dist/index.js",
   "repository": "serverless/serverless-tencent",
@@ -61,6 +61,7 @@
     "child-process-ext": "^2.1.1",
     "chokidar": "^3.5.1",
     "ci-info": "^3.2.0",
+    "cli-progress-footer": "^2.3.0",
     "dayjs": "^1.10.4",
     "dotenv": "^8.2.0",
     "fastest-levenshtein": "^1.0.12",
