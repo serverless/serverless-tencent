@@ -16,11 +16,13 @@ const {
   resolveVariables,
   parseCliInputs,
   fileExists,
+  readAndParseSync,
 } = require('./basic');
 const { mergeDeepRight } = require('ramda');
 const YAML = require('js-yaml');
 const fse = require('fs-extra');
 const inquirer = require('@serverless/utils/inquirer');
+const { USER_PERFERENCE_FILE } = require('./constants');
 
 const updateEnvFile = (envs) => {
   // write env file
@@ -602,6 +604,16 @@ class ServerlessCLIError extends Error {
   }
 }
 
+// quickly write to user's new perference data to USER_PERFERENCE_FILE
+const writePerference = async (newPerference = {}) => {
+  let newData = newPerference;
+  if (await fileExists(USER_PERFERENCE_FILE)) {
+    const data = readAndParseSync(USER_PERFERENCE_FILE);
+    newData = { ...data, ...newData };
+  }
+  await fse.writeFile(USER_PERFERENCE_FILE, JSON.stringify(newData, null, 2));
+};
+
 module.exports = {
   loadInstanceCredentials,
   login,
@@ -619,4 +631,5 @@ module.exports = {
   clientUidDefaultPath,
   loadTencentInstanceConfig,
   ServerlessCLIError,
+  writePerference,
 };

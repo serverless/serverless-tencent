@@ -16,8 +16,8 @@ const { promisify } = require('util');
 
 const pipeline = promisify(stream.pipeline);
 const confirm = require('@serverless/utils/inquirer/confirm');
+const { readAndParseSync, USER_PERFERENCE_FILE, writePerference } = require('./utils');
 
-const UPGRADE_EXPIRE_FILE = `${os.homedir}/.serverless-tencent/upgrade_expire.txt`;
 const BINARY_TMP_PATH = path.resolve(os.tmpdir(), 'serverless-tencent-binary-tmp');
 const BINARY_PATH = `${os.homedir()}/.serverless-tencent/bin/serverless-tencent${
   process.platform === 'win32' ? '.exe' : ''
@@ -70,11 +70,14 @@ const standaloneUpgrade = async (options) => {
   }
 
   // Do not remind user to upgrade within 7days since they choose `do not upgrade`
-  if (fse.existsSync(UPGRADE_EXPIRE_FILE)) {
-    const expireTime = dayjs(Number((await fse.readFile(UPGRADE_EXPIRE_FILE)).toString()));
-    const currentTime = dayjs(Date.now());
-    if (currentTime.diff(expireTime, 'days') < 7) {
-      return;
+  if (fse.existsSync(USER_PERFERENCE_FILE)) {
+    const { standaloneUpgradeExpireDate } = readAndParseSync(USER_PERFERENCE_FILE);
+    if (standaloneUpgradeExpireDate) {
+      const expireTime = dayjs(Number(standaloneUpgradeExpireDate));
+      const currentTime = dayjs(Date.now());
+      if (currentTime.diff(expireTime, 'days') < 7) {
+        return;
+      }
     }
   }
 
@@ -124,9 +127,9 @@ const standaloneUpgrade = async (options) => {
   try {
     // For auto upgrade situation, need users to confirm the upgrade, or it will skip after 5s
     let answer;
-    const tid = setTimeout(() => {
+    const tid = setTimeout(async () => {
       if (answer === undefined) {
-        fse.writeFileSync(UPGRADE_EXPIRE_FILE, Date.now().toString()); // record the date that users choose don't upgrade
+        await writePerference({ standaloneUpgradeExpireDate: Date.now() }); // record the date that users choose don't upgrade
         console.log('\n超时无响应，已取消升级。');
         process.exit();
       }
@@ -138,7 +141,7 @@ const standaloneUpgrade = async (options) => {
     clearTimeout(tid);
 
     if (!answer) {
-      fse.writeFileSync(UPGRADE_EXPIRE_FILE, Date.now().toString()); // record the date that users choose don't upgrade
+      await writePerference({ standaloneUpgradeExpireDate: Date.now() }); // record the date that users choose don't upgrade
       return;
     }
 
