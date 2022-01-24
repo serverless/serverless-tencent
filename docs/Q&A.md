@@ -1,7 +1,7 @@
 ---
 title: "Tencent Serverless - 常见问题 Q&A"
 menuText: "常见问题 Q&A"
-menuOrder: 9
+menuOrder: 10
 description: 常见问题 Q&A
 layout: Doc
 ---
@@ -32,7 +32,7 @@ layout: Doc
 
 <span id="sls-1"></span>
 
-#### Serverless 相比于 AWS SAM 和其他类似产品有什么优势?
+### Serverless 相比于 AWS SAM 和其他类似产品有什么优势?
 
 Serverless 提供了一整套完成的 Serverless 应用开发、集成、监控、管理的产品和相关工具。例如
 * Serverless CLI 提供了用户使用本地编辑器，工具开发、调试、管理 Serverless 应用的功能。
@@ -50,7 +50,7 @@ Serverless 致力于提供不限定云厂商的一致的无服务器开发体验
 
 <span id="sls-2"></span>
 
-#### 如何部署 Serverless 应用到 AWS，以及如何访问全球官网？
+### 如何部署 Serverless 应用到 AWS，以及如何访问全球官网？
 
 如果要部署和创建 AWS 上的 Serverless 应用项目，需要在使用时通过环境变量进行切换，如：`SERVERLESS_PLATFORM_VENDOR=aws`。 同时创建和部署 AWS 的Serverless应用项目也需要再命令中添加这个环境变量。
 
@@ -58,48 +58,48 @@ Serverless 致力于提供不限定云厂商的一致的无服务器开发体验
 
 <span id="sls-3"></span>
 
-#### 为什么 Serverless 在国内默认使用腾讯云？
+### 为什么 Serverless 在国内默认使用腾讯云？
 
 Serverless 与腾讯云达成了战略合作伙伴的关系，Serverless 同腾讯云一起通过深度定制的云厂商基础服务设施，解决了 Serverless 产品功能上面的许多局限性，比如对传统 WEB 框架（ Express, django, Spring ）应用的支持等, 并集成进腾讯云现有的云控制中心方便用户进行统一管理。 我们通过与腾讯云的深度合作，来为用户带来超越其他云厂商的 Serverless 应用开发体验。
 
 <span id="cli-1"></span>
 
-#### 安装过于缓慢怎么办？
+### 安装过于缓慢怎么办？
 
 如果您再安装过程中等待时间过长或者安装不成功，建议使用国内的 npm 镜像地址来完成安装 `npm i serverless -g --registry=https://registry.npmmirror.com`。此外也可以安装 yarn, cnpm 等替代工具，然后再使用替代工具的进行安装。
 
 <span id="cli-2"></span>
 
-#### 无法使用 serverless 或 sls 创建项目？
+### 无法使用 serverless 或 sls 创建项目？
 
 初始化新的项目需要在非 Serverless 应用目录中才能进行， 请检查当前目录是否包含 Serverless 应用的配置文件 `serverless.yml`。需要确保目录不包含该配置文件才能创建项目。
 
 <span id="cli-3"></span>
 
-#### 如何指定将 Serverless 应用部署到腾讯云上？
+### 如何指定将 Serverless 应用部署到腾讯云上？
 
 如果开发者想要再腾讯云上创建部署 Serverless 应用，可以通过 `SERVERLESS_PLATFORM_VENDOR=tencent sls deploy` 来手动指定要使用的云厂商，也可以将该配置存储在 .env 环境配置文件中。
 
 <span id="cli-4"></span>
 
-#### 在中国境外进行部署时，如果加速？
+### 在中国境外进行部署时，如果加速？
 
 在境外部署时，可以通过 `GLOBAL_ACCELERATOR_NA=true sls deploy` 使用境外的存储节点加速部署。
 
 <span id="cli-5"></span>
 
-#### 如何在部署时，使用代理网络？
+### 如何在部署时，使用代理网络？
 
 可以在部署时配置网络代理来使用制定的代理网络进行部署，如 `HTTP_PROXY=http://127.0.0.1:12345 sls deploy` 或 `HTTPS_PROXY=http://127.0.0.1:12345 sls deploy`
 
 <span id="cli-6"></span>
 
-#### 使用 Windows Powershell 部署无权限如何处理？
+### 使用 Windows Powershell 部署无权限如何处理？
 
 Windows powershell 的权限管理比较严格，需要执行 `set-executionpolicy remotesigned` 命令后即可正常部署。此外，Windows 环境下建议通过 `serverless` 完整名称来使用 Serverless，以避免同系统命令发生冲突。
 
 <span id="app-1"></span>
 
-#### 通过组件创建 API 网关触发器和云函数，为什么函数控制台不显示触发器信息?
+### 通过组件创建 API 网关触发器和云函数，为什么函数控制台不显示触发器信息?
 
 Serverless 组件通过调用 API 网关接口完成网关触发器创建，目前 SCF 控制台不支持显示通过网关接口创建的触发器，您可以在 [API 网关控制台](https://console.cloud.tencent.com/apigateway/index) 完成相关触发器的配置管理。
