@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.20.0](https://github.com/serverless/serverless-tencent/compare/v3.19.3...v3.20.0) (2022-01-25)
+
+- Release **3.20.0** for public
+
 # [3.19.3](https://github.com/serverless/serverless-tencent/compare/v3.19.2...v3.19.3) (2022-01-20)
 
 - `help` command will not trigger standalone upgrade
