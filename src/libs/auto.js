@@ -333,7 +333,20 @@ module.exports = async () => {
           }
         }
 
-        const { instances } = await sdk.listInstances();
+        let instances = [];
+        try {
+          instances = await sdk.listInstances();
+        } catch (error) {
+          cli.logError(
+            {
+              message: '无法获取用户应用信息，请检查授权信息后重试',
+              step: '获取用户应用信息',
+              source: 'Serverless::CLI',
+            },
+            { command: 'auto' }
+          );
+          process.exit();
+        }
         if (Array.isArray(instances) && instances.length > 0) {
           isLinkingInstance = true;
           const appNames = instances.reduce((acc, cur) => {
