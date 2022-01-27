@@ -11,6 +11,7 @@ const confirm = require('@serverless/utils/inquirer/confirm');
 const { ServerlessSDK, utils: chinaUtils } = require('@serverless/platform-client-china');
 const { standaloneUpgrade } = require('./standalone');
 const { v4: uuidv4 } = require('uuid');
+const dotenv = require('dotenv');
 const {
   isProjectPath,
   loadInstanceCredentials,
@@ -221,6 +222,19 @@ const inputInstanceName = async (workingDir) =>
     })
   ).instanceName.trim();
 
+// Load environment variables from .env files, 1 directories up
+const getLocalEnvContent = () => {
+  const envFilePath = path.join(process.cwd(), '.env');
+  const parentEnvFilePath = path.join(process.cwd(), '..', '.env');
+  let dotEnvContent;
+  if (fileExistsSync(envFilePath)) {
+    dotEnvContent = dotenv.config({ path: path.resolve(envFilePath) });
+  } else if (fileExistsSync(parentEnvFilePath)) {
+    dotEnvContent = dotenv.config({ path: path.resolve(parentEnvFilePath) });
+  }
+  return dotEnvContent;
+};
+
 module.exports = async () => {
   if (await isProjectPath(process.cwd())) {
     throw new Error(
@@ -288,15 +302,35 @@ module.exports = async () => {
         const credentialsPath = getDefaultCredentialsPath();
         // Choose credential profile
         if (fileExistsSync(credentialsPath)) {
+          let hasLocalEnv = false;
+          const localEnvContent = getLocalEnvContent();
+          if (
+            localEnvContent &&
+            localEnvContent.parsed &&
+            localEnvContent.parsed.TENCENT_SECRET_ID
+          ) {
+            hasLocalEnv = true;
+          }
+          const profiles = [];
+          if (hasLocalEnv) {
+            profiles.push('当前目录授权(.env)');
+          }
           const credentialsObj = loadCredentialsToJson(credentialsPath);
-          const profiles = typeof credentialsObj === 'object' && Object.keys(credentialsObj);
+          if (typeof credentialsObj === 'object') {
+            profiles.push(...Object.keys(credentialsObj).map((key) => `全局授权-${key}`));
+          }
           let chosenProfile;
           if (profiles && profiles.length > 1) {
             chosenProfile = await getCredentialProfileChoise(profiles);
           } else {
             chosenProfile = profiles[0];
           }
-          loadTencentGlobalConfig(credentialsPath, { profile: chosenProfile, override: true });
+
+          // Don't need to reload credentials if user choose local env
+          if (chosenProfile !== '当前目录授权(.env)') {
+            const profile = chosenProfile.split('-')[1];
+            loadTencentGlobalConfig(cli, { profile, override: true });
+          }
         }
 
         const { instances } = await sdk.listInstances();
