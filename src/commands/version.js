@@ -7,7 +7,7 @@ const { version } = require('../../package.json');
 
 module.exports = (config, cli) => {
   if (config.plain) {
-    console.log(`${version}(${process.pkg ? 'Binary' : 'npm'})`);
+    console.log(version);
     return;
   }
   cli.logVersion();

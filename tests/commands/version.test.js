@@ -13,7 +13,7 @@ describe('Test sls version command: src/commands/version', () => {
   });
   test('output plain version', () => {
     versionCmd({ plain: true }, {});
-    expect(console.log.mock.calls[0][0]).toBe(`${version}(${process.pkg ? 'Binary' : 'npm'})`);
+    expect(console.log.mock.calls[0][0]).toBe(version);
   });
   test('output more content version', () => {
     const cli = new CLI({});
