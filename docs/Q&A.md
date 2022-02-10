@@ -1,6 +1,6 @@
 ---
-title: "Tencent Serverless - 常见问题 Q&A"
-menuText: "常见问题 Q&A"
+title: 'Tencent Serverless - 常见问题 Q&A'
+menuText: '常见问题 Q&A'
 menuOrder: 10
 description: 常见问题 Q&A
 layout: Doc
@@ -29,20 +29,20 @@ layout: Doc
 
 1. [通过组件创建 API 网关触发器和云函数，为什么函数控制台不显示触发器信息?](#app-1)
 
-
 <span id="sls-1"></span>
 
 ### Serverless 相比于 AWS SAM 和其他类似产品有什么优势?
 
 Serverless 提供了一整套完成的 Serverless 应用开发、集成、监控、管理的产品和相关工具。例如
-* Serverless CLI 提供了用户使用本地编辑器，工具开发、调试、管理 Serverless 应用的功能。
-* Serverless Console(控制台) 
-  * Serverless Monitoring 提供了 Serverless 应用的全面监控，包括请求详情，错误，冷启动，以及使用成本。
-  * Serverless CI/CD 提供了 Serverless 应用的自动集成，预览发布，部署管理等功能。
-  * Serverless Secrets 提供了 Serverless 应用的密钥信息集成，管理功能。
-  * Serverless Teams 提供了 Serverless 应用团队账号管理，无需额外提供授权，就可以进行协同开发。
-  * Serverless Integrations 提供了提供了日志和警告的导出功能，方便将应用日志集成进任意第三方平台。
-* Serverless Cloud 提供了秒级的 Serverless 应用开发云平台，同时更加轻松的查看和分享您的 Serverless 应用。
+
+- Serverless CLI 提供了用户使用本地编辑器，工具开发、调试、管理 Serverless 应用的功能。
+- Serverless Console(控制台)
+  - Serverless Monitoring 提供了 Serverless 应用的全面监控，包括请求详情，错误，冷启动，以及使用成本。
+  - Serverless CI/CD 提供了 Serverless 应用的自动集成，预览发布，部署管理等功能。
+  - Serverless Secrets 提供了 Serverless 应用的密钥信息集成，管理功能。
+  - Serverless Teams 提供了 Serverless 应用团队账号管理，无需额外提供授权，就可以进行协同开发。
+  - Serverless Integrations 提供了提供了日志和警告的导出功能，方便将应用日志集成进任意第三方平台。
+- Serverless Cloud 提供了秒级的 Serverless 应用开发云平台，同时更加轻松的查看和分享您的 Serverless 应用。
 
 Serverless 致力于提供不限定云厂商的一致的无服务器开发体验，我们最终的目标是让开发者无需关心云厂商基础设施的不同，以及无需配置应用集成部署流程，也无需关心应用的维护工作。让开发者集中精力在应用开发和实现用户增长上。
 
@@ -52,9 +52,9 @@ Serverless 致力于提供不限定云厂商的一致的无服务器开发体验
 
 ### 如何部署 Serverless 应用到 AWS，以及如何访问全球官网？
 
-如果要部署和创建 AWS 上的 Serverless 应用项目，需要在使用时通过环境变量进行切换，如：`SERVERLESS_PLATFORM_VENDOR=aws`。 同时创建和部署 AWS 的Serverless应用项目也需要再命令中添加这个环境变量。
+如果要部署和创建 AWS 上的 Serverless 应用项目，需要在使用时通过环境变量进行切换，如：`SERVERLESS_PLATFORM_VENDOR=aws`。 同时创建和部署 AWS 的 Serverless 应用项目也需要再命令中添加这个环境变量。
 
-如果通过 www.serverless.com 或 serverless.com 访问 Serverless 官方网站，会根据用户的 IP 地址，为中国用户自动跳转到中文官方网站，如果想要访问 Serverless 全球官方，可以通过地址 wb.serverless.com 进行访问。 
+如果通过 www.serverless.com 或 serverless.com 访问 Serverless 官方网站，会根据用户的 IP 地址，为中国用户自动跳转到中文官方网站，如果想要访问 Serverless 全球官方，可以通过地址 wb.serverless.com 进行访问。
 
 <span id="sls-3"></span>
 
@@ -90,7 +90,16 @@ Serverless 与腾讯云达成了战略合作伙伴的关系，Serverless 同腾�
 
 ### 如何在部署时，使用代理网络？
 
-可以在部署时配置网络代理来使用制定的代理网络进行部署，如 `HTTP_PROXY=http://127.0.0.1:12345 sls deploy` 或 `HTTPS_PROXY=http://127.0.0.1:12345 sls deploy`
+当前**使用代理网络**的功能正在开发中，请确保运行命令的环境中，**没有**进行代理配置，否则会出现**操作失败**的结果，您可以通过以下命令进行代理网络配置的检测:
+
+```bash
+echo $HTTPS_PROXY
+echo $https_proxy
+echo $HTTP_PROXY
+echo $http_proxy
+```
+
+如果以上 4 个参数有任意一个不为空，请先清空对应参数, 参考: [Linux/UNIX 环境清空变量](https://blog.csdn.net/mayue_web/article/details/97023615)，[Windows 清空环境变量](https://blog.csdn.net/whatday/article/details/109703077)。然后重新进行部署或其他操作。
 
 <span id="cli-6"></span>
 

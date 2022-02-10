@@ -1,6 +1,6 @@
 ---
-title: "Tencent Serverless - 常见报错"
-menuText: "常见报错"
+title: 'Tencent Serverless - 常见报错'
+menuText: '常见报错'
 menuOrder: 11
 description: 常见报错
 layout: Doc
@@ -44,7 +44,7 @@ layout: Doc
 
 此错误通常是因为所使用的账号没有足够的权限完成相关操作导致的， 用户需要确认所使用的账户拥有`SLS_QcsRole`角色的访问权限。 请查看[腾讯授权权限](https://cn.serverless.com/framework/docs-guides-tencent-account#sls_qcsrole-%E8%A7%92%E8%89%B2%E6%9D%83%E9%99%90%E8%AF%B4%E6%98%8E)了解进一步腾讯云账号和权限相关的信息。
 
-Ref: 
+Ref:
 https://cloud.tencent.com/document/product/1154/51075
 
 <span id="auth-4"></span>
@@ -57,7 +57,7 @@ https://cloud.tencent.com/document/product/1154/51075
 
 ### socket hang up
 
-此错误是 websocket 链接中断导致的，通常是网络不稳定导致的，建议重试，如果这个问题持续发生，请向我们[提交BUG反馈](https://github.com/serverless/serverless-tencent/issues/new?assignees=&labels=&template=BUG.md), 并请再 BUG 反馈中提供尽可能多的信息（复现步骤，源代码包，requestId 等），以便我们进一步定位并解决相关问题。
+此错误是 websocket 链接中断导致的，通常是网络不稳定导致的，建议重试，如果这个问题持续发生，请向我们[提交 BUG 反馈](https://github.com/serverless/serverless-tencent/issues/new?assignees=&labels=&template=BUG.md), 并请再 BUG 反馈中提供尽可能多的信息（复现步骤，源代码包，requestId 等），以便我们进一步定位并解决相关问题。
 
 <span id="network-2"></span>
 
@@ -65,9 +65,14 @@ https://cloud.tencent.com/document/product/1154/51075
 
 此错误是与腾讯 CAM 服务链接超时导致的，通常是网络不稳定导致的，建议重试，如果这个问题持续发生，请向腾讯[提交问题工单](https://console.cloud.tencent.com/workorder/category?level1_id=876&level2_id=1123&source=0&data_title=Serverless%20Framework&step=1), 寻求腾讯云的帮助来解决相关问题。
 
+<span id="netword-3"></span>
+
+### Error: an HTTP(S) proxy server host and port must be specified!
+
+此错误是因为所执行命令的终端下，进行了代理网络的配置。命令行工具使用代理网络的功能正在开发中，当前请先确保终端下**无代理配置**， [参考](https://cn-serverless.webflow.io/framework/docs-Q-A#%E5%A6%82%E4%BD%95%E5%9C%A8%E9%83%A8%E7%BD%B2%E6%97%B6%EF%BC%8C%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86%E7%BD%91%E7%BB%9C%EF%BC%9F)。
 
 <span id="other-1"></span>
 
 ### An internal error has occurred. Retry your request, but if the problem persists, contact us
 
-此错误通常是我们的 SDK 内部功能或执行发生的错误，如果遇到这个错误，请向我们[提交BUG反馈](https://github.com/serverless/serverless-tencent/issues/new?assignees=&labels=&template=BUG.md), 并请再 BUG 反馈中提供尽可能多的信息（复现步骤，源代码包，requestId 等），以便我们进一步定位并解决相关问题。
+此错误通常是我们的 SDK 内部功能或执行发生的错误，如果遇到这个错误，请向我们[提交 BUG 反馈](https://github.com/serverless/serverless-tencent/issues/new?assignees=&labels=&template=BUG.md), 并请再 BUG 反馈中提供尽可能多的信息（复现步骤，源代码包，requestId 等），以便我们进一步定位并解决相关问题。
