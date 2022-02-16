@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.20.2](https://github.com/serverless/serverless-tencent/compare/v3.20.1..v3.20.2) (2022-02-16)
+
+- Fix `terminal proxy` error
+- Enable users to choose local and global credentials: https://github.com/serverless/serverless-tencent/pull/133
+
 # [3.20.1](https://github.com/serverless/serverless-tencent/compare/v3.20.0...v3.20.1) (2022-02-02)
 
 - Show pure **version** messgae for `version --plain` command
