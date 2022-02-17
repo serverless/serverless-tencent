@@ -21,6 +21,7 @@ jest.mock('@serverless/platform-client-china', () => {
 
     utils: {
       getOrgId: async () => 123,
+      sleep: async (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
     },
   };
 });
@@ -73,10 +74,8 @@ describe('Test getLogs: src/commands/getLogs', () => {
   test('test logs with interval', async () => {
     const tailLogs = logsCmd({ t: true }, cli);
     const sleep500 = new Promise((resolve) => setTimeout(resolve, 500, 'one'));
-    jest.useFakeTimers();
     const value = await Promise.race([tailLogs, sleep500]);
     expect(value).toBe('one');
-    jest.runOnlyPendingTimers();
   });
 
   test('test empty response', async () => {
