@@ -21,7 +21,8 @@ jest.mock('@serverless/platform-client-china', () => {
 
     utils: {
       getOrgId: async () => 123,
-      sleep: async (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
+      // Rejecting here to ensure sls logs -t exits
+      sleep: async () => new Promise((_, reject) => setTimeout(reject, 500)),
     },
   };
 });
@@ -73,7 +74,7 @@ describe('Test getLogs: src/commands/getLogs', () => {
 
   test('test logs with interval', async () => {
     const tailLogs = logsCmd({ t: true }, cli);
-    const sleep500 = new Promise((resolve) => setTimeout(resolve, 500, 'one'));
+    const sleep500 = new Promise((resolve) => setTimeout(resolve, 100, 'one'));
     const value = await Promise.race([tailLogs, sleep500]);
     expect(value).toBe('one');
   });

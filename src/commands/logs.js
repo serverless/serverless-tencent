@@ -202,7 +202,7 @@ module.exports = async (config, cli, command) => {
             lastLogList = newLogList;
           }
         }
-        chinaUtils.sleep(Number(intervalValue) || 2000);
+        await chinaUtils.sleep(Number(intervalValue) || 2000);
         await logInterval();
       };
       await logInterval();
