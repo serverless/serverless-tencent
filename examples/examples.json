@@ -1,4 +1,28 @@
 [
+    {
+    "title": "[官方示例] ShortenURL 短链接生成应用",
+    "name": "official-shortenURL-generator",
+    "description": "Serverless 官方示例应用，短链接生成应用",
+    "githubUrl": "https://github.com/serverless-components/tencent-shortenUrl",
+    "platform": "tencent",
+    "component": "http",
+    "language": "Node.js",
+    "stack": ["网站应用", "Web框架", "数据库"],
+    "authorLink": "https://github.com/zongUMR",
+    "authorAvatar": "https://avatars.githubusercontent.com/u/11454175?v=4",
+  },
+  {
+    "title": "[官方示例] Todo List 待办事项应用",
+    "name": "official-todo-list",
+    "description": "Serverless 官方示例应用，待办事项管理应用",
+    "githubUrl": "https://github.com/serverless-components/tencent-todo-app",
+    "platform": "tencent",
+    "component": "http",
+    "language": "Node.js",
+    "stack": ["网站应用", "Web框架", "数据库"],
+    "authorLink": "https://github.com/zongUMR",
+    "authorAvatar": "https://avatars.githubusercontent.com/u/11454175?v=4",
+  },
   {
     "title": "Serverless 评论系统",
     "name": "timqian-murmur",
@@ -318,28 +342,4 @@
     "authorAvatar": "https://avatars.githubusercontent.com/u/8536173?v=4",
     "disableReadme": true
   },
-  {
-    "title": "ShortenURL 短链接生成器",
-    "name": "shortenURL-generator",
-    "description": "使用Serverless + Tencent Cloud 一键快速部署一个短链接生成器",
-    "githubUrl": "https://github.com/serverless-components/tencent-shortenUrl",
-    "platform": "tencent",
-    "component": ["vpc", "postgresql", "http", "website"],
-    "language": "Node.js",
-    "stack": ["网站应用"],
-    "authorLink": "https://github.com/zongUMR",
-    "authorAvatar": "https://avatars.githubusercontent.com/u/11454175?v=4",
-  },
-  {
-    "title": "Todo List 待办事项应用",
-    "name": "todo-list",
-    "description": "使用Serverless + Tencent Cloud 一键快速部署一个待办事项应用",
-    "githubUrl": "https://github.com/serverless-components/tencent-todo-app",
-    "platform": "tencent",
-    "component": ["vpc", "postgresql", "http", "website"],
-    "language": "Node.js",
-    "stack": ["网站应用"],
-    "authorLink": "https://github.com/zongUMR",
-    "authorAvatar": "https://avatars.githubusercontent.com/u/11454175?v=4",
-  }
 ]
