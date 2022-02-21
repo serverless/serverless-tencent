@@ -60,7 +60,7 @@ Serverless 致力于提供不限定云厂商的一致的无服务器开发体验
 
 ### 为什么 Serverless 在国内默认使用腾讯云？
 
-Serverless 与腾讯云达成了战略合作伙伴的关系，Serverless 同腾讯云一起通过深度定制的云厂商基础服务设施，解决了 Serverless 产品功能上面的许多局限性，比如对传统 WEB 框架（ Express, django, Spring ）应用的支持等, 并集成进腾讯云现有的云控制中心方便用户进行统一管理。 我们通过与腾讯云的深度合作，来为用户带来超越其他云厂商的 Serverless 应用开发体验。
+Serverless 与腾讯云达成了战略合作伙伴的关系，Serverless 同腾讯云一起通过深度定制的云厂商基础服务设施，解决了 Serverless 产品功能上面的许多局限性，比如对传统 WEB 框架（ Express, Django, Spring ）应用的支持等, 并集成进腾讯云现有的云控制中心方便用户进行统一管理。 我们通过与腾讯云的深度合作，来为用户带来超越其他云厂商的 Serverless 应用开发体验。
 
 <span id="cli-1"></span>
 
