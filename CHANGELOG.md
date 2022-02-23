@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.20.3](https://github.com/serverless/serverless-tencent/compare/v3.20.2..v3.20.3) (2022-02-23)
+
+- Request new logs only after earlier action succeed
+
 # [3.20.2](https://github.com/serverless/serverless-tencent/compare/v3.20.1..v3.20.2) (2022-02-16)
 
 - Fix `terminal proxy` error
