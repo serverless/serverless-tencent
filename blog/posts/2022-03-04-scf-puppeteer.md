@@ -44,7 +44,7 @@ exports.main_handler = async (event, context) => {
 }
 ```
 
-### 1.2 编写 puppeteer 脚本
+### 1.2 编写 Puppeteer 脚本
 
 由于 SCF 默认集成了 Puppeteer，所以你无需 `npm install puppeteer`, 直接在代码中 `require` 使用即可。我们将初始化的函数代码修改成如下形式：
 
