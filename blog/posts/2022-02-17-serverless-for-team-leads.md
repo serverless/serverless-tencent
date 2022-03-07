@@ -3,7 +3,7 @@ title: 给团队的 Serverless 最佳实践
 description: 介绍适合使用 Serverless 进行开发的应用场景，通过典型的应用案例说明 Serverless 在这些场景中发挥的作用和价值。
 date: 2021-02-17
 layout: Post
-thumbnail: 
+thumbnail: https://sp-assets-1300963013.file.myqcloud.com/blog/thumbnails/2022-02-17-serverless-for-team-leads.png
 authors:
   - OliverWang
 category:
