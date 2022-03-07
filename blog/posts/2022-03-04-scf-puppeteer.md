@@ -3,7 +3,7 @@ title: 使用 Serverless 快速部署和使用 Puppeteer 应用
 description: 如何使用 Serverless Framework 快速初始化一个 Puppeteer 应用，部署到 SCF 平台，以及方便得使用
 date: 2022-03-04
 layout: Post
-thumbnail: 
+thumbnail: https://sp-assets-1300963013.file.myqcloud.com/blog/thumbnails/2022-03-04-scf-puppeteer.png
 authors:
   - TimQian
 category:
