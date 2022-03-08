@@ -12,37 +12,37 @@ console.log(`Going to warm up CDN for version ${version}`);
 const CdnClient = tencentcloud.cdn.v20180606.Client;
 
 const clientConfig = {
-	credential: {
+  credential: {
     secretId: process.env.TENCENT_SECRET_ID,
     secretKey: process.env.TENCENT_SECRET_KEY,
-	},
-	region: '',
-	profile: {
-		httpProfile: {
-			endpoint: 'cdn.tencentcloudapi.com',
-		},
-	},
+  },
+  region: '',
+  profile: {
+    httpProfile: {
+      endpoint: 'cdn.tencentcloudapi.com',
+    },
+  },
 };
 
 const client = new CdnClient(clientConfig);
 const params = {
-	'Urls': [
-		'https://slt-binary-sv-1300963013.file.myqcloud.com/latest-tag',
-		`https://slt-binary-sv-1300963013.file.myqcloud.com/${version}/serverless-tencent-macos-x64`,
-		`https://slt-binary-sv-1300963013.file.myqcloud.com/${version}/serverless-tencent-macos-armv6`,
-		`https://slt-binary-sv-1300963013.file.myqcloud.com/${version}/serverless-tencent-linux`,
-		`https://slt-binary-sv-1300963013.file.myqcloud.com/${version}/serverless-tencent-win-x64`,
-	]
+  Urls: [
+    'https://slt-binary-sv-1300963013.file.myqcloud.com/latest-tag',
+    `https://slt-binary-sv-1300963013.file.myqcloud.com/${version}/serverless-tencent-macos-x64`,
+    `https://slt-binary-sv-1300963013.file.myqcloud.com/${version}/serverless-tencent-macos-armv6`,
+    `https://slt-binary-sv-1300963013.file.myqcloud.com/${version}/serverless-tencent-linux`,
+    `https://slt-binary-sv-1300963013.file.myqcloud.com/${version}/serverless-tencent-win-x64`,
+  ],
 };
 
 // eslint-disable-next-line new-cap
 client.PushUrlsCache(params).then(
-	(data) => {
-		console.log(data);
-		console.log(`${version} is warmed up successfully`);
-	},
-	(err) => {
-		console.error('error', err);
-		throw err;
-	}
+  (data) => {
+    console.log(data);
+    console.log(`${version} is warmed up successfully`);
+  },
+  (err) => {
+    console.error('error', err);
+    throw err;
+  }
 );

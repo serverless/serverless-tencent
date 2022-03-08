@@ -15,7 +15,7 @@
     "prettier-check:updated": "pipe-git-updated --ext=css --ext=html --ext=js --ext=json --ext=md --ext=yaml --ext=yml -- prettier -c",
     "prebuild": "rm -fr dist",
     "build": "webpack",
-    "prettify": "prettier --write src/ tests/",
+    "prettify": "prettier --write src/ tests/ scripts/ .github/workflows/",
     "test": "jest ./tests --verbose -o",
     "test:coverage": "jest --silent --coverage --coverageReporters=\"text\" --coverageReporters=\"text-summary\"",
     "testOne": "jest --verbose -o",

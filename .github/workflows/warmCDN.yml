@@ -3,12 +3,12 @@ name: Warm CDN
 on:
   # Trigger it when the publish workflow succeeded
   workflow_run:
-    workflows: ["Publish"]
+    workflows: ['Publish']
     types:
       - completed
   # Trigger it every day
   schedule:
-    - cron: "0 0 * * *"
+    - cron: '0 0 * * *'
   # Trigger it manually
   workflow_dispatch:
 
@@ -40,6 +40,6 @@ jobs:
         run: |
           npm update --no-save
           npm update --save-dev --no-save
-      
+
       - name: Run the script
         run: npm run warmCDN
