@@ -21,7 +21,8 @@
     "testOne": "jest --verbose -o",
     "prepare": "husky install",
     "pkg:build": "node ./scripts/pkg/build.js",
-    "pkg:upload": "node ./scripts/pkg/upload/index.js"
+    "pkg:upload": "node ./scripts/pkg/upload/index.js",
+    "warmCDN": "node ./scripts/cdnWarmer/index.js"
   },
   "eslintConfig": {
     "extends": "@serverless/eslint-config/node",
@@ -96,6 +97,7 @@
     "pkg": "^5.5.1",
     "prettier": "^2.4.1",
     "process-utils": "^4.0.0",
+    "tencentcloud-sdk-nodejs": "^4.0.301",
     "webpack": "^5.52.1",
     "webpack-cli": "^4.8.0",
     "webpack-node-externals": "^3.0.0"
