@@ -29,9 +29,7 @@ const isStandaloneExecutable = Boolean(
 );
 
 const resolveLatestTag = async () => {
-  const { body } = await got.get(
-    'https://slt-binary-sv-1300963013.file.myqcloud.com/latest-tag'
-  );
+  const { body } = await got.get('https://slt-binary-sv-1300963013.file.myqcloud.com/latest-tag');
   return body;
 };
 
