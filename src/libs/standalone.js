@@ -30,7 +30,7 @@ const isStandaloneExecutable = Boolean(
 
 const resolveLatestTag = async () => {
   const { body } = await got.get(
-    'https://slt-binary-sv-1300963013.cos.accelerate.myqcloud.com/latest-tag'
+    'https://slt-binary-sv-1300963013.file.myqcloud.com/latest-tag'
   );
   return body;
 };
@@ -58,7 +58,7 @@ const resolveUrl = (tagName) => {
     }
   })();
 
-  return `https://slt-binary-sv-1300963013.cos.accelerate.myqcloud.com/${tagName}/serverless-tencent-${platform}-${arch}${
+  return `https://slt-binary-sv-1300963013.file.myqcloud.com/${tagName}/serverless-tencent-${platform}-${arch}${
     process.platform === 'win32' ? '.exe' : ''
   }`;
 };
