@@ -42,4 +42,7 @@ jobs:
           npm update --save-dev --no-save
 
       - name: Run the script
+        env:
+          TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
+          TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
         run: npm run warmCDN
