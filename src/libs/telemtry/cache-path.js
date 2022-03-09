@@ -6,5 +6,5 @@ const os = require('os');
 module.exports = (() => {
   const resolvedHomeDir = os.homedir();
   if (!resolvedHomeDir) return null;
-  return path.resolve(resolvedHomeDir, '.serverless-tencent', 'telemtry-cache');
+  return path.resolve(resolvedHomeDir, '.serverless-tencent', 'telemetry-cache');
 })();

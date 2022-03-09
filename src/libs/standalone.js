@@ -124,7 +124,7 @@ const standaloneUpgrade = async (options) => {
     cliProgressFooter.progressAnimationPrefixFrames.map((frame) => `\x1b[93m${frame}\x1b[39m`);
 
   const standaloneTelemetryPayload = await generatePayload({
-    command: 'standaloneUpgrade'
+    command: 'upgrade',
   });
 
   try {
@@ -172,12 +172,15 @@ const standaloneUpgrade = async (options) => {
     console.log(red(`升级失败: ${e.message}`));
 
     e.source = 'Serverless::CLI';
-    e.step = 'CLI升级standalone';
-    await storeLocally({
-      ...standaloneTelemetryPayload,
-      outcome: 'failure',
-      failure_reason: e.message,
-    }, e);
+    e.step = '升级命令行';
+    await storeLocally(
+      {
+        ...standaloneTelemetryPayload,
+        outcome: 'failure',
+        failure_reason: e.message,
+      },
+      e
+    );
 
     process.exit(-1);
   } finally {
