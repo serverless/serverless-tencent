@@ -39,6 +39,7 @@ client.PushUrlsCache({
       `https://slt-binary-sv-1300963013.file.myqcloud.com/${version}/serverless-tencent-linux`,
       `https://slt-binary-sv-1300963013.file.myqcloud.com/${version}/serverless-tencent-win-x64`,
     ],
+    Area: 'global',
   })
   .then(
     (data) => {
@@ -66,6 +67,7 @@ got('https://slt-binary-sv-1300963013.file.myqcloud.com/latest-tag')
     // eslint-disable-next-line new-cap
     return client.PushUrlsCache({
       Urls: ['https://slt-binary-sv-1300963013.file.myqcloud.com/latest-tag'],
+      Area: 'global',
     });
   })
   .then(
