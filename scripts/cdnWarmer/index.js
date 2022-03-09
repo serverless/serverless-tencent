@@ -34,10 +34,10 @@ const client = new CdnClient(clientConfig);
 // eslint-disable-next-line new-cap
 client.PushUrlsCache({
     Urls: [
-      `https://slt-binary-sv-1300963013.file.myqcloud.com/${version}/serverless-tencent-macos-x64`,
-      `https://slt-binary-sv-1300963013.file.myqcloud.com/${version}/serverless-tencent-macos-armv6`,
-      `https://slt-binary-sv-1300963013.file.myqcloud.com/${version}/serverless-tencent-linux`,
-      `https://slt-binary-sv-1300963013.file.myqcloud.com/${version}/serverless-tencent-win-x64`,
+      `https://slt-binary-sv-1300963013.file.myqcloud.com/v${version}/serverless-tencent-macos-x64`,
+      `https://slt-binary-sv-1300963013.file.myqcloud.com/v${version}/serverless-tencent-macos-armv6`,
+      `https://slt-binary-sv-1300963013.file.myqcloud.com/v${version}/serverless-tencent-linux`,
+      `https://slt-binary-sv-1300963013.file.myqcloud.com/v${version}/serverless-tencent-win-x64`,
     ],
     Area: 'global',
   })
