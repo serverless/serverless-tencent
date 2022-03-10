@@ -17,6 +17,7 @@ const { promisify } = require('util');
 const pipeline = promisify(stream.pipeline);
 const confirm = require('@serverless/utils/inquirer/confirm');
 const { readAndParseSync, USER_PERFERENCE_FILE, writePerference } = require('./utils');
+const { storeLocally, generatePayload } = require('./telemtry');
 
 const BINARY_TMP_PATH = path.resolve(os.tmpdir(), 'serverless-tencent-binary-tmp');
 const BINARY_PATH = `${os.homedir()}/.serverless-tencent/bin/serverless-tencent${
@@ -122,6 +123,10 @@ const standaloneUpgrade = async (options) => {
   cliProgressFooter.progressAnimationPrefixFrames =
     cliProgressFooter.progressAnimationPrefixFrames.map((frame) => `\x1b[93m${frame}\x1b[39m`);
 
+  const standaloneTelemetryPayload = await generatePayload({
+    command: 'upgrade',
+  });
+
   try {
     // For auto upgrade situation, need users to confirm the upgrade, or it will skip after 5s
     let answer;
@@ -162,8 +167,21 @@ const standaloneUpgrade = async (options) => {
     await fsp.chmod(BINARY_PATH, 0o755);
 
     console.log('\n升级成功');
+    await storeLocally(standaloneTelemetryPayload);
   } catch (e) {
     console.log(red(`升级失败: ${e.message}`));
+
+    e.source = 'Serverless::CLI';
+    e.step = '升级命令行';
+    await storeLocally(
+      {
+        ...standaloneTelemetryPayload,
+        outcome: 'failure',
+        failure_reason: e.message,
+      },
+      e
+    );
+
     process.exit(-1);
   } finally {
     cliProgressFooter.updateProgress();
