@@ -1,7 +1,8 @@
 'use strict';
 
+const { utils: chinaUtils } = require('@serverless/platform-client-china');
 module.exports = async (payload) => {
-  const notificationsUrl = (() => require('@serverless/utils/analytics-and-notfications-url'))();
+  const notificationsUrl = chinaUtils.getMetricsUrl();
 
   if (!notificationsUrl) return null;
 
