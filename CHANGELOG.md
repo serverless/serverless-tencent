@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.21.2](https://github.com/serverless/serverless-tencent/compare/v3.21.1..v3.21.2) (2022-03-16)
+
+- Republish new version for binary upload
+
 # [3.21.1](https://github.com/serverless/serverless-tencent/compare/v3.21.0..v3.21.1) (2022-03-16)
 
 - Add metrics for standalone upgrade(https://github.com/serverless/serverless-tencent/pull/155)
