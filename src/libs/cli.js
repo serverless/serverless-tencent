@@ -140,9 +140,9 @@ module.exports = class CLI {
       let content = '';
       if (this._.timer) {
         content += `${`${this._.timerSeconds}s`}`;
-        content += ` ${figures.pointerSmall} `;
+        content += ` ${figures.pointerSmall}`;
       }
-      content += `${this._.entity} `;
+      content += `${this._.entity}`;
       content += `${figures.pointerSmall} ${messageOrError.message || messageOrError}`; // In case an error object was passed in
       process.stdout.write(color(content));
     }
@@ -243,7 +243,7 @@ ${red('Error:')}
     const source = error.source || extraErrorInfo.source;
 
     if (step) {
-      extraMessage += `${pureStep.has(step) ? step : `${step}失败`} `;
+      extraMessage += `${pureStep.has(step) ? step : `${step}失败`}`;
     }
     if (source) {
       extraMessage += `(${grey(source)})`;
@@ -519,7 +519,7 @@ TraceId:     ${traceId}`;
       // Print Status
       if (this._.status !== this._.lastStatus) {
         this.log(`${this._.status}...`);
-        this._.lastStatus = `${this._.status} `;
+        this._.lastStatus = `${this._.status}`;
       }
     }
 
@@ -549,14 +549,12 @@ TraceId:     ${traceId}`;
       console.log();
       let content = '';
       if (this._.timer) {
-        content += `${this._.statusColor(`${this._.timerSeconds}s`)} `;
-        content += `${this._.statusColor(figures.pointerSmall)} `;
+        content += `${this._.statusColor(`${this._.timerSeconds}s`)}`;
+        content += `${this._.statusColor(figures.pointerSmall)}`;
       }
-      content += `${this._.statusColor(this._.entity)} `;
-      content += `${this._.statusColor(figures.pointerSmall)} ${this._.statusColor(
-        this._.status
-      )} `;
-      content += ` ${this._.statusColor(this._.loadingDots)} `;
+      content += `${this._.statusColor(this._.entity)}`;
+      content += `${this._.statusColor(figures.pointerSmall)} ${this._.statusColor(this._.status)}`;
+      content += ` ${this._.statusColor(this._.loadingDots)}`;
       process.stdout.write(content);
       console.log();
 
