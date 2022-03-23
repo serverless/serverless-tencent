@@ -138,7 +138,7 @@ const standaloneUpgrade = async (options) => {
       }
     }, 5000);
 
-    answer = await confirm('Serverless CLI 有新版本更新，是否立即升级？', {
+    answer = await confirm('Tencent Serverless CLI 有新版本更新，是否立即升级？', {
       name: 'autoUpgradeCLI',
     });
     clearTimeout(tid);
@@ -189,7 +189,7 @@ const standaloneUpgrade = async (options) => {
 };
 
 const uninstall = async () => {
-  console.log('正在卸载 serverless-tencent CLI 独立版本');
+  console.log('正在卸载 Tencent Serverless CLI ...');
   await fse.remove(path.dirname(BINARY_PATH));
 
   console.log('卸载成功');
