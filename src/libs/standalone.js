@@ -148,7 +148,7 @@ const standaloneUpgrade = async (options) => {
       return;
     }
 
-    cliProgressFooter.updateProgress(`正在升级 Serverless Tencent CLI ${latestTag}`);
+    cliProgressFooter.updateProgress(`正在升级 Tencent Serverless CLI ${latestTag}`);
     const downloadUrl = resolveUrl(latestTag);
 
     await fse.ensureDir(path.dirname(BINARY_PATH));
