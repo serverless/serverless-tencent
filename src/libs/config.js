@@ -17,8 +17,6 @@ const CLI = require('./cli');
 
 module.exports = () => {
   const args = minimist(process.argv.slice(2));
-  const instanceConfig = loadInstanceConfig(process.cwd());
-  const stage = args.stage || (instanceConfig && instanceConfig.stage) || 'dev';
   const params = [];
   if (args._[1]) {
     params.push(args._[1]);
@@ -35,6 +33,9 @@ module.exports = () => {
 
   const config = { ...args, params };
   try {
+    const instanceConfig = loadInstanceConfig(process.cwd());
+    const stage = args.stage || (instanceConfig && instanceConfig.stage) || 'dev';
+
     if (config._) {
       delete config._;
     }
@@ -172,7 +173,7 @@ module.exports = () => {
     }
     const cli = new CLI({});
     cli.logError(e, { command: args._[0] });
-    process.exit();
+    process.exit(1);
   }
   return config;
 };
