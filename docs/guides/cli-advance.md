@@ -1,70 +1,142 @@
 ---
-title: "Tencent Serverless - CLI 高级功能"
-menuText: "CLI 高级使用技巧"
+title: "Tencent Serverless - CLI 高级指南"
+menuText: "Tencent CLI 使用指南"
 menuOrder: 7
 description: 介绍 CLI 的高级功能和使用方法
 layout: Doc
 ---
 
-Serverless Tencent CLI 是为中国用户提供的全中文 CLI 开发工具，Serverless Tencent CLI 同 Serverless Framework CLI 共同使用 `serverless` 或 `sls` 来启用，会根据用户所在的位置(基于系统时区)或手动配置的环境变量来自动切换选择。通常用户不需要额外进行配置。
+# Tencent CLI 高级指南
 
-在某些特殊使用场景，或用户想要指定使用某一个 CLI 时，可以通过手动方式来进行切换，相关使用场景和切换方式如下
+Serverless 为中国用户在腾讯云上进行 Serverless 开发提供了专门的 Tencent CLI 工具，使用方式和功能都与 Serverless Framework CLI （为在 AWS 上进行 Serverless 开发提供了支持）保持一致，并针对腾讯云的基础设施进行了优化，同时 CLI 中所有内容进行了汉化。
 
-## 如何切换 Framework 与 Tencent CLI 以及云供应商
+在使用时 Tencent CLI 作为 Serverless Framework CLI 的一个动态依赖会在需要的时候自动安装并接管 Serverless CLI 的全部命令。这里自动安装接管的逻辑是：
 
-### 切换 CLI
+* 用户当前所在的时区未中国时区。
+* 用户当前的项目时 Tencent Serverless 项目。
 
-如果用户想要使用 Serverless Framework CLI 进行 Framework 开发 （更多内容请参考 [Framework 说明文档](https://www.serverless.com/framework/docs/getting-started) ）可以通过一下方式指定使用 Serverless Frameowrk CLI。
+## 切换腾讯云与 AWS
 
-* 在已经创建的 Serverless Frameowrk 项目目录中执行命令。
-* 在包含 `.env` 环境变量配置文件的目录中，同时环境变量中没有声明 `SERVERLESS_PLATFORM_VENDOR` 为 `tencent` 时执行命令。
-* 在执行命令时指定环境变量 `SLS_GEO_LOCATION` 不为 `cn` (可以指定为 `us`)。
+### 指定使用 Tencent CLI - 腾讯云
 
-相反，如果用户想要确保执行的 `serverless` 或 `sls` 命令会匹配到 Serverless Tencent CLI 与腾讯云环境，可以通过以下方式。
+1. 在已有的 Tencent Serverless 项目目录中执行 `serverless` 命令。（CLI 会根据项目的配置文件 `serverless.yml` 自动选择匹配 Tencent CLI。）
 
-* 在执行命令目录中添加环境配置文件 `.env`, 同时在环境变量文件中声明 `SERVERLESS_PLATFORM_VENDOR` 为 `tencent` 时执行命令。
-* 在执行命令时指定环境变量 `SLS_GEO_LOCATION` 为 `cn`。
+2. 通过在执行 `serverless` 命令前添加环境变量 `SERVERLESS_PLATFORM_VENDOR` 并设置值为 `tencent`，如：
+```bash
+SERVERLESS_PLATFORM_VENDOR=tencent serverless deploy
+```
 
-### 切换云供应商
+> 也可以使用 `SLS_GEO_LOCATION` 并将值设置为 `cn`
 
-目前 Serverless Tencent CLI 是针对腾讯云优化的专属 Serverless 中文组件 CLI 开发工具。如果用户想要切换云供应商，需要使用 Serverless Framework CLI 并根据 [Serverless Framework 的云供应商文档](https://www.serverless.com/framework/docs/providers)说明安装相关插件后使用其他云供应商作为基础设施供应商。
+3. 在 Serverless 应用目录的环境配置文件 `.env` 中添加环境变量配置 `SERVERLESS_PLATFORM_VENDOR=tencent`。
 
-> 目前 Serverless Frameowrk 因为国内云厂商接口和基础设施开放程度不同，对不同云厂商的支持有限，建议大家使用腾讯云和 Serverless Tencent CLI 来进行无服务器应用开发。 未来我们会进一步完善对其他云厂商的支持。
+> .env 文件的加载顺序优先级是： `--target` 指定目录 > 执行命令目录 > 执行命令父目录 > 执行命令父父目录 > 全局变量。
 
-## 如何升级 Tencent CLI
+### 指定使用 Serverless Framework CLI - AWS
 
-基于不同的使用情况，您需要使用不同的方式来升级您的 Tencent CLI。
+1. 在已有的 Serverless Framework 项目目录中执行 `serverless` 命令。（CLI 会根据项目的配置文件 `serverless.yml` 自动选择匹配 Serverless Framework CLI。）
 
-### 使用自动安装（二进制形式）
+2. 通过在执行 `serverless` 命令前添加环境变量 `SERVERLESS_PLATFORM_VENDOR` 并设置值为 `aws`，如：
+```bash
+SERVERLESS_PLATFORM_VENDOR=aws serverless deploy
+```
 
-当您通过 npm 使用 `npm i serverless -g` 安装 Serverless Frameowrk CLI 后， 同时当您的 Serverless Frameowrk CLI 版本为 V3 版本时，会根据您所在的时区以及使用情况自动为您安装 二进制格式的 Serverless Tencent CLI，在这种情况下，会在您执行任意命令完成之后自动检查是否有新的版本发布，并提示您进行升级，您只需要确认升级等待升级完成即可。
+> 也可以使用 `SLS_GEO_LOCATION` 并将值设置为 `us`
 
-> 这里的升级命令检查不包括 deploy，version， 以及 --help 。
+> 注意：Serverless Framework CLI 不再支持项目 .env 变量配置加载，所以不能在 Framework 项目中使用 .env 方式切换 CLI。
 
-### 使用 npm 安装
+## 指定 Tencent CLI 版本
 
-我们建议您使用 自动安装的 Serverless Tencent CLI 二进制形式，不过如果因为系统原因，有些二进制文件支持出现问题时，一样可以通过 `npm i serverless-tencent -g` 来手动安装 Serverless Tencent CLI。这是您可以通过 `npm upgrade serverless-tencent -g` 来手动升级 Serverless Tencent CLI的 npm 包，同时我们也会在有新版本发布后进行提示。
+因为 Serverless Framework CLI 自动安装的 Tencent CLI 会自动安装当前发布的最新发布版本，如果需要使用指定版本的 Tencent CLI 可以使用一下方式指定：
 
-> 这种情况需要确认没有安装二进制的 Serverless Tencent CLI 工具，否则会优先使用 Serverless Tencent CLI 的二进制包来执行相关命令。
+> 使用指定版本的 Tencent CLI （npm 安装版本）后需要手动对 Tencent CLI 进行升级。
 
-## 切换二进制与 npm 类型的 Tencent CLI
+### 全局指定 Tencent CLI 版本
 
-Serverless Framework CLI 会按照一下顺序加载 Serverless Tencent CLI
+使用 npm 全局方式安装 `serverles-tencent` 并制定所需的版本后，
+```bash
+npm i serverless-tencent@3.21.0 -g
+```
 
-1. 当前目录通过 npm 安装的 Serverless Tencent CLI 包
-2. 全局通过 npm 安装的 Serverless Tencent CLI 包
-3. 二进制类型 Serverless Tencent CLI (文件存储在 `~/.serverless-tencent/bin` 目录下)
+Serverless Framework CLI 会优先于自动安装的 Tencent CLI 加载使用全局安装的 npm 版本。
 
-> 您可以通过 `sls -v` 查看 Serverless Tencent CLI 版本后的类型信息来确认当前使用的 Serverless Tencent CLI 类型。
+可以通过 `serverless -v` 来查看当前使用的 Tencent CLI 版本和来源。 全局版本提示信息如下：
 
-因为系统硬件环境原因导致您无法使用二进制类型的 Serverless Tencent CLI，或您想要使用指定的版本的 Serverless Tencent CLI，您可以通过以下方式来安装 npm 类型的 Serverless Tencent CLI:
+```bash
+Framework Core: 3.2.1
+Plugin: 6.0.0
+SDK: 4.3.1
+Tencent CLI: 3.21.0 (npm global)
+```
 
-1. 确认已安装 Serverless Framework CLI (使用 `npm i serverless -g`来安装)
-2. 删除 `~/.serverless-tencent/bin` 目录下的二进制类型的 Serverless Tencent CLI
-3. 在全局(使用 `npm i serverless-tencent -g`)或在执行命令目录(使用 `npm i serverless-tencent`)安装 npm 类型的 Serverless Tencent CLI (同时您也可以指定具体的版本( 如 `npm i serverless-tencent@3.20.1`)来安装指定版本的 Serverless Tencent CLI)
+### 本地指定 Tencent Serveress CLI 版本
 
-同样，如果您想使用二进制类型的 Serverless Tencent CLI，您可以通过以下方式来安装 二进制类型的 Serverless Tencent CLI
+使用 npm 本地方式安装 `serverles-tencent` 并制定所需的版本后，
+```bash
+ npm i serverless-tencent@3.21.1
+```
 
-1. 确认已安装 Serverless Framework CLI (使用 `npm i serverless -g`来安装)
-2. 删除全局(使用 `npm uninstall serverless-tencent -g`)和执行命令目录((使用 `npm uninstall serverless-tencent`))已安装的 npm 类型的 Serverless Tencent CLI.
-3. 在中国或腾讯云环境下(指定环境变量 `SLS_GEO_LOCATION` 为 `cn` 或 `SERVERLESS_PLATFORM_VENDOR` 为 `tencent`)执行任意命令 如 `serverless` 或 `sls`，都会自动完成二进制类型的 Serverless Tencent CLI 安装。
+Serverless Framework CLI 会优先于自动安装的 Tencent Serverless CLI 以及全局安装的 npm 版本，加载使用本地安装的 npm 版本。
+
+可以通过 `serverless -v` 来查看当前使用的 Tencent Serverless CLI 版本和来源。 本地版本提示信息如下：
+
+```bash
+Framework Core: 3.2.1
+Plugin: 6.0.0
+SDK: 4.3.1
+Tencent CLI: 3.21.1 (npm local)
+```
+
+### 恢复自动安装的 Tencent CLI（编译版本）
+
+如果要恢复使用 Serverless Framework CLI 自动安装的 Tencent CLI (编译版本)，可以通过删除全局和本地的 npm 版本的 Tencent CLI：
+
+```bash
+# 删除本地安装的 serverless-tencent
+npm uninstall serverless-tencent
+
+# 删除全局安装的 serverless-tencent
+npm uninstall serverless-tencent -g
+```
+
+可以通过 `serverless -v` 来查看当前使用的 Tencent CLI 版本和来源。 自动安装的编译版本提示信息如下：
+
+```bash
+Framework Core: 3.2.1
+Plugin: 6.0.0
+SDK: 4.3.1
+Tencent CLI: 3.21.2 (binary)
+```
+
+## Tencent 常见问题
+
+### 如何升级
+
+#### 自动安装的编译版本
+
+通过 Serverless Framework CLI 自动安装的编译版本 Tencent CLI 会在执行命令之后自动检查是否有新的版本发布，并提示用户进行升级，用户根据需要进行选择即可：
+
+```bash
+Tencent Serverless CLI 有新版本更新，是否立即升级？(Y/n)
+
+# 确认升级后会自动下载并安装最新的 Serverless Tencent CLI。
+⠧ 正在升级 Tencent Serverless CLI 
+```
+
+> 为了避免升级功能阻塞 CI/CD 使用流程以及使用体验，在命令 `deploy` 和 `help` 命令执行完成后不会检查并提示升级。 
+
+#### NPM 版本升级
+
+通过 npm 安装的 Tencent CLI 需要手动进行升级，命令如下：
+
+```bash
+npm update serverless-tencent -g
+```
+
+### Serverless Components CLI is no longer bundled with Serverless Framework CLI
+
+如果遇到这个错误提示，同时您确认您没有尝试在 AWS 上部署 Serverless Components 项目，那么通常是因为 Serverless CLI 并没有正确识别到应用或使用环境导致没有自动将命令转交给 Tencent CLI 执行。通常这种情况可以通过上方的 [指定使用 Tencent CLI](#指定使用-Tencent-CLI---腾讯云) 来指定使用，最近单的方法就是在执行 `serverless` 命令前添加要使用的云厂商环境变量信息：
+
+```bash
+SERVERLESS_PLATFORM_VENDOR=tencent serverless deploy
+```
