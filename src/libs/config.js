@@ -58,8 +58,20 @@ module.exports = () => {
     const secondParentDefaultEnvFilePath = path.join(process.cwd(), '../..', '.env');
     const secondParentStageEnvFilePath = path.join(process.cwd(), '../..', `.env.${stage}`);
 
+    const { target } = config;
+
+    let targetEnvFilePath, targetStageEnvFilePath;
+    if (target) {
+      targetEnvFilePath = path.join(process.cwd(), target, '.env');
+      targetStageEnvFilePath = path.join(process.cwd(), target, `.env.${stage}`);
+    }
+
     let dotEnvContent;
-    if (stage && fileExistsSync(stageEnvFilePath)) {
+    if (target && stage && fileExistsSync(targetStageEnvFilePath)) {
+      dotEnvContent = dotenv.config({ path: path.resolve(targetStageEnvFilePath) });
+    } else if (target && fileExistsSync(targetEnvFilePath)) {
+      dotEnvContent = dotenv.config({ path: path.resolve(targetEnvFilePath) });
+    } else if (stage && fileExistsSync(stageEnvFilePath)) {
       dotEnvContent = dotenv.config({ path: path.resolve(stageEnvFilePath) });
     } else if (fileExistsSync(defaultEnvFilePath)) {
       dotEnvContent = dotenv.config({ path: path.resolve(defaultEnvFilePath) });
