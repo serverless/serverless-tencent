@@ -70,7 +70,7 @@ module.exports = async (config, cli, command) => {
         .format('YYYY-MM-DD HH:mm:ss');
     } else if (!dayjs(startTime).isValid()) {
       cli.log(`Serverless: ${chalk.yellow('指定时间格式不正确，请检查后重试')}`);
-      process.exit();
+      process.exit(1);
     } else {
       startTimeValue = dayjs(startTime).tz('Asia/Shanghai').format('YYYY-MM-DD HH:mm:ss');
     }
@@ -90,7 +90,7 @@ module.exports = async (config, cli, command) => {
     cli.log(
       `Serverless: ${chalk.yellow('该命令暂不支持对多组件进行调用，请使用 --target 指定组件实例')}`
     );
-    process.exit();
+    process.exit(1);
   }
   await utils.checkBasicConfigValidation(instanceDir);
   await utils.login(config);

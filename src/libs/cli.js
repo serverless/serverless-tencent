@@ -355,7 +355,7 @@ TraceId:     ${traceId}`;
     console.log();
     console.log(chalk.gray('可以使用 --noValidation 跳过 serverless 应用配置校验'));
     if (errors.length > 0) {
-      process.exit();
+      process.exit(1);
     }
   }
 

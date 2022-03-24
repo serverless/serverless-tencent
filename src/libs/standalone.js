@@ -113,7 +113,7 @@ const standaloneUpgrade = async (options) => {
 
   if (semver.major(latestVersion) > semver.major(version) && !options.major) {
     console.log(red('Serverless CLI 有新版本发布，无法自动升级，请手动安装最新版本。'));
-    process.exit();
+    process.exit(1);
   }
 
   const getCliProgressFooter = require('cli-progress-footer');
@@ -129,7 +129,7 @@ const standaloneUpgrade = async (options) => {
       if (answer === undefined) {
         await writePerference({ standaloneUpgradeExpireDate: Date.now() }); // record the date that users choose don't upgrade
         console.log('\n超时无响应，已取消升级。');
-        process.exit();
+        process.exit(1);
       }
     }, 5000);
 
@@ -164,7 +164,7 @@ const standaloneUpgrade = async (options) => {
     console.log('\n升级成功');
   } catch (e) {
     console.log(red(`升级失败: ${e.message}`));
-    process.exit(-1);
+    process.exit(1);
   } finally {
     cliProgressFooter.updateProgress();
   }

@@ -67,7 +67,7 @@ module.exports = async (config, cli, command, globalTencentCredentials = default
           cli.log(
             `Serverless: ${chalk.yellow(`授权信息 ${profile} 已存在，请使用 --overwrite 进行覆写`)}`
           );
-          process.exit();
+          process.exit(1);
         }
         credContent[profile] = {
           ...credContent[profile],
@@ -109,7 +109,7 @@ module.exports = async (config, cli, command, globalTencentCredentials = default
         cli.log(
           `Serverless: ${chalk.yellow('未指定授权名称，请通过 --profile 指定要删除的授权名称')}`
         );
-        process.exit();
+        process.exit(1);
       }
     }
 
@@ -122,7 +122,7 @@ module.exports = async (config, cli, command, globalTencentCredentials = default
               `授权信息 ${profile} 不存在，请通过 serverless credentials list 查看当前授权信息`
             )}`
           );
-          process.exit();
+          process.exit(1);
         }
 
         delete credContent[profile];

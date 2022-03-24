@@ -642,7 +642,7 @@ const executeGraph = async (allComponents, command, graph, cli, sdk, options) =>
 
           // Don't try to deploy other instances if it's a permission issue
           if (error.code === 'ResourceNotFound.Role') {
-            process.exit();
+            process.exit(1);
           }
           return null;
         }
@@ -798,7 +798,7 @@ const loadTencentGlobalConfig = (
             `授权信息 ${profile} 不存在，请通过 serverless credentials list 查看当前授权信息`
           )}`
         );
-        process.exit();
+        process.exit(1);
       }
 
       return;
