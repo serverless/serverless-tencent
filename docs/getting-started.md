@@ -18,7 +18,7 @@ layout: Doc
 npm install -g serverless
 ```
 
-> 注意: 如果您的电脑上没有安装 Node.js 和 NPM，请先[安装他们](https://nodejs.org/zh-cn/)。我们建议您使用最新的长期维护版本（LTS）的 Node.js。
+> 注意: 如果您的电脑上没有安装 Node.js 和 NPM，请先[安装所需依赖](https://nodejs.org/zh-cn/)。我们建议您使用最新的长期维护版本（LTS）的 Node.js。
 
 ### 独立编译版本
 
@@ -57,7 +57,7 @@ npm install -g serverless
 npm install -g serverless@2
 ```
 
-Tencent Serverless CLI 会自动检查是否有最新发布版本，并提示您进行升级，如下：
+同时 Serverless 为腾讯云提供支持的 Tencent Serverless CLI 会自动检查是否有最新发布版本，并提示您进行升级，如下：
 
 ```bash
 Tencent Serverless CLI 有新版本更新，是否立即升级？(Y/n)
@@ -65,6 +65,8 @@ Tencent Serverless CLI 有新版本更新，是否立即升级？(Y/n)
 # 确认升级后会自动下载并安装最新的 Serverless Tencent CLI。
 ⠧ 正在升级 Tencent Serverless CLI 
 ```
+
+> 注意: Serverless CLI 会为中国用户和腾讯云的 Serverless 项目自动安装 Tencent Serverless CLI，并自动切换。如果您想使用 AWS 云服务，请在命令前添加环境变量 `SERVERLESS_PLATFORM_VENDOR=aws`。 更多内容请查看[ CLI 的高级使用说明](./guides/cli-advance)。
 
 ### 独立编译版本
 
