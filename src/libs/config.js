@@ -60,7 +60,8 @@ module.exports = () => {
 
     const { target } = config;
 
-    let targetEnvFilePath, targetStageEnvFilePath;
+    let targetEnvFilePath;
+    let targetStageEnvFilePath;
     if (target) {
       targetEnvFilePath = path.join(process.cwd(), target, '.env');
       targetStageEnvFilePath = path.join(process.cwd(), target, `.env.${stage}`);
