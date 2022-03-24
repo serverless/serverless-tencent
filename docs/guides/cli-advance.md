@@ -108,7 +108,7 @@ SDK: 4.3.1
 Tencent CLI: 3.21.2 (binary)
 ```
 
-## Tencent 常见问题
+## Tencent Serverless CLI 常见使用问题
 
 ### 如何升级
 
@@ -135,7 +135,7 @@ npm update serverless-tencent -g
 
 ### Serverless Components CLI is no longer bundled with Serverless Framework CLI
 
-如果遇到这个错误提示，同时您确认您没有尝试在 AWS 上部署 Serverless Components 项目，那么通常是因为 Serverless CLI 并没有正确识别到应用或使用环境导致没有自动将命令转交给 Tencent CLI 执行。通常这种情况可以通过上方的 [指定使用 Tencent CLI](#指定使用-Tencent-CLI---腾讯云) 来指定使用，最近单的方法就是在执行 `serverless` 命令前添加要使用的云厂商环境变量信息：
+如果遇到这个错误提示，同时您确认您没有尝试在 AWS 上部署 Serverless Components 项目，那么通常是因为 Serverless CLI 并没有正确识别到应用或使用环境导致没有自动将命令转交给 Tencent CLI 执行。通常这种情况可以通过上方的 [指定使用 Tencent CLI](#指定使用-tencent-cli---腾讯云) 来指定使用，最近单的方法就是在执行 `serverless` 命令前添加要使用的云厂商环境变量信息：
 
 ```bash
 SERVERLESS_PLATFORM_VENDOR=tencent serverless deploy
