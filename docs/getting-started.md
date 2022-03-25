@@ -8,90 +8,166 @@ layout: Doc
 
 # 开始使用 Serverless
 
-通过 Serverless CLI 命令就可以轻松的完成 Serverless 应用的创建，调试，部署，查看，移除。
+通过开源的 Serverless CLI 工具您仅需几分钟就可以开始无服务器的开发工作。
 
-## 安装/升级 Serverless CLI
+## 安装 Serverless CLI
 
-使用前请安装最新版本的 Serverless CLI 工具，您可以在命令行通过以下命令安装/更新：
+通过 NPM 安装最新的 Serverless CLI：
 
-```sh
-# 使用 npm 全局安装 serverless 命令行工具
-$ npm install -g serverless
+```bash
+npm install -g serverless
+```
 
-# 升级 serverless 命令行到最新版本
-$ npm update -g serverless
+> 注意: 如果您的电脑上没有安装 Node.js 和 NPM，请先[安装所需依赖](https://nodejs.org/zh-cn/)。我们建议您使用最新的长期维护版本（LTS）的 Node.js。
 
-# 使用 bash 安装 serverless 工具
+### 独立编译版本
+
+#### MacOS/Linux
+
+要安装最新的版本，请在终端命令行中执行以下命令：
+
+```bash
 curl -o- -L https://slss.io/install | bash
+```
 
-# 使用 choco 安装 serverless 工具
+可以指定 `VERSION` 变量来安装指定的版本，例如：
+
+```bash
+curl -o- -L https://slss.io/install | VERSION=2.72.2 bash
+```
+
+安装完成之后，您需要新打开一个终端命令行窗口才能执行 `serverless` 命令。
+
+#### Windows
+
+通过 [Chocolatey](https://chocolatey.org/) 进行安装：
+
+```bash
 choco install serverless
 ```
 
-## 创建应用
+## 升级 Serverless CLI
 
-通过 CLI 可以快速初始化 serverless 应用项目，可以选择使用交互式方式选择组件来进行配置，也可以通过指定组件名称快速创建。
+如果您通过 NPM 安装了 Serverless CLI，您可以通 NPM 进行升级：
 
-```sh
-# 交互式创建 serverless 应用
-$ serverless
+```bash
+npm install -g serverless
 
-# 使用模板创建 serverless 应用并指定名称
-$ serverless init express-starter --name my-sls-express
+# 您也可以指定要使用的 Serverless 的主要版本号:
+npm install -g serverless@2
 ```
 
-> 安装完成后可以使用 `sls` 代替 `serverless` 来执行 CLI 命令
+同时 Serverless 为腾讯云提供支持的 Tencent Serverless CLI 会自动检查是否有最新发布版本，并提示您进行升级，如下：
 
-## Serverless 应用配置
+```bash
+Tencent Serverless CLI 有新版本更新，是否立即升级？(Y/n)
 
-所有 Serverless 应用的配置，以及基础设施服务配置都在项目文件的 `serverless.yml` 中进行配置。配置分为两部分：
-
-基础配置：
-
-```yml
-app: my-app # 应用名称，同账号下需唯一。
-component: express # [必选]组件名称
-name: my-component-instance # [必选]组件实例名称
-stage: prod # 自定义环境信息，用来区分不同环境的实例
+# 确认升级后会自动下载并安装最新的 Serverless Tencent CLI。
+⠧ 正在升级 Tencent Serverless CLI 
 ```
 
-服务配置：
+> 注意: Serverless CLI 会为中国用户和腾讯云的 Serverless 项目自动安装 Tencent Serverless CLI，并自动切换。如果您想使用 AWS 云服务，请在命令前添加环境变量 `SERVERLESS_PLATFORM_VENDOR=aws`。 更多内容请查看[ CLI 的高级使用说明](./guides/cli-advance)。
 
-`inputs` 是组件处理接受的所有参数信息也就是应用 `deploy` 命令处理接受的所有参数信息。在这里进行所有的应用及基础设施服务相关的配置。
+### 独立编译版本
 
-```yml
-inputs: # 组件部署所需的参数
-  src: # 执行目录
-    src: ./
-    exclude:
-      - .env
-  region: ap-guangzhou # 部署目标地区
-  runtime: Nodejs10.15 # 运行环境
-  apigatewayConf: # API 网关
-    protocols:
-      - http
-      - https
-    environment: release # 网关发布环境。[test, prepub，release]
+#### MacOS/Linux
+
+您可以通过独立编译版本的 `upgrade` 命令来升级，或者安装所需的指定版本：
+
+```bash
+serverless upgrade
+
+# 您可以指定升级到最新的 V2 版本。
+curl -o- -L https://slss.io/install | VERSION=2.72.2 bash
 ```
 
-> 使用不同组件的配置不完全一样，更详细的组件配置说明和使用介绍请查看[组件说明及示例](./components/README)。
+#### Windows
 
-## 管理应用
-
-通过 Serverless CLI 命令可以快速对项目进行管理，无需登陆控制台就可以快速部署，查看，删除应用。
-
-```sh
-# 部署 Serverless 应用到云端
-$ serverless deploy
-
-# 查看部署的 Serverless 应用信息
-$ serverless info
-
-# 使用远程开发模式进行开发
-$ serverless dev
-
-# 移除部署的 Serverless 应用
-$ serverless remove
+```bash
+choco upgrade serverless
 ```
 
-> 更多的命令和使用说明请查看 [CLI 命令](./commands/README)。
+## 开始使用
+
+执行 `serverless` （或 `sls`）快速创建一个 Serverless 项目，并根据提示进行操作：
+
+```bash
+# 创建新的 serverless 应用
+serverless
+
+# 进入创建的项目目录
+cd your-service-name
+```
+
+> 您可以使用 `sls` 替换 `serverless` 来执行 Serverless CLI 的所有功能。 （PowerShell 用户可以使用 `slss` 避免与系统 `sls` 的冲突。）
+
+`serverless` 命令会引导并创建一个新的项目，并提供了调试，部署，日志查看，移除应用等命令帮助您更好的进行 Serverless 应用开发。同时您也可以添加管理您的[腾讯云账号](./guides/tencent-account)授权。
+
+> 注意: Serverless CLI 会为中国用户和腾讯云的 Serverless 项目自动安装 Tencent Serverless CLI，并自动切换。如果您想使用 AWS 云服务，请在命令前添加环境变量 `SERVERLESS_PLATFORM_VENDOR=aws`。 更多内容请查看[ CLI 的高级使用说明](./guides/cli-advance)。
+
+
+新创建的项目会包含 `serverless.yml` 文件，这是 Serverless 应用的所需的配置文件，它定义了会被部署到云上的所有信息：云函数，事件，资源等。
+
+如果通过 `serverless` 创建的模板项目无法满足您的使用需求，您也可以查看我们的[应用示例](https://cn.serverless.com/examples)。
+
+### 部署应用
+
+您可以随时通过以下命令来部署您的 Serverless 应用：
+
+```bash
+serverless deploy
+```
+
+部署完成后的应用信息，资源和 URL 地址都会在终端命令行中显示。
+
+### 查看详情
+
+在应用部署完成之后，可以随时通过 `info` 来查看部署的应用的详细输出信息，信息中包含运行状态，版本信息，生成的网关地址，生成的数据库账号密码等信息。
+
+```bash
+serverless info
+```
+
+### 调试开发
+
+在应用部署之后，可以通过 `dev` 命令开启远程开发功能，在此状态下终端命令行会监听部署的 Serverless 应用终端输出并同步到本地终端，方便开发者在本地进行云环境下应用的调试:
+
+```bash
+serverless dev
+```
+
+### 远程调用函数
+
+在云函数应用(SCF 和 Multi-SCF 组件应用)部署之后，出了通过部署完成返回的调用 URL 地址调用之外，可以通过 `invoke` 调用远程云函数:
+
+```bash
+serverless invoke -f my-func
+```
+
+同时也可以在调用函数时传递所需的 Event 对象数据：
+
+```bash
+$ serverless invoke -f my-func -d '{"foo":"bar"}'
+```
+
+### 查看日志
+
+在应用部署后，所有的应用日志信息都会存储在腾讯云上，可以通过 `logs` 查看应用的最新日志：
+
+```bash
+serverless logs
+```
+
+或者使用 `--tail` 模式监听应用的实时日志：
+
+```bash
+serverless logs --tail
+```
+
+## 移除应用
+
+通过 `serverless remove` 您可以移除已部署的 Serverless 应用和它创建时生成的所有相关资源。
+
+```bash
+serverless remove
+```
