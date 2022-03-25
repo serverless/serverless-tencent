@@ -122,7 +122,7 @@ module.exports = async (config, cli, command, globalTencentCredentials = default
               `授权信息 ${profile} 不存在，请通过 serverless credentials list 查看当前授权信息`
             )}`
           );
-          process.exit(1);
+          process.exit();
         }
 
         delete credContent[profile];
