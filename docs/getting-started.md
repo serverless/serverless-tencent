@@ -138,7 +138,7 @@ serverless dev
 
 ### 远程调用函数
 
-在云函数应用(SCF 和 Multi-SCF 组件应用)部署之后，出了通过部署完成返回的调用 URL 地址调用之外，可以通过 `invoke` 调用远程云函数:
+在云函数应用(SCF 和 Multi-SCF 组件应用)部署之后，除了通过部署完成返回的调用 URL 地址调用之外，可以通过 `invoke` 调用远程云函数:
 
 ```bash
 serverless invoke -f my-func
