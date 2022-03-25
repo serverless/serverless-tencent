@@ -44,7 +44,7 @@ describe('Test loading global credentials', () => {
     expect(cli.log.mock.calls[0][0]).toMatch(
       '授权信息 wrong 不存在，请通过 serverless credentials list 查看当前授权信息'
     );
-    expect(mockExit).toHaveBeenCalledWith();
+    expect(mockExit).toHaveBeenCalledWith(1);
   });
 });
 
