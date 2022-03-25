@@ -101,6 +101,7 @@ describe('Test for credentials command: src/commands/credentials', () => {
     });
 
     test('remove with wrong profile', async () => {
+      const mockExit = jest.spyOn(process, 'exit').mockImplementation(() => {});
       config.profile = 'wrong';
 
       await credentialsCmd(config, cli, 'credentials', credentialsPath);
@@ -108,6 +109,7 @@ describe('Test for credentials command: src/commands/credentials', () => {
       expect(cli.log.mock.calls[0][0]).toMatch(
         '不存在，请通过 serverless credentials list 查看当前授权信息'
       );
+      expect(mockExit).toHaveBeenCalledWith(1);
     });
 
     test('remove in a non-exist credentials file', async () => {
