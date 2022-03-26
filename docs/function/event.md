@@ -17,7 +17,7 @@ layout: Doc
 
 ### Event 事件
 
-Event 用于传递事件信息，一下是一个 API 网关的事件示例：
+Event 用于传递事件信息，以下是一个 API 网关的事件示例：
 
 ```json
 // API 网关EVENT示例
@@ -111,7 +111,7 @@ module.exports = async (event, context) => {
 
 #### 返回和异常
 
-您的处理程序可以使用 callback 入参，或代码中的 return 关键字来返回信息。使用 callback 或 return 进行返回的支持情况如下 callback 方式的回掉参数说明
+您的处理程序可以使用 callback 入参，或代码中的 return 关键字来返回信息。使用 callback 或 return 进行返回的支持情况如下 callback 方式的回调参数说明
 
 ```js
 callback(error, result);
