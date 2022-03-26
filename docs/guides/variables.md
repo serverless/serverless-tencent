@@ -62,7 +62,7 @@ NAME=scf-instance-name
 
 要使用 stage 环境变量进行部署 可以使用命令 `sls deploy --stage {stage名称}`
 
-以下是执行 `sls deploy`是 环境变量文件的加载顺序如下：
+以下是执行 `sls deploy`时，环境变量文件的加载顺序：
 
 1. `./.env.${stage}`
 2. `./.env`
