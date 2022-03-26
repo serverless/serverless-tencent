@@ -25,7 +25,7 @@ invoke local              本地调用函数
     --function / -f          调用的多函数组件的函数名称(单函数组件无需指定)
     --target                 指定要调用的组件实例路径
     --data / -d              指定传入函数的事件(event)参数数据，需要使用序列化的 JSON 格式
-    --path / -p              指定传入还输的事件(event)参数的 JSON 文件路径
+    --path / -p              指定传入函数的事件(event)参数的 JSON 文件路径
     --context                指定传入函数的上下文(context)参数数据，需要使用序列化的 JSON 格式
     --contextPath / -x       指定传入函数的上下文(context)参数的 JSON 文件路径
     --env / -e               指定环境变量信息 如: --env VAR=val
