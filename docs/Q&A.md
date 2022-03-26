@@ -21,7 +21,7 @@ layout: Doc
 1. [安装过于缓慢怎么办？](#cli-1)
 2. [无法使用 serverless 或 sls 创建项目？](#cli-2)
 3. [如何指定将 Serverless 应用部署到腾讯云上？](#cli-3)
-4. [在中国境外进行部署时，如果加速？](#cli-4)
+4. [在中国境外进行部署时，如何加速？](#cli-4)
 5. [如何在部署时，使用代理网络？](#cli-5)
 6. [使用 Windows Powershell 部署无权限如何处理？](#cli-6)
 
@@ -66,7 +66,7 @@ Serverless 与腾讯云达成了战略合作伙伴的关系，Serverless 同腾�
 
 ### 安装过于缓慢怎么办？
 
-如果您再安装过程中等待时间过长或者安装不成功，建议使用国内的 npm 镜像地址来完成安装 `npm i serverless -g --registry=https://registry.npmmirror.com`。此外也可以安装 yarn, cnpm 等替代工具，然后再使用替代工具的进行安装。
+如果您在安装过程中等待时间过长或者安装不成功，建议使用国内的 npm 镜像地址来完成安装 `npm i serverless -g --registry=https://registry.npmmirror.com`。此外也可以安装 yarn, cnpm 等替代工具，然后再使用替代工具的进行安装。
 
 <span id="cli-2"></span>
 
@@ -78,11 +78,11 @@ Serverless 与腾讯云达成了战略合作伙伴的关系，Serverless 同腾�
 
 ### 如何指定将 Serverless 应用部署到腾讯云上？
 
-如果开发者想要再腾讯云上创建部署 Serverless 应用，可以通过 `SERVERLESS_PLATFORM_VENDOR=tencent sls deploy` 来手动指定要使用的云厂商，也可以将该配置存储在 .env 环境配置文件中。
+如果开发者想要在腾讯云上创建部署 Serverless 应用，可以通过 `SERVERLESS_PLATFORM_VENDOR=tencent sls deploy` 来手动指定要使用的云厂商，也可以将该配置存储在 .env 环境配置文件中。
 
 <span id="cli-4"></span>
 
-### 在中国境外进行部署时，如果加速？
+### 在中国境外进行部署时，如何加速？
 
 在境外部署时，可以通过 `GLOBAL_ACCELERATOR_NA=true sls deploy` 使用境外的存储节点加速部署。
 
