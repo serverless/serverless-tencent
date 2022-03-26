@@ -12,8 +12,8 @@ Serverless 为中国用户在腾讯云上进行 Serverless 开发提供了专门
 
 在使用时 Tencent CLI 作为 Serverless Framework CLI 的一个动态依赖会在需要的时候自动安装并接管 Serverless CLI 的全部命令。这里自动安装接管的逻辑是：
 
-* 用户当前所在的时区未中国时区。
-* 用户当前的项目时 Tencent Serverless 项目。
+* 用户当前所在的时区为中国时区。
+* 用户当前的项目是 Tencent Serverless 项目。
 
 ## 切换腾讯云与 AWS
 
@@ -47,13 +47,13 @@ SERVERLESS_PLATFORM_VENDOR=aws serverless deploy
 
 ## 指定 Tencent CLI 版本
 
-因为 Serverless Framework CLI 自动安装的 Tencent CLI 会自动安装当前发布的最新发布版本，如果需要使用指定版本的 Tencent CLI 可以使用一下方式指定：
+因为 Serverless Framework CLI 自动安装的 Tencent CLI 会自动安装当前发布的最新发布版本，如果需要使用指定版本的 Tencent CLI 可以使用以下方式指定：
 
 > 使用指定版本的 Tencent CLI （npm 安装版本）后需要手动对 Tencent CLI 进行升级。
 
 ### 全局指定 Tencent CLI 版本
 
-使用 npm 全局方式安装 `serverles-tencent` 并制定所需的版本后，
+使用 npm 全局方式安装 `serverles-tencent` 并指定所需的版本后，
 ```bash
 npm i serverless-tencent@3.21.0 -g
 ```
@@ -71,7 +71,7 @@ Tencent CLI: 3.21.0 (npm global)
 
 ### 本地指定 Tencent Serveress CLI 版本
 
-使用 npm 本地方式安装 `serverles-tencent` 并制定所需的版本后，
+使用 npm 本地方式安装 `serverles-tencent` 并指定所需的版本后，
 ```bash
  npm i serverless-tencent@3.21.1
 ```
@@ -135,7 +135,7 @@ npm update serverless-tencent -g
 
 ### Serverless Components CLI is no longer bundled with Serverless Framework CLI
 
-如果遇到这个错误提示，同时您确认您没有尝试在 AWS 上部署 Serverless Components 项目，那么通常是因为 Serverless CLI 并没有正确识别到应用或使用环境导致没有自动将命令转交给 Tencent CLI 执行。通常这种情况可以通过上方的 [指定使用 Tencent CLI](#指定使用-tencent-cli---腾讯云) 来指定使用，最近单的方法就是在执行 `serverless` 命令前添加要使用的云厂商环境变量信息：
+如果遇到这个错误提示，同时您确认您没有尝试在 AWS 上部署 Serverless Components 项目，那么通常是因为 Serverless CLI 并没有正确识别到应用或使用环境导致没有自动将命令转交给 Tencent CLI 执行。通常这种情况可以通过上方的 [指定使用 Tencent CLI](#指定使用-tencent-cli---腾讯云) 来指定使用，最简单的方法就是在执行 `serverless` 命令前添加要使用的云厂商环境变量信息：
 
 ```bash
 SERVERLESS_PLATFORM_VENDOR=tencent serverless deploy
