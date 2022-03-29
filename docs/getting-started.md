@@ -66,7 +66,7 @@ Tencent Serverless CLI 有新版本更新，是否立即升级？(Y/n)
 ⠧ 正在升级 Tencent Serverless CLI 
 ```
 
-> 注意: Serverless CLI 会为中国用户和腾讯云的 Serverless 项目自动安装 Tencent Serverless CLI，并自动切换。如果您想使用 AWS 云服务，请在命令前添加环境变量 `SERVERLESS_PLATFORM_VENDOR=aws`。 更多内容请查看[ CLI 的高级使用说明](./guides/cli-advance)。
+> 注意: Serverless CLI 会为中国用户和腾讯云的 Serverless 项目自动安装 Tencent Serverless CLI，并自动切换。如果您想使用 AWS 云服务，请在命令前添加环境变量 `SLS_GEO_LOCATION=us`。 更多内容请查看[ CLI 的高级使用说明](./guides/cli-advance)。
 
 ### 独立编译版本
 
@@ -103,7 +103,7 @@ cd your-service-name
 
 `serverless` 命令会引导并创建一个新的项目，并提供了调试，部署，日志查看，移除应用等命令帮助您更好的进行 Serverless 应用开发。同时您也可以添加管理您的[腾讯云账号](./guides/tencent-account)授权。
 
-> 注意: Serverless CLI 会为中国用户和腾讯云的 Serverless 项目自动安装 Tencent Serverless CLI，并自动切换。如果您想使用 AWS 云服务，请在命令前添加环境变量 `SERVERLESS_PLATFORM_VENDOR=aws`。 更多内容请查看[ CLI 的高级使用说明](./guides/cli-advance)。
+> 注意: Serverless CLI 会为中国用户和腾讯云的 Serverless 项目自动安装 Tencent Serverless CLI，并自动切换。如果您想使用 AWS 云服务，请在命令前添加环境变量 `SLS_GEO_LOCATION=us`。 更多内容请查看[ CLI 的高级使用说明](./guides/cli-advance)。
 
 
 新创建的项目会包含 `serverless.yml` 文件，这是 Serverless 应用的所需的配置文件，它定义了会被部署到云上的所有信息：云函数，事件，资源等。

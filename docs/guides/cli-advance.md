@@ -21,12 +21,12 @@ Serverless 为中国用户在腾讯云上进行 Serverless 开发提供了专门
 
 1. 在已有的 Tencent Serverless 项目目录中执行 `serverless` 命令。（CLI 会根据项目的配置文件 `serverless.yml` 自动选择匹配 Tencent CLI。）
 
-2. 通过在执行 `serverless` 命令前添加环境变量 `SERVERLESS_PLATFORM_VENDOR` 并设置值为 `tencent`，如：
+2. 通过在执行 `serverless` 命令前添加环境变量 `SLS_GEO_LOCATION` 并设置值为 `cn`，如：
 ```bash
-SERVERLESS_PLATFORM_VENDOR=tencent serverless deploy
+SLS_GEO_LOCATION=cn serverless deploy
 ```
 
-> 也可以使用 `SLS_GEO_LOCATION` 并将值设置为 `cn`
+> 也可以使用 `SERVERLESS_PLATFORM_VENDOR` 并将值设置为 `tencent`
 
 3. 在 Serverless 应用目录的环境配置文件 `.env` 中添加环境变量配置 `SERVERLESS_PLATFORM_VENDOR=tencent`。
 
@@ -36,12 +36,10 @@ SERVERLESS_PLATFORM_VENDOR=tencent serverless deploy
 
 1. 在已有的 Serverless Framework 项目目录中执行 `serverless` 命令。（CLI 会根据项目的配置文件 `serverless.yml` 自动选择匹配 Serverless Framework CLI。）
 
-2. 通过在执行 `serverless` 命令前添加环境变量 `SERVERLESS_PLATFORM_VENDOR` 并设置值为 `aws`，如：
+2. 通过在执行 `serverless` 命令前添加环境变量 `SLS_GEO_LOCATION` 并设置值为 `us`，如：
 ```bash
-SERVERLESS_PLATFORM_VENDOR=aws serverless deploy
+SLS_GEO_LOCATION=us serverless deploy
 ```
-
-> 也可以使用 `SLS_GEO_LOCATION` 并将值设置为 `us`
 
 > 注意：Serverless Framework CLI 不再支持项目 .env 变量配置加载，所以不能在 Framework 项目中使用 .env 方式切换 CLI。
 
@@ -138,5 +136,5 @@ npm update serverless-tencent -g
 如果遇到这个错误提示，同时您确认您没有尝试在 AWS 上部署 Serverless Components 项目，那么通常是因为 Serverless CLI 并没有正确识别到应用或使用环境导致没有自动将命令转交给 Tencent CLI 执行。通常这种情况可以通过上方的 [指定使用 Tencent CLI](#指定使用-tencent-cli---腾讯云) 来指定使用，最简单的方法就是在执行 `serverless` 命令前添加要使用的云厂商环境变量信息：
 
 ```bash
-SERVERLESS_PLATFORM_VENDOR=tencent serverless deploy
+SLS_GEO_LOCATION=cn serverless deploy
 ```
