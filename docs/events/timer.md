@@ -8,7 +8,7 @@ layout: Doc
 
 # Timer 定时触发器
 
-下面的配置将附加一个定时器触发器，使相关函数每5秒被调用一次。该配置允许你在同一个函数上附加多个定时器触发器。您可以使用[Cron](https://cloud.tencent.com/document/product/583/9708#cron-.E8.A1.A8.E8.BE.BE.E5.BC.8F)语法。更多细节请看定[腾讯定时触发器](https://cloud.tencent.com/document/product/583/9708)文档。
+下面的配置将附加一个定时器触发器，使相关函数每5秒被调用一次。该配置允许你在同一个函数上附加多个定时器触发器。您可以使用[Cron](https://cloud.tencent.com/document/product/583/9708#cron-.E8.A1.A8.E8.BE.BE.E5.BC.8F)语法。更多细节请看[腾讯定时触发器](https://cloud.tencent.com/document/product/583/9708)文档。
 
 ```yml
 # scf 单函数触发器

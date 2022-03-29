@@ -59,5 +59,5 @@ credentials list          查看已有用户授权信息
 - 使用 `sls credentials remove -n myProfile` 来删除本地名外 `myProfile`的授权信息。
 
 > 可以储存 `TENCENT_CREDENTIALS_PROFILE={name}` 在项目 .env 文件中, 来固定要使用的授权信息。
-> 请确保项目目录(以及上两层目录)中没有环境变量 `TENCENT_SECRET_KEY` 和 `TENCENT_SECRET_ID`， 否则会任务该项目需要使用临时密钥进行授权。
+> 请确保项目目录(以及上两层目录)中没有环境变量 `TENCENT_SECRET_KEY` 和 `TENCENT_SECRET_ID`， 否则会认为该项目需要使用临时密钥进行授权。
 > 删除用户授权信息只会移除本地的授权密钥信息，不会删除腾讯云的 CAM 用户信息。
