@@ -60,7 +60,7 @@ module.exports = async (config, cli, command) => {
       instanceDir = await utils.getDirForInvokeCommand(instanceDir, functionAlias);
     } catch (e) {
       cli.log(`Serverless: ${chalk.yellow(e.message)}`);
-      process.exit();
+      process.exit(1);
     }
   }
 
@@ -87,7 +87,7 @@ module.exports = async (config, cli, command) => {
         outcome: 'failure',
         failure_reason: '不能同时指定 data 与 path, 请检查后重试',
       });
-      process.exit();
+      process.exit(1);
     }
 
     if (path || p) {
@@ -101,7 +101,7 @@ module.exports = async (config, cli, command) => {
           outcome: 'failure',
           failure_reason: '找不到指定的路径文件, 请检查后重试',
         });
-        process.exit();
+        process.exit(1);
       }
     }
 
@@ -113,7 +113,7 @@ module.exports = async (config, cli, command) => {
         outcome: 'failure',
         failure_reason: '传入的 data 不是序列化 JSON, 请检查后重试',
       });
-      process.exit();
+      process.exit(1);
     }
 
     const componentType = instanceYaml && instanceYaml.component;
@@ -129,7 +129,7 @@ module.exports = async (config, cli, command) => {
         outcome: 'failure',
         failure_reason: 'Inovke 命令仅能在 scf 或者 multi-scf 组件目录中调用',
       });
-      process.exit();
+      process.exit(1);
     }
 
     const sdk = new ServerlessSDK({

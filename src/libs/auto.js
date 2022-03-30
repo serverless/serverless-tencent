@@ -345,7 +345,7 @@ module.exports = async () => {
             },
             { command: 'auto' }
           );
-          process.exit();
+          process.exit(1);
         }
         if (Array.isArray(instances) && instances.length > 0) {
           isLinkingInstance = true;

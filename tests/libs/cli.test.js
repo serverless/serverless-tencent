@@ -85,7 +85,7 @@ describe('Test CLI functions', () => {
     expect(console.log.mock.calls[1][0]).toMatch('scf 组件校验结果: 错误 1 警告 0 规则版本 v0.0.1');
     expect(console.log.mock.calls[3][0]).toMatch('inputs.region');
 
-    expect(mockExit).toHaveBeenCalledWith();
+    expect(mockExit).toHaveBeenCalledWith(1);
   });
 
   test('isSessionActive', () => {

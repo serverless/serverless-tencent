@@ -173,7 +173,7 @@ module.exports = async (config, cli, command) => {
     cli.log(
       `Serverless: ${chalk.yellow('该命令暂不支持对多组件进行调用, 使用 --target 指定执行目录')}`
     );
-    process.exit();
+    process.exit(1);
   }
 
   const projectFile = await utils.checkBasicConfigValidation(instanceDir);
@@ -205,7 +205,7 @@ module.exports = async (config, cli, command) => {
         { command: 'dev' }
       );
       console.log('');
-      process.exit();
+      process.exit(1);
     } else {
       cli.log(msg, 'grey');
     }

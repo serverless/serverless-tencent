@@ -51,7 +51,7 @@ module.exports = async (event, context, handlerFile, handlerFunc, cli) => {
       fse.unlinkSync(tempPhpFile);
       fse.unlinkSync(tempResFile);
       colorLog(`调用错误\n\n ${errData.join('\n').toString()}`, 'red', cli);
-      process.exit();
+      process.exit(1);
     });
 
     res.on('close', () => {

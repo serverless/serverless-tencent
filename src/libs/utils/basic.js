@@ -642,7 +642,7 @@ const executeGraph = async (allComponents, command, graph, cli, sdk, options) =>
 
           // Don't try to deploy other instances if it's a permission issue
           if (error.code === 'ResourceNotFound.Role') {
-            process.exit();
+            process.exit(1);
           }
           return null;
         }
