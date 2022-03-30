@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.21.3](https://github.com/serverless/serverless-tencent/compare/v3.21.2..v3.21.3) (2022-03-30)
+
+- Fix exit code issue for YML parsing
+- Detect .env file inside target path
+
 # [3.21.2](https://github.com/serverless/serverless-tencent/compare/v3.21.1..v3.21.2) (2022-03-16)
 
 - Republish new version for binary upload
