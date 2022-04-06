@@ -7,6 +7,11 @@ const { fileExistsSync } = require('../../../libs/utils');
 const chalk = require('chalk');
 const { execSync } = require('child_process');
 
+// If this process is called from standalone or npm script
+const isStandaloneExecutable = Boolean(
+  process.pkg && /^(?:\/snapshot\/|[A-Z]+:\\snapshot\\)/.test(__dirname)
+);
+
 const checkRuntime = (requiredRuntime, cli) => {
   if (!requiredRuntime) {
     throw new Error('必须指定所需要的运行时');
@@ -154,6 +159,14 @@ const summaryOptions = (config, instanceYml, cli) => {
   if (php) {
     process.env.INVOKE_LOCAL_PHP = php;
   }
+
+  if (isStandaloneExecutable && process.env.NODE_OPTIONS) {
+    delete process.env.NODE_OPTIONS;
+    colorLog(
+      'Binary 环境下不能添加环境变量 NODE_OPTIONS, 已自动删除。 如要在本地调试下使用此变量，请安装 npm 版本之后重新执行命令: npm i -g serverless-tencent'
+    );
+  }
+
   // Deal with scf component(single instance situation)
   if (component.startsWith('scf')) {
     const inputsHandler = inputs.handler || '';
