@@ -14,7 +14,7 @@ module.exports = async (event, context, handlerFile, handlerFunc, cli) => {
   const tempNodeFileContent = `
 const fs = require('fs')
 const path = require('path')
-const { ${handlerFunc} } = require('${path.join(process.cwd(), handlerFile)}')
+const { ${handlerFunc} } = require(path.join(process.cwd(), '${handlerFile}'))
 
 async function test() {
 

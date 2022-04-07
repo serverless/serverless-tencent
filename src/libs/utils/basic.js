@@ -338,7 +338,11 @@ const loadInstanceConfigUncached = (directoryPath) => {
       if (e.name !== 'YAMLException') {
         throw e;
       } else {
-        throw new Error(`The serverless.yml file has incorrect format. Details: ${e.message}`);
+        const err = new Error(`serverless.yml 配置文件格式错误: ${e.message}`);
+        err.extraErrorInfo = {
+          referral: '', // TODO: Add yaml referral link
+        };
+        throw err;
       }
     }
   } else {
