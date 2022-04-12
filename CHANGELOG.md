@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.21.4](https://github.com/serverless/serverless-tencent/compare/v3.21.3..v3.21.4) (2022-04-13)
+
+- Fix `invoke local` path error on Windows: https://github.com/serverless/serverless-tencent/pull/182
+
 # [3.21.3](https://github.com/serverless/serverless-tencent/compare/v3.21.2..v3.21.3) (2022-03-30)
 
 - Fix exit code issue for YML parsing
