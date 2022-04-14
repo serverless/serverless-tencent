@@ -8,7 +8,7 @@ layout: Doc
 
 # parameters 命令
 
-通过 `parameters` 功能，用户可以**以项目为范围**进行参数功能的设定和配置. 以下命令必须要在**serverless**项目中执行
+通过 `parameters` 功能，用户可以**以项目为范围**进行参数功能的设定和配置. 以下命令必须要在 **serverless** 项目中执行
 
 ## 指定参数
 
@@ -18,7 +18,7 @@ layout: Doc
 
 `sls param list`
 
-## 在配置文件(`serverless.yml`) 从使用参数, 服务端会自动将`key1` 替换为 `sls param set` 中配置的值
+## 在配置文件(`serverless.yml`) 从使用参数, 服务端会自动将 `key1` 替换为 `sls param set` 中配置的值
 
 ```yaml
 inputs:
@@ -52,4 +52,4 @@ inputs:
   name: ${param:name}
 ```
 
-项目 B 执行 `sls deploy` 之后，`name` 字段会自动替换为项目 A 中配置的`test`值
+项目 B 执行 `sls deploy` 之后，`name` 字段会自动替换为项目 A 中配置的 `test` 值
