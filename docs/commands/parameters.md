@@ -8,7 +8,7 @@ layout: Doc
 
 # parameters 命令
 
-通过 `parameters` 功能，用户可以**以项目为范围**进行参数功能的设定和配置. 以下命令必须要在*serverless*项目中执行
+通过 `parameters` 功能，用户可以**以项目为范围**进行参数功能的设定和配置. 以下命令必须要在**serverless**项目中执行
 
 ## 指定参数
 
@@ -27,7 +27,7 @@ inputs:
 
 ## 注意事项
 
-`parameters` 功能的作用范围是以 `app` 和 `stage` 两个字段共确定的，也就是说如果*同一个账号*下的两个项目的 `app, stage` 两个字段相同，那么他们的 `parameters` 数据可以通用。例如:
+`parameters` 功能的作用范围是以 `app` 和 `stage` 两个字段共同确定的，也就是说如果**同一个账号**下的两个项目的 `app, stage` 两个字段相同，那么他们的 `parameters` 数据可以通用。例如:
 
 项目 A:
 
@@ -37,7 +37,7 @@ stage: dev
 name: testA
 ```
 
-从执行 `sls param set name=test`
+在 A 中执行 `sls param set name=test`
 
 ---
 
