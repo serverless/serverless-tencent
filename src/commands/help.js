@@ -36,9 +36,14 @@ async function generateMainHelp(cli) {
 ${title('函数组件命令')}
 
 ${command('invoke')}           调用函数
-${command('invoke local')}     本地调用函数
-`;
+${command('invoke local')}     本地调用函数`;
   }
+
+  const paramCommands = `
+${title('参数配置')}         在线文档: https://cn.serverless.com/framework/docs-commands-parameters
+
+${command('param set')}        在项目目录下配置动态参数
+${command('param list')}       在项目目录下展示已配置的动态参数`;
 
   cli.log(
     `
@@ -65,6 +70,7 @@ ${command('registry')}         查看应用中心的组件与模版信息
 ${command('publish')}          发布组件或模版到应用中心
 ${command('bind role')}        重新为当前用户分配使用 Serverless 所需权限
 ${scfCommands}
+${paramCommands}
   `
   );
 }
@@ -163,6 +169,14 @@ ${description(`    --function / -f          调用的多函数组件的函数名
     --py                     指定要使用的本机中的Python版本，默认使用python. 如: --py python3 (此配置只对runtime是Python的配置有效)
     --php                    指定要使用的本机中的Php版本，默认使用php. 如: --php php7.2 (此配置只对runtime是Php的配置有效)
 `)}`,
+    'param set': `
+${command2(
+  'param set'
+)}               在项目中配置参数,支持多参数配置: sls param set key1=value1 key2=value2
+`,
+    'param list': `
+${command2('param list')}              在项目中获取并展示已配置的所有参数
+`,
   };
 
   if (allowedCommands[commandName]) {
