@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.21.5](https://github.com/serverless/serverless-tencent/compare/v3.21.4..v3.21.5) (2022-04-20)
+
+- Add `sls param` command information on `sls --help` output and website doc: https://github.com/serverless/serverless-tencent/pull/189
+
 # [3.21.4](https://github.com/serverless/serverless-tencent/compare/v3.21.3..v3.21.4) (2022-04-13)
 
 - Fix `invoke local` path error on Windows: https://github.com/serverless/serverless-tencent/pull/182
