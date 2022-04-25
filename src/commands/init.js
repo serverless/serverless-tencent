@@ -108,7 +108,7 @@ const initTemplateFromCli = async ({
 
   // For template with unspcified `app`, usually created by the community
   if (appName && !ymlParsed.app) {
-    ymlParsed.app = appName;
+    ymlParsed.app = `${appName}-${uuidv4().split('-')[0]}`;
     await saveYaml(serverlessFilePath, ymlParsed);
   }
 
