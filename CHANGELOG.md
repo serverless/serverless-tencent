@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.21.6](https://github.com/serverless/serverless-tencent/compare/v3.21.5..v3.21.6) (2022-04-27)
+
+- Fix app suffix bug while initing template: https://github.com/serverless/serverless-tencent/pull/192
+
 # [3.21.5](https://github.com/serverless/serverless-tencent/compare/v3.21.4..v3.21.5) (2022-04-20)
 
 - Add `sls param` command information on `sls --help` output and website doc: https://github.com/serverless/serverless-tencent/pull/189
