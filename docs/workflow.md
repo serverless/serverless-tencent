@@ -47,7 +47,7 @@ Serverless 支持函数应用开发，框架应用开发以及 SaaS 应用开发
 
 ## 部署发布
 
-应用开发完成后，可以通过 Serverless CLI 的**`deploy`命令**轻松部署到腾讯云。在部署的时候可以指定部署应用的**环境(`stage`)**信息,如
+应用开发完成后，可以通过 Serverless CLI 的`deploy`**命令**轻松部署到腾讯云。在部署的时候可以指定部署应用的**环境**(`stage`)信息,如
 
 ```sh
 $ sls deploy --stage prod
